@@ -31,8 +31,6 @@ public class ServletUtils {
 
 			ps = con.prepareStatement(sql);
 
-			ps.setString(1, req.getParameter("c.category_name"));
-
 			rs = ps.executeQuery();
 
 
@@ -56,5 +54,48 @@ public class ServletUtils {
 
 
 		return categoryList;
+	}
+
+	public static List<String> accountList(HttpServletRequest req){
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+		List<String> accountList = new ArrayList<>();
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "select a.name " +
+					"from sales s " +
+					"join accounts a " +
+					"on s.account_id = a.account_id " +
+					"group by a.name " +
+					"order by s.sale_id";
+
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+
+
+			while(rs.next()) {
+				accountList.add(rs.getString("a.name"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+		return accountList;
 	}
 }
