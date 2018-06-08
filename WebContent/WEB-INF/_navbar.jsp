@@ -15,15 +15,15 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="c0020.html">ダッシュボード</a></li>
-				<li><a href="s0010.html">売上登録</a></li>
+				<li><a href="C0020.html">ダッシュボード</a></li>
+				<li><a href="S0010.html">売上登録</a></li>
 				<li class="active"><a href="s0020.html">売上検索<span class="sr-only">(current)</span></a></li>
-				<li><a href="s0030.html">アカウント登録</a></li>
-				<li><a href="s0040.html">アカウント検索</a></li>
+				<li><a href="S0030.html">アカウント登録</a></li>
+				<li><a href="S0040.html">アカウント検索</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">ログアウト</a></li>
+				<li><a href="C0010.html">ログアウト</a></li>
 
 			</ul>
 		</div><!-- /.navbar-collapse -->
