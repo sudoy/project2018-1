@@ -22,22 +22,23 @@ public class ServletUtils {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "select category_name, active_flg " +
+			sql = "select c.category_name, c.active_flg " +
 					"from sales s " +
 					"join categories c " +
-					"on s.category_id = c.category_id" +
-					"group by category_name";
+					"on s.category_id = c.category_id " +
+					"group by c.category_name " +
+					"order by s.sale_id";
 
 			ps = con.prepareStatement(sql);
 
-			ps.setString(1, req.getParameter("category_name"));
+			ps.setString(1, req.getParameter("c.category_name"));
 
 			rs = ps.executeQuery();
 
 
 			while(rs.next()) {
-				if(rs.getInt("active_flg") == 1) {
-					categoryList.add(rs.getString("category_name"));
+				if(rs.getInt("c.active_flg") == 1) {
+					categoryList.add(rs.getString("c.category_name"));
 				}
 			}
 
