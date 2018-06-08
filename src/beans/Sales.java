@@ -6,14 +6,14 @@ public class Sales {
 
 	private int saleId;
 	private Date saleDate;
-	private int account;
-	private int category;
+	private String account;
+	private String category;
 	private String tradeName;
 	private int unitPrice;
 	private int saleNumber;
 	private String note;
 
-	public Sales(int saleId, Date saleDate, int account, int category, String tradeName, int unitPrice, int saleNumber,
+	public Sales(int saleId, Date saleDate, String account, String category, String tradeName, int unitPrice, int saleNumber,
 			String note) {
 		super();
 		this.saleId = saleId;
@@ -38,16 +38,16 @@ public class Sales {
 	public void setSaleDate(Date saleDate) {
 		this.saleDate = saleDate;
 	}
-	public int getAccount() {
+	public String getAccount() {
 		return account;
 	}
-	public void setAccount(int account) {
+	public void setAccount(String account) {
 		this.account = account;
 	}
-	public int getCategory() {
+	public String getCategory() {
 		return category;
 	}
-	public void setCategory(int category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 	public String getTradeName() {
