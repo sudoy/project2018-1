@@ -19,6 +19,8 @@ public class S0011Servlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		resp.sendRedirect("S0011.html");
+		// 前登録画面からPostされてるからここで何かしら記述しないとあかんやつぅ～？
+		resp.sendRedirect("C0020.html");
 	}
+
 }
