@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.SaleList;
 import utils.DBUtils;
+import utils.ServletUtils;
 
-@WebServlet("/S0022.html")
-public class S0022Servlet extends HttpServlet {
+@WebServlet("/S0023.html")
+public class S0023Servlet extends HttpServlet {
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
-		req.setCharacterEncoding("utf-8");
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -63,11 +64,18 @@ public class S0022Servlet extends HttpServlet {
 					rs.getInt("total"),
 					rs.getString("note")
 					);
-
 			req.setAttribute("list", s);
 
+			//カテゴリーリスト
+			List<String> categoryList = ServletUtils.categoryList(req);
+			req.setAttribute("categoryList", categoryList);
+
+			//担当リスト
+			List<String> accountList = ServletUtils.accountList(req);
+			req.setAttribute("accountList", accountList);
+
 			//フォワード
-			getServletContext().getRequestDispatcher("/WEB-INF/S0022.jsp").forward(req, resp);
+			getServletContext().getRequestDispatcher("/WEB-INF/S0023.jsp").forward(req, resp);
 
 		}catch(Exception e){
 			throw new ServletException(e);

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -22,42 +24,42 @@
 				<form class="form-horizontal" action="#" method="post">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">販売日</label>
-						<div class="col-sm-2 form-control-static">${saleList.sale_date}</div>
+						<div class="col-sm-2 form-control-static">${list.saleDate}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">担当</label>
-						<div class="col-sm-5 form-control-static">${saleList.name}</div>
+						<div class="col-sm-5 form-control-static">${list.staffName}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品カテゴリー</label>
-						<div class="col-sm-5 form-control-static">${saleList.category_name}</div>
+						<div class="col-sm-5 form-control-static">${list.categoryName}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品名</label>
-						<div class="col-sm-5 form-control-static">${saleList.trade_name}</div>
+						<div class="col-sm-5 form-control-static">${list.tradeName}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">単価</label>
-						<div class="col-sm-2 form-control-static text-right">${saleList.price}</div>
+						<div class="col-sm-2 form-control-static text-right">${list.unitPrice}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">個数</label>
-						<div class="col-sm-2 form-control-static text-right">${saleList.number}</div>
+						<div class="col-sm-2 form-control-static text-right">${list.saleNumber}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">小計</label>
-						<div class="col-sm-2  form-control-static text-right">${saleList.total}</div>
+						<div class="col-sm-2  form-control-static text-right">${list.total}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">備考 </label>
-						<div class="col-sm-5 form-control-static">${saleList.note}</div>
+						<div class="col-sm-5 form-control-static">${list.note}</div>
 					</div>
 
 					<div class="form-group">

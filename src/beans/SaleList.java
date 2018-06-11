@@ -1,17 +1,19 @@
 package beans;
 
+import java.sql.Date;
+
 public class SaleList {
-	private int saleDate;
+	private Date saleDate;
 	private String staffName;
 	private String categoryName;
 	private String tradeName;
 	private int unitPrice;
-	private String saleNumber;
+	private int saleNumber;
 	private int total;
 	private String note;
 
-	public SaleList(int saleDate, String staffName, String categoryName, String tradeName, int unitPrice,
-			String saleNumber, int total, String note) {
+	public SaleList(Date saleDate, String staffName, String categoryName, String tradeName, int unitPrice,
+			int saleNumber, int total, String note) {
 		super();
 		this.saleDate = saleDate;
 		this.staffName = staffName;
@@ -23,11 +25,11 @@ public class SaleList {
 		this.note = note;
 	}
 
-	public int getSaleDate() {
+	public Date getSaleDate() {
 		return saleDate;
 	}
 
-	public void setSaleDate(int saleDate) {
+	public void setSaleDate(Date saleDate) {
 		this.saleDate = saleDate;
 	}
 
@@ -63,11 +65,11 @@ public class SaleList {
 		this.unitPrice = unitPrice;
 	}
 
-	public String getSaleNumber() {
+	public int getSaleNumber() {
 		return saleNumber;
 	}
 
-	public void setSaleNumber(String saleNumber) {
+	public void setSaleNumber(int saleNumber) {
 		this.saleNumber = saleNumber;
 	}
 
