@@ -41,7 +41,7 @@
 
 		<div class="col-sm-9">
 			<div class="panel panel-default">
-				<div class="panel-heading">今月のイチローさんの売上</div>
+				<div class="panel-heading">今月の${sales.account}さんの売上</div>
 
 				<table class="table">
 					<tr>

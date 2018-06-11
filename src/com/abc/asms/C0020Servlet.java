@@ -62,11 +62,11 @@ public class C0020Servlet extends HttpServlet {
 
 		try {
 			con = DBUtils.getConnection();
-			// SQL
+			// SQL	現在、確認用でs.account_id7で検索条件絞り込んでます
 			sql = "SELECT s.sale_id, s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price, s.sale_number, s.note  FROM sales s " +
 					"LEFT JOIN categories c ON s.category_id = c.category_id " +
 					"LEFT JOIN accounts a ON s.account_id = a.account_id " +
-					"WHERE s.sale_date BETWEEN ? AND ? " +
+					"WHERE s.sale_date BETWEEN ? AND ? AND s.account_id = 7 " +
 					"ORDER BY s.sale_date";
 
 

@@ -3,6 +3,8 @@ package com.abc.asms;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +16,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import utils.DBUtils;
+import utils.ServletUtils;
 
 @WebServlet("/S0010.html")
 public class S0010Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+		LocalDate ld = LocalDate.now();
+
+		// 表示月とその月初末の変数宣言
+		String today = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(ld);;
+		req.setAttribute("today", today);
+
+		List<String> categoryList = ServletUtils.categoryList(req);
+		req.setAttribute("categoryList", categoryList);
+		List<String> accountList = ServletUtils.accountList(req);
+		req.setAttribute("accountList", accountList);
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
 	}
@@ -30,7 +45,12 @@ public class S0010Servlet extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
 
-		String  saleDate = req.getParameter("saleDate");
+		List<String> categoryList = ServletUtils.categoryList(req);
+		req.setAttribute("categoryList", categoryList);
+		List<String> accountList = ServletUtils.accountList(req);
+		req.setAttribute("accountList", accountList);
+
+		String saleDate = req.getParameter("saleDate");
 		String account = req.getParameter("account");
 		String category = req.getParameter("category");
 		String tradeName = req.getParameter("tradeName");
@@ -38,13 +58,20 @@ public class S0010Servlet extends HttpServlet {
 		String saleNumber = req.getParameter("saleNumber");
 		String note = req.getParameter("note");
 
+		System.out.println("saleDate:" + saleDate + ",　account:" + account + ",　category:" + category +
+				",　tradeName:" + tradeName + ",　unitPrice:" + unitPrice +
+				 ",　saleNumber:" + saleNumber + ",　note:" + note);
+
 		//バリデーションチェック
-		List<String> errors = validate(saleDate, account, category, tradeName, unitPrice, saleNumber);
+		List<String> errors = validate(saleDate, account, category, tradeName, unitPrice, saleNumber, note);
 		if (errors.size() > 0) {
 			req.setAttribute("errors", errors);
 			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
 			return;
 		}
+
+		System.out.println(account + ":" + ServletUtils.parseAccountName());
+		System.out.println(category + ":" + ServletUtils.pairCategory(category));
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -52,7 +79,6 @@ public class S0010Servlet extends HttpServlet {
 
 		try {
 			con = DBUtils.getConnection();
-
 
 			sql = "INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number, note) " +
 					"VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -93,41 +119,67 @@ public class S0010Servlet extends HttpServlet {
 	}
 
 
-	private List<String> validate(String saleDate, String account, String category, String tradeName, String unitPrice, String saleNumber) {
+	private List<String> validate(String saleDate, String account, String category, String tradeName, String unitPrice, String saleNumber, String note) {
 		List<String> errors = new ArrayList<>();
 
-		//日付の必須入力
-		if (saleDate.equals("")) {
-			errors.add("日付は必須入力です。");
+		// 販売日の必須入力
+		if (saleDate.equals("") || saleDate == null) {
+			errors.add("販売日を入力して下さい。");
+			errors.add("販売日を正しく入力して下さい。");
 		}
 
-		//
-		if (account.equals("")) {
-			errors.add("担当は必須選択です。");
-		}
-
-		//カテゴリーの必須入力
-		if (category.equals("")) {
-			errors.add("カテゴリーは必須選択です。");
+		// 担当の必須入力
+		if (account.equals("") || account == null) {
+			errors.add("担当が未選択です。");
 		}
 
 		//カテゴリーの必須入力
-		if (tradeName.equals("")) {
-			errors.add("商品名は必須入力です。");
+		if (category.equals("") || category == null) {
+			errors.add("商品カテゴリーが未選択です。");
 		}
 
-		//金額の必須入力
-		if (unitPrice.equals("")) {
-			errors.add("金額は必須入力です。");
+		//商品名の必須入力
+		if (tradeName.equals("") || tradeName == null) {
+			errors.add("商品名を入力して下さい。");
+		} else if(tradeName.length() > 100) {
+			errors.add("商品名が長すぎます。");
 		}
 
-		//カテゴリーの必須入力
-		if (saleNumber.equals("")) {
-			errors.add("個数は必須入力です。");
+		//単価の必須入力
+		if (unitPrice.equals("") || unitPrice == null) {
+			errors.add("単価を入力して下さい。");
 		}
+		else if(unitPrice.length() > 9) {
+			errors.add("単価が長すぎます。");
+		}
+		// 単価形式のチェック
+		if (!unitPrice.equals("") && Integer.parseInt(unitPrice) < 1) {
+			errors.add("単価を正しく入力して下さい。");
+		}
+
+		//個数の必須入力
+		if (saleNumber.equals("") || saleNumber == null) {
+			errors.add("個数を入力して下さい。");
+		}
+		if(saleNumber.length() > 9) {
+			errors.add("個数が長すぎます。");
+		}
+		// 個数形式のチェック
+		if (!saleNumber.equals("") && Integer.parseInt(saleNumber) < 1) {
+			errors.add("個数を正しく入力して下さい。");
+		}
+
+		// 備考の長さチェック
+		if(note.length() > 400) {
+			errors.add("備考が長すぎます。");
+		}
+
+		//errors.add("アカウントテーブルに存在しません。");
+		//errors.add("商品カテゴリーテーブルに存在しません。");
 
 		return errors;
 
 	}
+
 }
 
