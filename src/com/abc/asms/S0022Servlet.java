@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.SaleList;
-import utils.DBUtils;
+import com.abs.asms.beans.SaleList;
+import com.abs.asms.utils.DBUtils;
 
 @WebServlet("/S0022.html")
 public class S0022Servlet extends HttpServlet {

@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.SaleList;
-import utils.DBUtils;
-import utils.ServletUtils;
+import com.abs.asms.beans.SaleList;
+import com.abs.asms.utils.DBUtils;
+import com.abs.asms.utils.ServletUtils;
 
 @WebServlet("/S0023.html")
 public class S0023Servlet extends HttpServlet {

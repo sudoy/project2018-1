@@ -1,4 +1,4 @@
-package beans;
+package com.abs.asms.beans;
 
 import java.sql.Date;
 

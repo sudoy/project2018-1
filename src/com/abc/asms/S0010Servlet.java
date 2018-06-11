@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import utils.DBUtils;
-import utils.ServletUtils;
+import com.abs.asms.utils.DBUtils;
+import com.abs.asms.utils.ServletUtils;
 
 @WebServlet("/S0010.html")
 public class S0010Servlet extends HttpServlet {

@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.Sales;
-import utils.DBUtils;
+import com.abs.asms.beans.Sales;
+import com.abs.asms.utils.DBUtils;
 
 @WebServlet("/C0020.html")
 public class C0020Servlet extends HttpServlet {
