@@ -4,6 +4,7 @@
 <html>
 <head>
 <jsp:include page="_header.jsp" />
+<link href="css/signin.css" rel="stylesheet">
 <title>ログイン|物品売上管理システム</title>
 </head>
 <body>
