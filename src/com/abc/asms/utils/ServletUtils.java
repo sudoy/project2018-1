@@ -1,4 +1,4 @@
-package com.abs.asms.utils;
+package com.abc.asms.utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

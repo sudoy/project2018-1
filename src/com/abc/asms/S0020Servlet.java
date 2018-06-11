@@ -1,4 +1,4 @@
-package com.abs.asms;
+package com.abc.asms;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.abs.asms.utils.ServletUtils;
+import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0020.html")
 public class S0020Servlet extends HttpServlet {

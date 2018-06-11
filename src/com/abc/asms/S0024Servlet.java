@@ -1,4 +1,4 @@
-package com.abs.asms;
+package com.abc.asms;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.abs.asms.beans.SaleList;
-import com.abs.asms.utils.DBUtils;
+import com.abc.asms.beans.SaleList;
+import com.abc.asms.utils.DBUtils;
 
 @WebServlet("/S0024.html")
 public class S0024Servlet extends HttpServlet {

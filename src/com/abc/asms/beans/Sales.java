@@ -1,94 +1,78 @@
-package com.abs.asms.beans;
+package com.abc.asms.beans;
 
-import java.sql.Date;
+import java.util.Date;
 
-public class SaleList {
+public class Sales {
+
+	private int saleId;
 	private Date saleDate;
-	private String staffName;
-	private String categoryName;
+	private String account;
+	private String category;
 	private String tradeName;
 	private int unitPrice;
 	private int saleNumber;
-	private int total;
 	private String note;
 
-	public SaleList(Date saleDate, String staffName, String categoryName, String tradeName, int unitPrice,
-			int saleNumber, int total, String note) {
+	public Sales(int saleId, Date saleDate, String account, String category, String tradeName, int unitPrice, int saleNumber,
+			String note) {
 		super();
+		this.saleId = saleId;
 		this.saleDate = saleDate;
-		this.staffName = staffName;
-		this.categoryName = categoryName;
+		this.account = account;
+		this.category = category;
 		this.tradeName = tradeName;
 		this.unitPrice = unitPrice;
 		this.saleNumber = saleNumber;
-		this.total = total;
 		this.note = note;
 	}
 
+	public int getSaleId() {
+		return saleId;
+	}
+	public void setSaleId(int saleId) {
+		this.saleId = saleId;
+	}
 	public Date getSaleDate() {
 		return saleDate;
 	}
-
 	public void setSaleDate(Date saleDate) {
 		this.saleDate = saleDate;
 	}
-
-	public String getStaffName() {
-		return staffName;
+	public String getAccount() {
+		return account;
 	}
-
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
+	public void setAccount(String account) {
+		this.account = account;
 	}
-
-	public String getCategoryName() {
-		return categoryName;
+	public String getCategory() {
+		return category;
 	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public void setCategory(String category) {
+		this.category = category;
 	}
-
 	public String getTradeName() {
 		return tradeName;
 	}
-
 	public void setTradeName(String tradeName) {
 		this.tradeName = tradeName;
 	}
-
 	public int getUnitPrice() {
 		return unitPrice;
 	}
-
 	public void setUnitPrice(int unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-
 	public int getSaleNumber() {
 		return saleNumber;
 	}
-
 	public void setSaleNumber(int saleNumber) {
 		this.saleNumber = saleNumber;
 	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
 	public String getNote() {
 		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
-
-
 
 }

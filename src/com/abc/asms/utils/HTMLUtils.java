@@ -1,4 +1,4 @@
-package com.abs.asms.utils;
+package com.abc.asms.utils;
 
 public class HTMLUtils {
 
