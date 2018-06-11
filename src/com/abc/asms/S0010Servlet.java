@@ -1,8 +1,6 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,9 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0010.html")
@@ -36,14 +32,67 @@ public class S0010Servlet extends HttpServlet {
 		List<String> accountList = ServletUtils.accountList(req);
 		req.setAttribute("accountList", accountList);
 
-		getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
+
+//		HttpSession session = req.getSession();
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		String sql = null;
+//		ResultSet rs = null;
+//		try {
+//			con = DBUtils.getConnection();
+//			// SQL	現在、確認用でs.account_id7で検索条件絞り込んでます
+//			sql = "SELECT s.sale_id, s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price, s.sale_number, s.note  FROM sales s " +
+//					"LEFT JOIN categories c ON s.category_id = c.category_id " +
+//					"LEFT JOIN accounts a ON s.account_id = a.account_id " +
+//					"WHERE s.sale_date BETWEEN ? AND ? AND s.account_id = 7 " +
+//					"ORDER BY s.sale_date";
+//
+//
+//			// SELECT命令の準備
+//			ps = con.prepareStatement(sql);
+//
+//			// 実行
+//			rs = ps.executeQuery();
+//
+//			List<Sales> list = new ArrayList<>();
+//			while(rs.next()) {
+//				Sales a = new Sales(
+//						rs.getInt("sale_id"),
+//						rs.getDate("sale_date"),
+//						rs.getString("name"),
+//						rs.getString("category_name"),
+//						rs.getString("trade_name"),
+//						rs.getInt("unit_price"),
+//						rs.getInt("sale_number"),
+//						rs.getString("note"));
+//				list.add(a);
+//			}
+//			// JavaBeansをJSPに渡す
+//			session.setAttribute("today", today);
+//			session.setAttribute("list", list);
+//
+//			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
+//
+//		} catch (Exception e) {
+//			throw new ServletException(e);
+//		} finally {
+//			try {
+//				DBUtils.close(con);
+//				DBUtils.close(rs);
+//				DBUtils.close(ps);
+//			} catch (Exception e) {
+//
+//			}
+//		}
 	}
+
+
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("utf-8");
-		HttpSession session = req.getSession();
+//		HttpSession session = req.getSession();
 
 		List<String> categoryList = ServletUtils.categoryList(req);
 		req.setAttribute("categoryList", categoryList);
@@ -66,49 +115,50 @@ public class S0010Servlet extends HttpServlet {
 			return;
 		}
 
-		Connection con = null;
-		PreparedStatement ps = null;
-		String sql = null;
+		getServletContext().getRequestDispatcher("/WEB-INF/S0011.jsp").forward(req, resp);
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		String sql = null;
+//
+//		try {
+//			con = DBUtils.getConnection();
+//
+//			sql = "INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number, note) " +
+//					"VALUES (?, ?, ?, ?, ?, ?, ?)";
+//			ps = con.prepareStatement(sql);
+//
+//			ps.setString(1, saleDate);
+//			ps.setString(2, ServletUtils.pairAccount(account));
+//			ps.setString(3, ServletUtils.pairCategory(category));
+//			ps.setString(4, tradeName);
+//			ps.setString(5, unitPrice);
+//			ps.setString(6, saleNumber);
+//			ps.setString(7, note);
+//
+//			ps.executeUpdate();
+//			List<String> successes = new ArrayList<>();
+//
+//			// 登録確認画面に遷移しないといけないから、もしかしたらここの記述変わるかもしれんね
+//			successes.add("登録しました。");
+//			session.setAttribute("successes", successes);
+//
+//			resp.sendRedirect("C0020.html");
+//
+//		} catch (Exception e) {
+//			throw new ServletException(e);
+//		} finally {
+//			try {
+//				if (con != null) {
+//					con.close();
+//				}
+//				if (ps != null) {
+//					ps.close();
+//				}
+//			} catch (Exception e) {
+//			}
+//		}
 
-		try {
-			con = DBUtils.getConnection();
-
-			sql = "INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number, note) " +
-					"VALUES (?, ?, ?, ?, ?, ?, ?)";
-			ps = con.prepareStatement(sql);
-
-			ps.setString(1, saleDate);
-			ps.setString(2, ServletUtils.pairAccount(account));
-			ps.setString(3, ServletUtils.pairCategory(category));
-			ps.setString(4, tradeName);
-			ps.setString(5, unitPrice);
-			ps.setString(6, saleNumber);
-
-			// NULLの場合にどうすっぺ？もどうぞ
-			ps.setString(7, note);
-
-			ps.executeUpdate();
-			List<String> successes = new ArrayList<>();
-
-			// 登録確認画面に遷移しないといけないから、もしかしたらここの記述変わるかもしれんね
-			successes.add("登録しました。");
-			session.setAttribute("successes", successes);
-
-			resp.sendRedirect("C0020.html");
-
-		} catch (Exception e) {
-			throw new ServletException(e);
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-			} catch (Exception e) {
-			}
-		}
+//		resp.sendRedirect("S0011.html");
 	}
 
 

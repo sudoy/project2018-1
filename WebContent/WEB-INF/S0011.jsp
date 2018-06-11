@@ -19,72 +19,84 @@
 		</div>
 
 		<div class="row">
-			<form class="form-horizontal" action="#" method="post">
+			<form class="form-horizontal" action="S0011.html" method="post">
 				<div class="form-group">
-					<label for="salesDate" class="col-sm-2 control-label">販売日</label>
+					<label for="saleDate" class="col-sm-2 control-label">販売日 <span
+						class="badge">必須</span></label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="salesDate"
-							placeholder="販売日" value="2018/5/11" disabled>
+						<input type="text" class="form-control" id="saleDate"
+							 value="${param.saleDate}" name="saleDate" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="person" class="col-sm-2 control-label">担当</label>
+					<label for="person" class="col-sm-2 control-label">担当 <span
+						class="badge">必須</span></label>
 					<div class="col-sm-5">
-						<select class="form-control" id="person" disabled>
-							<option value="" selected>選択してください</option>
-							<option value="イチロー">イチロー</option>
+						<select class="form-control" id="person" name="account">
+							<option value="" disabled>選択してください</option>
+							<c:forEach var="account" items="${accountList}">
+								<option value="${account}"
+									${param.account == account ? 'selected' : 'disabled'}>${account}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
+					<label for="category" class="col-sm-2 control-label">商品カテゴリー
+						<span class="badge">必須</span>
+					</label>
 					<div class="col-sm-5">
-						<select class="form-control" id="category" disabled>
-							<option value="" selected>選択してください</option>
-							<option value="食料品">食料品</option>
+						<select class="form-control" name="category" id="category">
+							<option value="" disabled>選択してください</option>
+							<c:forEach var="category" items="${categoryList}">
+								<option value="${category}"
+									${param.category == category ? 'selected' : 'disabled'}>${category}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="name" class="col-sm-2 control-label">商品名</label>
+					<label for="name" class="col-sm-2 control-label">商品名 <span
+						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name"
-							placeholder="商品名" value="" disabled>
+							placeholder="商品名" value="${param.tradeName}" name="tradeName" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="price" class="col-sm-2 control-label">単価</label>
+					<label for="price" class="col-sm-2 control-label">単価 <span
+						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
-							placeholder="単価" value="" disabled>
+							placeholder="単価" value="${param.unitPrice}" name="unitPrice" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="count" class="col-sm-2 control-label">個数</label>
+					<label for="count" class="col-sm-2 control-label">個数 <span
+						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="count"
-							placeholder="個数" value="" disabled>
+							placeholder="個数" value="${param.saleNumber}" name="saleNumber" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="note" class="col-sm-2 control-label">備考</label>
+					<label for="note" class="col-sm-2 control-label">備考 </label>
 					<div class="col-sm-5">
 						<textarea class="form-control" id="note" placeholder="備考" rows="5"
-							disabled></textarea>
+							name="note" readonly>${param.note}</textarea>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-offset-3">
-						<a href="s0010.html" class="btn btn-primary"><span
-							class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</a> <a
-							href="s0010.html" class="btn btn-default"> キャンセル</a>
+						<input type="submit" class="btn btn-primary" value="O K"> <a
+							href="S0010.html" class="btn btn-default"> キャンセル</a>
 					</div>
 				</div>
 

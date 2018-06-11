@@ -96,6 +96,7 @@
 				<div class="form-group">
 					<div class="col-sm-offset-3">
 						<input type="submit" class="btn btn-primary" value="登 録">
+						<a href="S0011.html" class="btn btn-default"> get登録</a>
 						<!-- <button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i>登 録</button> -->
 					</div>
 				</div>

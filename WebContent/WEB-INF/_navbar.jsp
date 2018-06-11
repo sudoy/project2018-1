@@ -17,7 +17,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="C0020.html">ダッシュボード</a></li>
 				<li><a href="S0010.html">売上登録</a></li>
-				<li class="active"><a href="s0020.html">売上検索<span class="sr-only">(current)</span></a></li>
+				<li class="active"><a href="S0020.html">売上検索<span class="sr-only">(current)</span></a></li>
 				<li><a href="S0030.html">アカウント登録</a></li>
 				<li><a href="S0040.html">アカウント検索</a></li>
 			</ul>
