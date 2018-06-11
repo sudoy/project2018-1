@@ -103,7 +103,7 @@ ${param.note != null ? param.note : list.note }
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<button class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 更 新</button>
+							<button type="submit" class="btn btn-primary" name="submit" value=""><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 更 新</button>
 							<a href="S0022.html?sale_id=${param.sale_id }" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>

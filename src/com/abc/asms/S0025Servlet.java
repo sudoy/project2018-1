@@ -2,7 +2,6 @@ package com.abc.asms;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -17,8 +16,8 @@ import com.abc.asms.beans.SaleList;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
 
-@WebServlet("/S0023.html")
-public class S0023Servlet extends HttpServlet {
+@WebServlet("/S0025.html")
+public class S0025Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -78,7 +77,7 @@ public class S0023Servlet extends HttpServlet {
 			req.setAttribute("accountList", accountList);
 
 			//フォワード
-			getServletContext().getRequestDispatcher("/WEB-INF/S0023.jsp").forward(req, resp);
+			getServletContext().getRequestDispatcher("/WEB-INF/S0025.jsp").forward(req, resp);
 
 		}catch(Exception e){
 			throw new ServletException(e);
@@ -92,7 +91,6 @@ public class S0023Servlet extends HttpServlet {
 
 			}
 		}
-
 	}
 
 	@Override
@@ -101,25 +99,44 @@ public class S0023Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
-		int total = Integer.parseInt(req.getParameter("unit_price"))
-				* Integer.parseInt(req.getParameter("sale_number"));
 
-		SaleList s = new SaleList(
-				Date.valueOf(req.getParameter("sale_date")),
-				req.getParameter("account"),
-				req.getParameter("category"),
-				req.getParameter("trade_name"),
-				Integer.parseInt(req.getParameter("unit_price")),
-				Integer.parseInt(req.getParameter("sale_number")),
-				total,
-				req.getParameter("note")
-				);
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
 
-		req.setAttribute("list", s);
+		try {
+			con = DBUtils.getConnection();
 
-		//フォワード
-		getServletContext().getRequestDispatcher("/WEB-INF/S0024.jsp").forward(req, resp);
+			sql = "DELETE FROM sales WHERE sale_id = ?";
+
+
+			//準備
+			ps = con.prepareStatement(sql);
+
+			//データをセット
+			ps.setString(1, req.getParameter("sale_id"));
+
+			System.out.println(ps);
+
+			//実行
+			ps.executeUpdate();
+
+			resp.sendRedirect("S0021.html");
+
+		}catch(Exception e){
+			throw new ServletException(e);
+
+		}finally{
+
+			try{
+				DBUtils.close(ps);
+				DBUtils.close(con);
+
+			}catch(Exception e){
+
+			}
+		}
+
+
 	}
-
-
 }

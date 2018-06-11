@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -25,16 +26,24 @@
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日" value="${list.saleDate}" disabled>
+							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日" value="${list.saleDate}" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="person" class="col-sm-2 control-label">担当</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="account" id="person" disabled>
-								<option value="">選択してください</option>
-								<option value="${list.staffName}" selected>${list.staffName}</option>
+							<select class="form-control" name="account" id="person" readonly>
+								<option value="" disabled>選択してください</option>
+								<c:forEach var="account" items="${accountList}">
+									<c:if test="${list.staffName eq account || param.staff_name eq account}">
+										<option value="${account}" selected>${account}</option>
+									</c:if>
+								 	<c:if test="${list.staffName ne account && param.staff_name ne account}">
+										<option value="${account}" disabled>${account}</option>
+									</c:if>
+
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -42,9 +51,16 @@
 					<div class="form-group">
 						<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="category" id="category"  disabled>
-								<option value="">選択してください</option>
-								<option value="${list.categoryName}" selected>${list.categoryName}</option>
+							<select class="form-control" name="category" id="category" readonly>
+								<option value="" disabled>選択してください</option>
+								<c:forEach var="category" items="${categoryList}">
+									<c:if test="${list.categoryName eq category || param.category_name eq category}">
+										<option value="${category}" selected>${category}</option>
+									</c:if>
+								 	<c:if test="${list.categoryName ne category && param.category_name ne category}">
+										<option value="${category}" disabled>${category}</option>
+									</c:if>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -52,41 +68,41 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="trade_name" id="name" placeholder="商品名" value="${list.tradeName}" disabled>
+							<input type="text" class="form-control" name="trade_name" id="name" placeholder="商品名" value="${list.tradeName}" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="price" class="col-sm-2 control-label">単価</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="unit_price" id="price" placeholder="単価" value="${list.unitPrice}" disabled>
+							<input type="text" class="form-control text-right"name="unit_price" id="price" placeholder="単価" value="${list.unitPrice}" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="count" class="col-sm-2 control-label">個数</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="sale_number" id="count" placeholder="個数" value="${list.saleNumber}" disabled>
+							<input type="text" class="form-control text-right" name="sale_number" id="count" placeholder="個数" value="${list.saleNumber}" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="total" class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="total" id="total" placeholder="小計" value="${list.total}" disabled>
+							<input type="text" class="form-control text-right" name="total" id="total" placeholder="小計" value="${list.total}" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考</label>
 						<div class="col-sm-5">
-							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5" disabled>${list.note}</textarea>
+							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5" readonly>${list.note}</textarea>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<a href="S0024.html" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</a>
+							<button type="submit" class="btn btn-primary" name="submit" value="OK"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</button>
 							<a href="S0023.html?sale_id=${param.sale_id }" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>

@@ -48,6 +48,7 @@ public class S0022Servlet extends HttpServlet {
 			//パラメータをセット
 			ps.setString(1, id);
 
+
 			//実行
 			rs = ps.executeQuery();
 
