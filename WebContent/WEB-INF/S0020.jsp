@@ -60,7 +60,7 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名 <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="name" name="trade_name" placeholder="商品名" value="${param.trade_name}">
+							<input type="text" class="form-control" id="name" name="tradeName" placeholder="商品名" value="${param.trade_name}">
 						</div>
 					</div>
 

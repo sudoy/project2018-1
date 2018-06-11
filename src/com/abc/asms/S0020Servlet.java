@@ -1,6 +1,9 @@
 package com.abc.asms;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Sales;
+import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0020.html")
@@ -22,7 +27,7 @@ public class S0020Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		req.setCharacterEncoding("utf-8");
 
 		List<String> categoryList = ServletUtils.categoryList(req);
 		req.setAttribute("categoryList", categoryList);
@@ -56,8 +61,85 @@ public class S0020Servlet extends HttpServlet {
 
 		}
 
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+		List<Sales> salesList = new ArrayList<>();
 
-		getServletContext().getRequestDispatcher("/S0021.html").forward(req, resp);
+		try{
+
+			con = DBUtils.getConnection();
+
+			sql = "select * from sales where 0=0";
+
+			if(!req.getParameter("start").equals("")) {
+				sql = sql.concat(" and sale_date >= '" + req.getParameter("start") + "'");
+			}
+			if(!req.getParameter("end").equals("")) {
+				sql = sql.concat(" and sale_date <= '" + req.getParameter("end") + "'");
+			}
+
+			if(!req.getParameter("account").equals("")) {
+				sql = sql.concat(" and account_id = '" + ServletUtils.pairAccount(req.getParameter("account")) + "'");
+			}
+
+			if(!req.getParameter("category").equals("")) {
+				sql = sql.concat(" and category_id = '" + ServletUtils.pairCategory(req.getParameter("category")) + "'");
+			}
+
+			if(!req.getParameter("tradeName").equals("")) {
+				sql = sql.concat(" and trade_name like '%" + req.getParameter("tradeName") + "%'");
+			}
+			if(!req.getParameter("note").equals("")) {
+				sql = sql.concat(" and note like '%" + req.getParameter("note") + "%'");
+			}
+
+			sql = sql.concat(" order by sale_id desc");
+
+			System.out.println(sql);
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+
+			if(!rs.next()) {
+				errors.add("検索結果がありません。");
+				session.setAttribute("errors", errors);
+				getServletContext().getRequestDispatcher("/WEB-INF/S0020.jsp").forward(req, resp);
+			}else {
+				Sales s = new Sales(rs.getInt("sale_id"), rs.getDate("sale_date"),
+						ServletUtils.parseAccountName(rs.getInt("account_id")),
+						ServletUtils.parseCategoryName(rs.getInt("category_id")),
+						rs.getString("trade_name"), rs.getInt("unit_price"),
+						rs.getInt("sale_number"), rs.getString("note"));
+
+				salesList.add(s);
+
+				while(rs.next()) {
+
+					s = new Sales(rs.getInt("sale_id"), rs.getDate("sale_date"),
+							ServletUtils.parseAccountName(rs.getInt("account_id")),
+							ServletUtils.parseCategoryName(rs.getInt("category_id")),
+							rs.getString("trade_name"), rs.getInt("unit_price"),
+							rs.getInt("sale_number"), rs.getString("note"));
+
+					salesList.add(s);
+				}
+				session.setAttribute("salesList", salesList);
+			}
+
+		}catch(Exception e){
+			throw new ServletException(e);
+		}finally{
+			try{
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			}catch(Exception e){}
+		}
+
+		resp.sendRedirect("S0021.html");
+
 	}
 
 	private List<String> validate(HttpServletRequest req){
