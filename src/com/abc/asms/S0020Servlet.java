@@ -51,6 +51,12 @@ public class S0020Servlet extends HttpServlet {
 
 		}
 
+		List<String> categoryList = ServletUtils.categoryList(req);
+		req.setAttribute("categoryList", categoryList);
+
+		List<String> accountList = ServletUtils.accountList(req);
+		req.setAttribute("accountList", accountList);
+
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0021.jsp").forward(req, resp);
 	}

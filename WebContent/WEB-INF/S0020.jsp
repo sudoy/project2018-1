@@ -14,10 +14,9 @@
 
 		<div class="container">
 
+		<jsp:include page="_errors.jsp" />
 
-			<div class="row">
 				<h1>売上検索条件入力</h1>
-			</div>
 
 			<div class="row">
 				<form class="form-horizontal" action="S0020.html" method="post">
@@ -83,5 +82,12 @@
 			</div>
 
 		</div><!-- /container -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+
 	</body>
 </html>
