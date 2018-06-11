@@ -23,23 +23,23 @@
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" id="salesDate" name="start" placeholder="販売日(検索開始日)" value="">
+							<input type="text" class="form-control" id="salesDate" name="start" placeholder="販売日(検索開始日)" value="${param.start}">
 						</div>
 
 						<div class="form-control-static col-sm-1 text-center">～</div>
 
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="end" placeholder="販売日(検索終了日)" value="">
+							<input type="text" class="form-control" name="end" placeholder="販売日(検索終了日)" value="${param.end}">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="person" class="col-sm-2 control-label">担当</label>
 						<div class="col-sm-5">
-							<select class="form-control" id="person">
-								<option value="" selected>選択してください</option>
+							<select class="form-control" name="account" id="person">
+								<option value="">選択してください</option>
 								<c:forEach var="account" items="${accountList}">
-									<option value="${account}">${account}</option>
+									<option value="${account}" ${param.account == account ? 'selected' : ''}>${account}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -48,10 +48,10 @@
 					<div class="form-group">
 						<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
-							<select class="form-control" id="category">
-								<option value="" selected>選択してください</option>
+							<select class="form-control" name="category" id="category">
+								<option value="">選択してください</option>
 								<c:forEach var="category" items="${categoryList}">
-									<option value="${category}">${category}</option>
+									<option value="${category}" ${param.category == category ? 'selected' : ''}>${category}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -60,14 +60,14 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名 <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="name" name="trade_name" placeholder="商品名" value="">
+							<input type="text" class="form-control" id="name" name="trade_name" placeholder="商品名" value="${param.trade_name}">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考 <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="note" name="note" placeholder="備考" value="">
+							<input type="text" class="form-control" id="note" name="note" placeholder="備考" value="${param.note}">
 						</div>
 					</div>
 

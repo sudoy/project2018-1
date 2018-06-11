@@ -38,6 +38,11 @@ public class S0020Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
+		List<String> categoryList = ServletUtils.categoryList(req);
+		req.setAttribute("categoryList", categoryList);
+
+		List<String> accountList = ServletUtils.accountList(req);
+		req.setAttribute("accountList", accountList);
 
 		HttpSession session = req.getSession();
 		List<String> errors = validate(req);
@@ -51,14 +56,8 @@ public class S0020Servlet extends HttpServlet {
 
 		}
 
-		List<String> categoryList = ServletUtils.categoryList(req);
-		req.setAttribute("categoryList", categoryList);
 
-		List<String> accountList = ServletUtils.accountList(req);
-		req.setAttribute("accountList", accountList);
-
-
-		getServletContext().getRequestDispatcher("/WEB-INF/S0021.jsp").forward(req, resp);
+		getServletContext().getRequestDispatcher("/S0021.html").forward(req, resp);
 	}
 
 	private List<String> validate(HttpServletRequest req){
