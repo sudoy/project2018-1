@@ -114,7 +114,7 @@ public class ServletUtils {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "select account_id, name from account where name=? order by account_id";
+			sql = "select account_id, name from accounts where name=? order by account_id";
 
 			ps = con.prepareStatement(sql);
 
@@ -168,7 +168,7 @@ public class ServletUtils {
 
 			rs.next();
 
-			categoryId = rs.getString("account_id");
+			categoryId = rs.getString("category_id");
 
 
 		} catch (Exception e) {

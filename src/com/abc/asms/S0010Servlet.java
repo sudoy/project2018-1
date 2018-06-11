@@ -58,10 +58,6 @@ public class S0010Servlet extends HttpServlet {
 		String saleNumber = req.getParameter("saleNumber");
 		String note = req.getParameter("note");
 
-		System.out.println("saleDate:" + saleDate + ",　account:" + account + ",　category:" + category +
-				",　tradeName:" + tradeName + ",　unitPrice:" + unitPrice +
-				 ",　saleNumber:" + saleNumber + ",　note:" + note);
-
 		//バリデーションチェック
 		List<String> errors = validate(saleDate, account, category, tradeName, unitPrice, saleNumber, note);
 		if (errors.size() > 0) {
@@ -69,9 +65,6 @@ public class S0010Servlet extends HttpServlet {
 			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
 			return;
 		}
-
-		System.out.println(account + ":" + ServletUtils.parseAccountName());
-		System.out.println(category + ":" + ServletUtils.pairCategory(category));
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -85,8 +78,8 @@ public class S0010Servlet extends HttpServlet {
 			ps = con.prepareStatement(sql);
 
 			ps.setString(1, saleDate);
-			ps.setString(2, account);
-			ps.setString(3, category);
+			ps.setString(2, ServletUtils.pairAccount(account));
+			ps.setString(3, ServletUtils.pairCategory(category));
 			ps.setString(4, tradeName);
 			ps.setString(5, unitPrice);
 			ps.setString(6, saleNumber);
