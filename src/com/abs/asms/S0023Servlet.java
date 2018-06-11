@@ -1,4 +1,4 @@
-package com.abc.asms;
+package com.abs.asms;
 
 import java.io.IOException;
 import java.sql.Connection;

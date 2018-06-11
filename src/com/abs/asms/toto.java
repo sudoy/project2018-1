@@ -1,4 +1,4 @@
-package com.abc.asms;
+package com.abs.asms;
 
 public class toto {
 
