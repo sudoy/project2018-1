@@ -1,6 +1,7 @@
 package com.abc.asms;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,6 +37,17 @@ public class C0010Servlet extends HttpServlet {
 		String sql = null;
 		ResultSet rs = null;
 
+		List<String> errors = validate(req);
+
+		if(errors.size() != 0) {
+			session.setAttribute("errors", errors);
+
+			getServletContext().getRequestDispatcher("/WEB-INF/C0010.jsp")
+			.forward(req, resp);
+			return;
+
+		}
+
 		try{
 
 
@@ -57,10 +69,10 @@ public class C0010Servlet extends HttpServlet {
 				.forward(req, resp);
 				return;
 			}
-			Accounts account = new Accounts( rs.getInt("account_id"), rs.getString("name"),
-					rs.getString("email"), rs.getString("password"), rs.getInt("authority"));
+			Accounts accounts = new Accounts( rs.getInt("account_id"), rs.getString("name"),
+					rs.getString("mail"), rs.getString("password"), rs.getInt("authority"));
 
-			session.setAttribute("account", account);
+			session.setAttribute("accounts", accounts);
 			resp.sendRedirect("C0020.html");
 		}catch(Exception e){
 			throw new ServletException(e);
@@ -78,17 +90,53 @@ public class C0010Servlet extends HttpServlet {
 
 		List<String> errors = new ArrayList<>();
 
-		if(!req.getParameter("mail").equals("")) {
+		if(req.getParameter("password").equals("")) {
+			errors.add("パスワードが未入力です。");
+		}
+		if(getByte(req.getParameter("password"), "UTF-8") > 30) {
+			errors.add("パスワードが長すぎます。");
+		}
+
+		if(req.getParameter("mail").equals("")) {
 			errors.add("メールアドレスを入力してください。");
 		}
 
-		if(req.getParameter("mail").length() > 100) {
+		if(getByte(req.getParameter("mail"), "UTF-8") > 100) {
 			errors.add("メールアドレスが長すぎます。");
 		}
+
+		if(!req.getParameter("mail").contains("@")) {
+			errors.add("メールアドレスを正しく入力してください。");
+			return errors;
+		}
+
 
 		String[] mailCheck = req.getParameter("mail").split("@", 0);
 		String mailInitial = req.getParameter("mail").substring(0, 1);
 
-		return null;
+		if(!mailInitial.matches("^[a-zA-Z0-9]*$")) {
+			errors.add("メールアドレスを正しく入力してください。");
+		}else if(!mailCheck[0].matches("^[a-zA-Z-0-9._\\-]*$")) {
+			errors.add("メールアドレスを正しく入力してください。");
+		}else if(!mailCheck[1].matches("^[a-zA-Z0-9._\\-]*$")
+				|| mailCheck[1].length() == 0
+				|| !mailCheck[1].contains(".")) {
+			errors.add("メールアドレスを正しく入力してください。");
+		}
+
+
+		return errors;
+	}
+
+	public static int getByte(String value, String enc) {
+	    if ( value == null || value.length() == 0 )
+	        return 0;
+	    int ret = 0;
+	    try {
+	        ret = value.getBytes(enc).length;
+	    } catch ( UnsupportedEncodingException e ) {
+	        ret = 0;
+	    }
+	    return ret;
 	}
 }
