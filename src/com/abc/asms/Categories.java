@@ -1,4 +1,4 @@
-package beans;
+package com.abc.asms;
 
 public class Categories {
 

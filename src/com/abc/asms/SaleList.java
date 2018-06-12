@@ -9,11 +9,10 @@ public class SaleList {
 	private String tradeName;
 	private int unitPrice;
 	private int saleNumber;
-	private int total;
 	private String note;
 
 	public SaleList(Date saleDate, String staffName, String categoryName, String tradeName, int unitPrice,
-			int saleNumber, int total, String note) {
+			int saleNumber, String note) {
 		super();
 		this.saleDate = saleDate;
 		this.staffName = staffName;
@@ -21,7 +20,6 @@ public class SaleList {
 		this.tradeName = tradeName;
 		this.unitPrice = unitPrice;
 		this.saleNumber = saleNumber;
-		this.total = total;
 		this.note = note;
 	}
 
@@ -73,14 +71,6 @@ public class SaleList {
 		this.saleNumber = saleNumber;
 	}
 
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
 	public String getNote() {
 		return note;
 	}
@@ -88,6 +78,7 @@ public class SaleList {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
 
 
 

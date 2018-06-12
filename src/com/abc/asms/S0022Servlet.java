@@ -55,13 +55,13 @@ public class S0022Servlet extends HttpServlet {
 			rs.next();
 
 			SaleList s = new SaleList(
+
 					rs.getDate("sale_date"),
 					rs.getString("name"),
 					rs.getString("category_name"),
 					rs.getString("trade_name"),
 					rs.getInt("unit_price"),
 					rs.getInt("sale_number"),
-					rs.getInt("total"),
 					rs.getString("note")
 					);
 
@@ -84,4 +84,6 @@ public class S0022Servlet extends HttpServlet {
 		}
 
 	}
+
+
 }

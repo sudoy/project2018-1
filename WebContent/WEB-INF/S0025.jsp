@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.abc.asms.utils.HTMLUtils" %>
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 	<head>
 		<%-- headerのinclude --%>
@@ -25,7 +26,7 @@
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日" value="${list.saleDate }" disabled>
+							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日" value="${HTMLUtils.parseDate(list.saleDate) }" disabled>
 						</div>
 					</div>
 
@@ -71,7 +72,7 @@
 					<div class="form-group">
 						<label for="total" class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="total" id="total" placeholder="小計" value="${list.total}" disabled>
+							<input type="text" class="form-control text-right" name="total" id="total" placeholder="小計" value="${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}" disabled>
 						</div>
 					</div>
 

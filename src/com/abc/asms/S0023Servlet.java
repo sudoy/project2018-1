@@ -64,7 +64,6 @@ public class S0023Servlet extends HttpServlet {
 					rs.getString("trade_name"),
 					rs.getInt("unit_price"),
 					rs.getInt("sale_number"),
-					rs.getInt("total"),
 					rs.getString("note")
 					);
 			req.setAttribute("list", s);
@@ -101,8 +100,6 @@ public class S0023Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
-		int total = Integer.parseInt(req.getParameter("unit_price"))
-				* Integer.parseInt(req.getParameter("sale_number"));
 
 		SaleList s = new SaleList(
 				Date.valueOf(req.getParameter("sale_date")),
@@ -111,7 +108,7 @@ public class S0023Servlet extends HttpServlet {
 				req.getParameter("trade_name"),
 				Integer.parseInt(req.getParameter("unit_price")),
 				Integer.parseInt(req.getParameter("sale_number")),
-				total,
+
 				req.getParameter("note")
 				);
 
