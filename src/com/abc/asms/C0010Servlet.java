@@ -53,7 +53,7 @@ public class C0010Servlet extends HttpServlet {
 
 			con = DBUtils.getConnection();
 
-			sql = "select account_id, name, mail, password, authority from accounts where mail=? and password=?";
+			sql = "select account_id, name, mail, password, authority from accounts where mail=? and password=MD5(?)";
 
 			ps = con.prepareStatement(sql);
 
