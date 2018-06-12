@@ -43,6 +43,11 @@ public class S0011Servlet extends HttpServlet {
 		String saleNumber = req.getParameter("saleNumber");
 		String note = req.getParameter("note");
 
+
+		if(req.getParameter("NG") != null) {
+			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
+		}else {
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -64,9 +69,8 @@ public class S0011Servlet extends HttpServlet {
 
 			ps.executeUpdate();
 			List<String> successes = new ArrayList<>();
-
 			// 登録確認画面に遷移しないといけないから、もしかしたらここの記述変わるかもしれんね
-			successes.add("No${saleId}の売上を登録しました。");
+			successes.add("No" + ServletUtils.registerId() + "の売上を登録しました。");
 			session.setAttribute("successes", successes);
 
 			resp.sendRedirect("S0010.html");
@@ -83,6 +87,7 @@ public class S0011Servlet extends HttpServlet {
 				}
 			} catch (Exception e) {
 			}
+		}
 		}
 	}
 
