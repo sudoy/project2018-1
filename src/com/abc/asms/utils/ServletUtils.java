@@ -276,4 +276,80 @@ public class ServletUtils {
 		return name;
 
 	}
+
+	// アカウントテーブルのバリデーションチェック用、== falseならエラー表示
+	public static boolean matchAccount(String account) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+			sql = "SELECT name FROM accounts WHERE name = ? ORDER BY account_id";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, account);
+
+			rs = ps.executeQuery();
+			rs.next();
+			if(account.equals(rs.getString("name"))) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+
+	// カテゴリーテーブルのバリデーションチェック用、== falseならエラー表示
+	public static boolean matchCategory(String category) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+			sql = "SELECT category_name FROM categories WHERE category_name = ? ORDER BY category_id";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, category);
+
+			rs = ps.executeQuery();
+			rs.next();
+
+			if(category.equals(rs.getString("category_name"))) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+
 }
