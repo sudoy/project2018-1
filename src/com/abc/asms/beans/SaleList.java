@@ -13,7 +13,7 @@ public class SaleList {
 	private String note;
 
 	public SaleList(Date saleDate, String staffName, String categoryName, String tradeName, int unitPrice,
-			int saleNumber, int total, String note) {
+			int saleNumber, String note) {
 		super();
 		this.saleDate = saleDate;
 		this.staffName = staffName;
@@ -21,9 +21,10 @@ public class SaleList {
 		this.tradeName = tradeName;
 		this.unitPrice = unitPrice;
 		this.saleNumber = saleNumber;
-		this.total = total;
 		this.note = note;
 	}
+
+
 
 	public Date getSaleDate() {
 		return saleDate;

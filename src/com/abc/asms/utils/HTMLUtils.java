@@ -21,4 +21,15 @@ public class HTMLUtils {
 	public static int sumCalc(int unitPrice, int saleNumber) {
 		return unitPrice * saleNumber;
 	}
+
+	public static String dateFormat(String saleDate) {
+
+		String s = "";
+		if(saleDate == null) {
+			return "";
+		}
+		s = saleDate.replace("/", "-");
+		return s;
+
+	}
 }

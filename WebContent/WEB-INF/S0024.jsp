@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.abc.asms.utils.HTMLUtils" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -26,7 +27,7 @@
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日" value="${list.saleDate}" readonly>
+							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日" value="${HTMLUtils.parseDate(list.saleDate)}" readonly>
 						</div>
 					</div>
 
@@ -89,7 +90,7 @@
 					<div class="form-group">
 						<label for="total" class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="total" id="total" placeholder="小計" value="${list.total}" readonly>
+							<input type="text" class="form-control text-right" name="total" id="total" placeholder="小計" value="${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}" readonly>
 						</div>
 					</div>
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -63,7 +64,6 @@ public class S0025Servlet extends HttpServlet {
 					rs.getString("trade_name"),
 					rs.getInt("unit_price"),
 					rs.getInt("sale_number"),
-					rs.getInt("total"),
 					rs.getString("note")
 					);
 			req.setAttribute("list", s);
@@ -121,7 +121,15 @@ public class S0025Servlet extends HttpServlet {
 			//実行
 			ps.executeUpdate();
 
-			resp.sendRedirect("S0021.html");
+
+
+			List<String> successes = new ArrayList<>();
+			String success = "No" +  req.getParameter("sale_id") + "の売上を削除しました。";
+
+			successes.add(success);
+			req.setAttribute("successes", successes);
+
+
 
 		}catch(Exception e){
 			throw new ServletException(e);
@@ -136,6 +144,9 @@ public class S0025Servlet extends HttpServlet {
 
 			}
 		}
+
+		//フォワード
+		getServletContext().getRequestDispatcher("/WEB-INF/S0021.jsp").forward(req, resp);
 
 
 	}

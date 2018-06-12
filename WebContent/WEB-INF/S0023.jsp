@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="com.abc.asms.utils.HTMLUtils" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -16,6 +16,9 @@
 		<%-- navbarのinclude --%>
 		<jsp:include page="_navbar.jsp" />
 
+		<%-- errorのinclude --%>
+		<jsp:include page="_errors.jsp" />
+
 		<div class="container">
 
 			<div class="row">
@@ -28,7 +31,7 @@
 						<label for="salesDate" class="col-sm-2 control-label">販売日 <span class="badge">必須</span></label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日"
-							 value="${param.sale_date != null ? param.sale_date : list.saleDate }">
+							 value="${param.sale_date != null ? HTMLUtils.parseDate(param.saleDate) : HTMLUtils.parseDate(list.saleDate)}">
 						</div>
 					</div>
 
@@ -39,10 +42,10 @@
 								<option value="">選択してください</option>
 
 								<c:forEach var="account" items="${accountList}">
-									<c:if test="${list.staffName eq account || param.staff_name eq account}">
+									<c:if test="${list.staffName eq account || param.account eq account}">
 										<option value="${account}" selected>${account}</option>
 									</c:if>
-								 	<c:if test="${list.staffName ne account && param.staff_name ne account}">
+								 	<c:if test="${list.staffName ne account && param.account ne account}">
 										<option value="${account}">${account}</option>
 									</c:if>
 
@@ -57,10 +60,10 @@
 							<select class="form-control" name="category" id="category">
 								<option value="">選択してください</option>
 								<c:forEach var="category" items="${categoryList}">
-									<c:if test="${list.categoryName eq category || param.category_name eq category}">
+									<c:if test="${list.categoryName eq category || param.category eq category}">
 										<option value="${category}" selected>${category}</option>
 									</c:if>
-								 	<c:if test="${list.categoryName ne category && param.category_name ne category}">
+								 	<c:if test="${list.categoryName ne category && param.category ne category}">
 										<option value="${category}">${category}</option>
 									</c:if>
 								</c:forEach>
@@ -95,8 +98,7 @@
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考 </label>
 						<div class="col-sm-5">
-							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5">
-${param.note != null ? param.note : list.note }
+							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5">${param.note != null ? param.note : list.note }
 							</textarea>
 						</div>
 					</div>

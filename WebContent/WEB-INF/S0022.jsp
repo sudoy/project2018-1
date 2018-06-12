@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.abc.asms.utils.HTMLUtils" %>
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -24,7 +25,7 @@
 				<form class="form-horizontal" action="#" method="post">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">販売日</label>
-						<div class="col-sm-2 form-control-static">${list.saleDate}</div>
+						<div class="col-sm-2 form-control-static">${HTMLUtils.parseDate(list.saleDate)}</div>
 					</div>
 
 					<div class="form-group">
@@ -54,7 +55,7 @@
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">小計</label>
-						<div class="col-sm-2  form-control-static text-right">${list.total}</div>
+						<div class="col-sm-2  form-control-static text-right">${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}</div>
 					</div>
 
 					<div class="form-group">
