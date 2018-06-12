@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.abc.asms.utils.HTMLUtils" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -43,9 +44,9 @@
 						<td>${sale.account}</td>
 						<td>${sale.category}</td>
 						<td>${sale.tradeName}</td>
-						<td class="text-right">${sale.unitPrice}</td>
-						<td class="text-right">${sale.saleNumber}</td>
-						<td class="text-right">${HTMLUtils.sumCalc(sale.unitPrice, sale.saleNumber)}</td>
+						<td class="text-right"><fmt:formatNumber value="${sale.unitPrice}" pattern="#,##0" /></td>
+						<td class="text-right"><fmt:formatNumber value="${sale.saleNumber}" pattern="#,##0" /></td>
+						<td class="text-right"><fmt:formatNumber value="${HTMLUtils.sumCalc(sale.unitPrice, sale.saleNumber)}" pattern="#,##0" /></td>
 					</tr>
 					</c:forEach>
 				</table>
