@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,11 +29,11 @@ public class S0020Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
 
-		List<String> categoryList = ServletUtils.categoryList(req);
-		req.setAttribute("categoryList", categoryList);
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
 
-		List<String> accountList = ServletUtils.accountList(req);
-		req.setAttribute("accountList", accountList);
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
 		getServletContext().getRequestDispatcher("/WEB-INF/S0020.jsp").forward(req, resp);
 
 	}
@@ -42,11 +43,11 @@ public class S0020Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
-		List<String> categoryList = ServletUtils.categoryList(req);
-		req.setAttribute("categoryList", categoryList);
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
 
-		List<String> accountList = ServletUtils.accountList(req);
-		req.setAttribute("accountList", accountList);
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
 
 		HttpSession session = req.getSession();
 		List<String> errors = validate(req);
@@ -84,7 +85,7 @@ public class S0020Servlet extends HttpServlet {
 			}
 
 			if(!req.getParameter("category").equals("")) {
-				sql = sql.concat(" and category_id = '" + ServletUtils.pairCategory(req.getParameter("category")) + "'");
+				sql = sql.concat(" and category_id = '" + req.getParameter("category") + "'");
 			}
 
 			if(!req.getParameter("tradeName").equals("")) {

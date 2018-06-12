@@ -1,7 +1,6 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,8 +62,8 @@ public class C0010Servlet extends HttpServlet {
 			rs = ps.executeQuery();
 
 			if(!rs.next()) {
-
-				session.setAttribute("errors", "メールアドレス、またはパスワードが間違っています。");
+				errors.add("メールアドレス、またはパスワードが間違っています。");
+				session.setAttribute("errors", errors);
 				getServletContext().getRequestDispatcher("/WEB-INF/C0010.jsp")
 				.forward(req, resp);
 				return;
@@ -93,7 +92,7 @@ public class C0010Servlet extends HttpServlet {
 		if(req.getParameter("password").equals("")) {
 			errors.add("パスワードが未入力です。");
 		}
-		if(getByte(req.getParameter("password"), "UTF-8") > 30) {
+		if(req.getParameter("password").length() > 30) {
 			errors.add("パスワードが長すぎます。");
 		}
 
@@ -101,7 +100,7 @@ public class C0010Servlet extends HttpServlet {
 			errors.add("メールアドレスを入力してください。");
 		}
 
-		if(getByte(req.getParameter("mail"), "UTF-8") > 100) {
+		if(req.getParameter("password").length() > 100) {
 			errors.add("メールアドレスが長すぎます。");
 		}
 
@@ -116,9 +115,9 @@ public class C0010Servlet extends HttpServlet {
 
 		if(!mailInitial.matches("^[a-zA-Z0-9]*$")) {
 			errors.add("メールアドレスを正しく入力してください。");
-		}else if(!mailCheck[0].matches("^[a-zA-Z-0-9._\\-]*$")) {
+		}else if(!mailCheck[0].matches("^[a-zA-Z-0-9\\._\\-]*$")) {
 			errors.add("メールアドレスを正しく入力してください。");
-		}else if(!mailCheck[1].matches("^[a-zA-Z0-9._\\-]*$")
+		}else if(!mailCheck[1].matches("^[a-zA-Z0-9\\._\\-]*$")
 				|| mailCheck[1].length() == 0
 				|| !mailCheck[1].contains(".")) {
 			errors.add("メールアドレスを正しく入力してください。");
@@ -126,17 +125,5 @@ public class C0010Servlet extends HttpServlet {
 
 
 		return errors;
-	}
-
-	public static int getByte(String value, String enc) {
-	    if ( value == null || value.length() == 0 )
-	        return 0;
-	    int ret = 0;
-	    try {
-	        ret = value.getBytes(enc).length;
-	    } catch ( UnsupportedEncodingException e ) {
-	        ret = 0;
-	    }
-	    return ret;
 	}
 }

@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 	<head>
 		<jsp:include page="_header.jsp" />
 		<title>売上検索条件入力|物品売上管理システム</title>
@@ -38,8 +38,8 @@
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person">
 								<option value="">選択してください</option>
-								<c:forEach var="account" items="${accountList}">
-									<option value="${account}" ${param.account == account ? 'selected' : ''}>${account}</option>
+								<c:forEach var="account" items="${accountMap}">
+									<option value="${account.key}" ${param.account == account.key ? 'selected' : ''}>${account.value}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -50,8 +50,8 @@
 						<div class="col-sm-5">
 							<select class="form-control" name="category" id="category">
 								<option value="">選択してください</option>
-								<c:forEach var="category" items="${categoryList}">
-									<option value="${category}" ${param.category == category ? 'selected' : ''}>${category}</option>
+								<c:forEach var="category" items="${categoryMap}">
+									<option value="${category.key}" ${param.category == category.key ? 'selected' : ''}>${category.value}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -83,11 +83,7 @@
 
 		</div><!-- /container -->
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
+		<jsp:include page="_footer.jsp" />
 
 	</body>
 </html>

@@ -5,11 +5,98 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class ServletUtils {
+
+
+	public static Map<Integer, String> getCategoryMap(HttpServletRequest req){
+
+		Map<Integer, String> categoryMap = new HashMap<Integer, String>();
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "select category_id, category_name, active_flg "
+					+ "from categories "
+					+ "group by category_id, category_name, active_flg "
+					+ "order by category_id";
+
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+
+
+			while(rs.next()) {
+				if(rs.getInt("active_flg") == 1) {
+					categoryMap.put(rs.getInt("category_id"), rs.getString("category_name"));
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return categoryMap;
+	}
+
+	public static Map<Integer, String> getAccountMap(HttpServletRequest req){
+
+		Map<Integer, String> accountMap = new HashMap<Integer, String>();
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "select account_id, name "
+					+ "from accounts "
+					+ "group by account_id, name "
+					+ "order by account_id";
+
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+
+
+			while(rs.next()) {
+				accountMap.put(rs.getInt("account_id"), rs.getString("name"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return accountMap;
+	}
 
 	public static List<String> categoryList(HttpServletRequest req){
 
@@ -22,12 +109,10 @@ public class ServletUtils {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "select c.category_name, c.active_flg " +
-					"from sales s " +
-					"join categories c " +
-					"on s.category_id = c.category_id " +
-					"group by c.category_name " +
-					"order by s.sale_id";
+			sql = "select category_id, category_name, active_flg "
+					+ "from categories "
+					+ "group by category_id, category_name, active_flg "
+					+ "order by category_id";
 
 			ps = con.prepareStatement(sql);
 
@@ -35,8 +120,8 @@ public class ServletUtils {
 
 
 			while(rs.next()) {
-				if(rs.getInt("c.active_flg") == 1) {
-					categoryList.add(rs.getString("c.category_name"));
+				if(rs.getInt("active_flg") == 1) {
+					categoryList.add(rs.getString("category_name"));
 				}
 			}
 
@@ -67,12 +152,10 @@ public class ServletUtils {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "select a.name " +
-					"from sales s " +
-					"join accounts a " +
-					"on s.account_id = a.account_id " +
-					"group by a.name " +
-					"order by s.sale_id";
+			sql = "select account_id, name "
+					+ "from accounts "
+					+ "group by account_id, name "
+					+ "order by account_id";
 
 			ps = con.prepareStatement(sql);
 
@@ -80,7 +163,7 @@ public class ServletUtils {
 
 
 			while(rs.next()) {
-				accountList.add(rs.getString("a.name"));
+				accountList.add(rs.getString("name"));
 			}
 
 		} catch (Exception e) {
