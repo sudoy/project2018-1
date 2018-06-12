@@ -48,12 +48,9 @@
 					<div class="form-group">
 						<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="category" id="category">
-								<option value="">選択してください</option>
-								<c:forEach var="category" items="${categoryList}">
-									<option value="${category}" ${param.category == category ? 'selected' : ''}>${category}</option>
-								</c:forEach>
-							</select>
+							<c:forEach var="category" items="${categoryList}">
+								<label><input type="radio" name="category" value="${category}" ${param.category == category ? 'checked' : ''}>${category}</label>
+							</c:forEach>
 						</div>
 					</div>
 
