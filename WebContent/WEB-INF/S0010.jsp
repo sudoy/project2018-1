@@ -25,7 +25,8 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							 value="${param.saleDate == null ? today : param.saleDate}" name="saleDate">
+							value="${param.saleDate == null ? today : param.saleDate}"
+							name="saleDate">
 					</div>
 				</div>
 
@@ -96,8 +97,6 @@
 				<div class="form-group">
 					<div class="col-sm-offset-3">
 						<input type="submit" class="btn btn-primary" value="登 録">
-						<a href="S0011.html" class="btn btn-default"> get登録</a>
-						<!-- <button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i>登 録</button> -->
 					</div>
 				</div>
 

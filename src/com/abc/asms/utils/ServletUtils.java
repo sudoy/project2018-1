@@ -352,4 +352,45 @@ public class ServletUtils {
 		}
 	}
 
+
+	// S0011専用
+	public static String registerId() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		String registerId = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT sale_id FROM sales ORDER BY sale_id DESC LIMIT 1";
+
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+
+			rs.next();
+
+			registerId = rs.getString("sale_id");
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+		return registerId;
+
+	}
+
 }

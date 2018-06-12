@@ -9,8 +9,6 @@
 </head>
 <body>
 	<jsp:include page="_navbar.jsp" />
-	<jsp:include page="_successes.jsp" />
-	<jsp:include page="_errors.jsp" />
 
 	<div class="container">
 
@@ -95,8 +93,8 @@
 
 				<div class="form-group">
 					<div class="col-sm-offset-3">
-						<input type="submit" class="btn btn-primary" value="O K"> <a
-							href="S0010.html" class="btn btn-default"> キャンセル</a>
+						<input type="submit" name="OK" class="btn btn-primary" value="O K">
+						<input type="submit" name="NG" class="btn btn-default" value="キャンセル">
 					</div>
 				</div>
 
