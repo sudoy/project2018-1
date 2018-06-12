@@ -32,7 +32,6 @@ public class S0024Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
-		System.out.println(req.getParameter("sale_date"));
 
 		//カテゴリーリスト
 		List<String> categoryList = ServletUtils.categoryList(req);
@@ -160,11 +159,15 @@ public class S0024Servlet extends HttpServlet {
 		// 担当の必須入力
 		if (req.getParameter("account").equals("")) {
 			list.add("担当が未選択です。");
+		}else if (ServletUtils.matchAccount(req.getParameter("account")) == false) {
+			list.add("アカウントテーブルに存在しません。");
 		}
 
 		//カテゴリーの必須入力
 		if (req.getParameter("category").equals("")) {
 			list.add("商品カテゴリーが未選択です。");
+		}else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
+			list.add("商品カテゴリーテーブルに存在しません。");
 		}
 
 		//商品名の必須入力
@@ -205,6 +208,10 @@ public class S0024Servlet extends HttpServlet {
 		if(req.getParameter("note").length() > 400) {
 			list.add("備考が長すぎます。");
 		}
+
+		//アカウントテーブル存在チェック
+		//商品カテゴリー存在チェック
+
 
 		return list;
 	}

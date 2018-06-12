@@ -31,7 +31,7 @@
 						<label for="salesDate" class="col-sm-2 control-label">販売日 <span class="badge">必須</span></label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日"
-							 value="${param.sale_date != null ? HTMLUtils.parseDate(param.saleDate) : HTMLUtils.parseDate(list.saleDate)}">
+							 value="${param.sale_date != null ? param.sale_date : HTMLUtils.parseDate(list.saleDate)}">
 						</div>
 					</div>
 
