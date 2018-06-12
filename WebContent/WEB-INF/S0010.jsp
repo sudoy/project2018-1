@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -74,7 +75,7 @@
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
 							placeholder="単価" value="${param.unitPrice}" name="unitPrice">
-					</div>
+					</div>${fn:replace(param.unitPrice, ",", "")}
 				</div>
 
 				<div class="form-group">
@@ -96,7 +97,7 @@
 
 				<div class="form-group">
 					<div class="col-sm-offset-3">
-						<input type="submit" class="btn btn-primary" value="登 録">
+						<button type="submit" class="btn btn-primary" value="登 録"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 登 録</button>
 					</div>
 				</div>
 

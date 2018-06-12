@@ -36,7 +36,6 @@ public class S0010Servlet extends HttpServlet {
 	}
 
 
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -47,17 +46,9 @@ public class S0010Servlet extends HttpServlet {
 		List<String> accountList = ServletUtils.accountList(req);
 		req.setAttribute("accountList", accountList);
 
-		String saleDate = req.getParameter("saleDate");
-		String account = req.getParameter("account");
-		String category = req.getParameter("category");
-		String tradeName = req.getParameter("tradeName");
-		String unitPrice = req.getParameter("unitPrice");
-		String saleNumber = req.getParameter("saleNumber");
-		String note = req.getParameter("note");
-
 		//バリデーションチェック
-		List<String> errors = validate(saleDate, account, category, tradeName, unitPrice, saleNumber, note);
-		if (errors.size() > 0) {
+		List<String> errors = validate(req);
+		if (errors.size() != 0) {
 			req.setAttribute("errors", errors);
 			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
 			return;
@@ -67,16 +58,16 @@ public class S0010Servlet extends HttpServlet {
 	}
 
 
-	private List<String> validate(String saleDate, String account, String category, String tradeName, String unitPrice, String saleNumber, String note) {
+	private List<String> validate(HttpServletRequest req) {
 		List<String> errors = new ArrayList<>();
 
 		// 販売日の必須入力
-		if (saleDate.equals("") || saleDate == null) {
+		if (req.getParameter("saleDate").equals("") || req.getParameter("saleDate") == null) {
 			errors.add("販売日を入力して下さい。");
 		}
-		if(!saleDate.equals("")) {
+		if(!req.getParameter("saleDate").equals("")) {
 			try {
-				LocalDate.parse(saleDate, DateTimeFormatter.ofPattern("uuuu/M/d")
+				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("uuuu/M/d")
 						.withResolverStyle(ResolverStyle.STRICT));
 			} catch (Exception p) {
 				errors.add("販売日を正しく入力して下さい。");
@@ -84,38 +75,38 @@ public class S0010Servlet extends HttpServlet {
 		}
 
 		// 担当の必須入力
-		if (account.equals("") || account == null) {
+		if (req.getParameter("account").equals("") || req.getParameter("account") == null) {
 			errors.add("担当が未選択です。");
-		} else if (ServletUtils.matchAccount(account) == false) {
+		} else if (ServletUtils.matchAccount(req.getParameter("account")) == false) {
 			errors.add("アカウントテーブルに存在しません。");
 		}
 
 		//カテゴリーの必須入力
-		if (category.equals("") || category == null) {
+		if (req.getParameter("category").equals("") || req.getParameter("category") == null) {
 			errors.add("商品カテゴリーが未選択です。");
-		} else if (ServletUtils.matchCategory(category) == false) {
+		} else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
 			errors.add("商品カテゴリーテーブルに存在しません。");
 		}
 
 		//商品名の必須入力
-		if (tradeName.equals("") || tradeName == null) {
+		if (req.getParameter("tradeName").equals("") || req.getParameter("tradeName") == null) {
 			errors.add("商品名を入力して下さい。");
-		} else if(tradeName.length() > 100) {
+		} else if(req.getParameter("tradeName").length() > 100) {
 			errors.add("商品名が長すぎます。");
 		}
 
 		//単価の必須入力
-		if (unitPrice.equals("") || unitPrice == null) {
+		if (req.getParameter("unitPrice").equals("") || req.getParameter("unitPrice") == null) {
 			errors.add("単価を入力して下さい。");
 		}
-		else if(unitPrice.length() > 9) {
+		else if(req.getParameter("unitPrice").length() > 9) {
 			errors.add("単価が長すぎます。");
 		}
 		// 単価形式のチェック
-		int a = 0;
+		int check1 = 0;
 		try {
-			a = Integer.parseInt(unitPrice);
-			if (!unitPrice.equals("") && a < 1) {
+			check1 = Integer.parseInt(req.getParameter("unitPrice"));
+			if (!req.getParameter("unitPrice").equals("") && check1 < 1) {
 				errors.add("単価を正しく入力して下さい。");
 			}
 		} catch(Exception e) {
@@ -123,17 +114,17 @@ public class S0010Servlet extends HttpServlet {
 		}
 
 		//個数の必須入力
-		if (saleNumber.equals("") || saleNumber == null) {
+		if (req.getParameter("saleNumber").equals("") || req.getParameter("saleNumber") == null) {
 			errors.add("個数を入力して下さい。");
 		}
-		if(saleNumber.length() > 9) {
+		if(req.getParameter("saleNumber").length() > 9) {
 			errors.add("個数が長すぎます。");
 		}
 		// 個数形式のチェック
-		int b = 0;
+		int check2 = 0;
 		try {
-			b = Integer.parseInt(unitPrice);
-			if (!saleNumber.equals("") && b < 1) {
+			check2 = Integer.parseInt(req.getParameter("saleNumber"));
+			if (!req.getParameter("saleNumber").equals("") && check2 < 1) {
 				errors.add("個数を正しく入力して下さい。");
 			}
 		} catch(Exception e) {
@@ -141,7 +132,7 @@ public class S0010Servlet extends HttpServlet {
 		}
 
 		// 備考の長さチェック
-		if(note.length() > 400) {
+		if(req.getParameter("note").length() > 400) {
 			errors.add("備考が長すぎます。");
 		}
 

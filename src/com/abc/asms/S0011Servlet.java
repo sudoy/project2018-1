@@ -43,50 +43,47 @@ public class S0011Servlet extends HttpServlet {
 		String saleNumber = req.getParameter("saleNumber");
 		String note = req.getParameter("note");
 
-
 		if(req.getParameter("NG") != null) {
 			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
-		}else {
+			return;
+		}
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
 
-			Connection con = null;
-			PreparedStatement ps = null;
-			String sql = null;
+		try {
+			con = DBUtils.getConnection();
 
+			sql = "INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number, note) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?)";
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, saleDate);
+			ps.setString(2, ServletUtils.pairAccount(account));
+			ps.setString(3, ServletUtils.pairCategory(category));
+			ps.setString(4, tradeName);
+			ps.setString(5, unitPrice.replaceAll(",",""));
+			ps.setString(6, saleNumber.replaceAll(",",""));
+			ps.setString(7, note);
+
+			ps.executeUpdate();
+			List<String> successes = new ArrayList<>();
+			successes.add("No" + ServletUtils.registerId() + "の売上を登録しました。");
+			session.setAttribute("successes", successes);
+
+			resp.sendRedirect("S0010.html");
+
+		} catch (Exception e) {
+			throw new ServletException(e);
+		} finally {
 			try {
-				con = DBUtils.getConnection();
-
-				sql = "INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number, note) " +
-						"VALUES (?, ?, ?, ?, ?, ?, ?)";
-				ps = con.prepareStatement(sql);
-
-				ps.setString(1, saleDate);
-				ps.setString(2, ServletUtils.pairAccount(account));
-				ps.setString(3, ServletUtils.pairCategory(category));
-				ps.setString(4, tradeName);
-				ps.setString(5, unitPrice);
-				ps.setString(6, saleNumber);
-				ps.setString(7, note);
-
-				ps.executeUpdate();
-				List<String> successes = new ArrayList<>();
-				// 登録確認画面に遷移しないといけないから、もしかしたらここの記述変わるかもしれんね
-				successes.add("No" + ServletUtils.registerId() + "の売上を登録しました。");
-				session.setAttribute("successes", successes);
-
-				resp.sendRedirect("S0010.html");
-
-			} catch (Exception e) {
-				throw new ServletException(e);
-			} finally {
-				try {
-					if (con != null) {
-						con.close();
-					}
-					if (ps != null) {
-						ps.close();
-					}
-				} catch (Exception e) {
+				if (con != null) {
+					con.close();
 				}
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
 			}
 		}
 	}

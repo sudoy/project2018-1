@@ -70,7 +70,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
-							placeholder="単価" value="${param.unitPrice}" name="unitPrice" readonly>
+							placeholder="単価" value="<fmt:formatNumber value="${param.unitPrice}" />" name="unitPrice" readonly>
 					</div>
 				</div>
 
@@ -93,8 +93,8 @@
 
 				<div class="form-group">
 					<div class="col-sm-offset-3">
-						<input type="submit" name="OK" class="btn btn-primary" value="O K">
-						<input type="submit" name="NG" class="btn btn-default" value="キャンセル">
+						<button type="submit" name="OK" class="btn btn-primary" value="O K"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O K</button>
+						<button type="submit" name="NG" class="btn btn-default" value="キャンセル"> キャンセル</button>
 					</div>
 				</div>
 
