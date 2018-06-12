@@ -24,7 +24,7 @@ public class S0010Servlet extends HttpServlet {
 		LocalDate ld = LocalDate.now();
 
 		// 表示月とその月初末の変数宣言
-		String today = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(ld);;
+		String today = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(ld);
 		req.setAttribute("today", today);
 
 		List<String> categoryList = ServletUtils.categoryList(req);
@@ -112,7 +112,13 @@ public class S0010Servlet extends HttpServlet {
 			errors.add("単価が長すぎます。");
 		}
 		// 単価形式のチェック
-		if (!unitPrice.equals("") && Integer.parseInt(unitPrice) < 1) {
+		int a = 0;
+		try {
+			a = Integer.parseInt(unitPrice);
+			if (!unitPrice.equals("") && a < 1) {
+				errors.add("単価を正しく入力して下さい。");
+			}
+		} catch(Exception e) {
 			errors.add("単価を正しく入力して下さい。");
 		}
 
@@ -124,7 +130,13 @@ public class S0010Servlet extends HttpServlet {
 			errors.add("個数が長すぎます。");
 		}
 		// 個数形式のチェック
-		if (!saleNumber.equals("") && Integer.parseInt(saleNumber) < 1) {
+		int b = 0;
+		try {
+			b = Integer.parseInt(unitPrice);
+			if (!saleNumber.equals("") && b < 1) {
+				errors.add("個数を正しく入力して下さい。");
+			}
+		} catch(Exception e) {
 			errors.add("個数を正しく入力して下さい。");
 		}
 
