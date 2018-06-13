@@ -156,8 +156,7 @@ public class S0010Servlet extends HttpServlet {
 		//個数の必須入力
 		if (req.getParameter("saleNumber").equals("") || req.getParameter("saleNumber") == null) {
 			errors.add("個数を入力して下さい。");
-		}
-		if(req.getParameter("saleNumber").length() > 9) {
+		}else if(req.getParameter("saleNumber").length() > 9) {
 			errors.add("個数が長すぎます。");
 		}
 		// 個数形式のチェック

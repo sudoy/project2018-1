@@ -26,8 +26,8 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							value="${param.saleDate != null ? param.saleDate : HTMLUtils.parseDate(sales.saleDate) != null ? HTMLUtils.parseDate(sales.saleDate) : today}"
-							name="saleDate">
+							value="${param.saleDate != null ? param.saleDate : HTMLUtils.parseDate(sales.saleDate) == null ? today : HTMLUtils.parseDate(sales.saleDate)}"
+							name="saleDate" placeholder="販売日">
 					</div>
 				</div>
 
@@ -39,7 +39,7 @@
 							<option value="">選択してください</option>
 							<c:forEach var="account" items="${accountMap}">
 								<option value="${account.key}"
-									${param.account == account.key ? 'selected' : sales.account == account.key ? 'selected' : ''}>${account.value}</option>
+									${param.account == "" ? "" : param.account == account.key ? 'selected' : sales.account == account.key ? 'selected' : ''}>${account.value}</option>
 							</c:forEach>
 						</select>
 					</div>

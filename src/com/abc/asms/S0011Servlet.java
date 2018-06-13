@@ -61,10 +61,10 @@ public class S0011Servlet extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
 
-		List<String> categoryList = ServletUtils.categoryList(req);
-		req.setAttribute("categoryList", categoryList);
-		List<String> accountList = ServletUtils.accountList(req);
-		req.setAttribute("accountList", accountList);
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
 
 		String saleDate = req.getParameter("saleDate");
 		String account = req.getParameter("account");
