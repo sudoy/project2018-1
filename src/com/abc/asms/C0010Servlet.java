@@ -71,6 +71,7 @@ public class C0010Servlet extends HttpServlet {
 			Accounts accounts = new Accounts( rs.getInt("account_id"), rs.getString("name"),
 					rs.getString("mail"), rs.getString("password"), rs.getInt("authority"));
 
+
 			session.setAttribute("accounts", accounts);
 			resp.sendRedirect("C0020.html");
 		}catch(Exception e){

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.abc.asms.utils.HTMLUtils" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -23,13 +24,13 @@
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" id="salesDate" name="start" placeholder="販売日(検索開始日)" value="${param.start}">
+							<input type="text" class="form-control" id="salesDate" name="start" placeholder="販売日(検索開始日)" value="${param.start == null ? stringToday : param.start}">
 						</div>
 
 						<div class="form-control-static col-sm-1 text-center">～</div>
 
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="end" placeholder="販売日(検索終了日)" value="${param.end}">
+							<input type="text" class="form-control" name="end" placeholder="販売日(検索終了日)" value="${param.end == null ? stringToday : param.end}">
 						</div>
 					</div>
 
@@ -82,6 +83,7 @@
 			</div>
 
 		</div><!-- /container -->
+
 
 		<jsp:include page="_footer.jsp" />
 
