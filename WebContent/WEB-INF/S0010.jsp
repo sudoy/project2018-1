@@ -74,8 +74,8 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
-							placeholder="単価" value="${param.unitPrice}" name="unitPrice">
-					</div>${fn:replace(param.unitPrice, ",", "")}
+							placeholder="単価" value="${HTMLUtils.DeleteComma(param.unitPrice)}" name="unitPrice">
+					</div>
 				</div>
 
 				<div class="form-group">
