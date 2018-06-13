@@ -84,7 +84,7 @@ public class C0020Servlet extends HttpServlet {
 			while(rs.next()) {
 				Sales a = new Sales(
 						rs.getInt("sale_id"),
-						rs.getDate("sale_date"),
+						LocalDate.parse(rs.getString("sale_date"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
 						rs.getString("name"),
 						rs.getString("category_name"),
 						rs.getString("trade_name"),
