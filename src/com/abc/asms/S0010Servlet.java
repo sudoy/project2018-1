@@ -76,12 +76,12 @@ public class S0010Servlet extends HttpServlet {
 		req.setAttribute("accountMap", accountMap);
 
 		//バリデーションチェック
-//		List<String> errors = validate(req);
-//		if (errors.size() != 0) {
-//			req.setAttribute("errors", errors);
-//			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
-//			return;
-//		}
+		List<String> errors = validate(req);
+		if (errors.size() != 0) {
+			req.setAttribute("errors", errors);
+			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
+			return;
+		}
 
 		Sales sales = new Sales(0,
 				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),

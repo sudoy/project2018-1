@@ -3,6 +3,8 @@ package com.abc.asms;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
+import com.abc.asms.utils.HTMLUtils;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0011.html")
@@ -50,9 +54,9 @@ public class S0011Servlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		if(checked(req, resp) == false) {
-//			return;
-//		}
+		//		if(checked(req, resp) == false) {
+		//			return;
+		//		}
 
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
@@ -71,7 +75,17 @@ public class S0011Servlet extends HttpServlet {
 		String note = req.getParameter("note");
 
 		if(req.getParameter("NG") != null) {
-//			session.setAttribute("list", list);
+
+			Sales sales = new Sales(0,
+					LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
+					req.getParameter("account"),
+					req.getParameter("category"),
+					req.getParameter("tradeName"),
+					Integer.parseInt(HTMLUtils.deleteComma(req.getParameter("unitPrice"))),
+					Integer.parseInt(HTMLUtils.deleteComma(req.getParameter("saleNumber"))),
+					req.getParameter("note"));
+
+			session.setAttribute("sales", sales);
 			resp.sendRedirect("S0010.html");
 			return;
 		}
@@ -91,8 +105,8 @@ public class S0011Servlet extends HttpServlet {
 			ps.setString(2, account);
 			ps.setString(3, category);
 			ps.setString(4, tradeName);
-			ps.setString(5, unitPrice.replaceAll(",",""));
-			ps.setString(6, saleNumber.replaceAll(",",""));
+			ps.setString(5, HTMLUtils.deleteComma(unitPrice));
+			ps.setString(6, HTMLUtils.deleteComma(saleNumber));
 			ps.setString(7, note);
 
 			ps.executeUpdate();

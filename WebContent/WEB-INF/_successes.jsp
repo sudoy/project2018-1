@@ -15,6 +15,7 @@
 				</ul>
 			</div>
 			<% session.setAttribute("successes", null); %>
+			<% session.setAttribute("sales", null); %>
 		</c:if>
 	</div>
 </div><!-- row -->

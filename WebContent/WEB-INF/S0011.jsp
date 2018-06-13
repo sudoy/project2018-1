@@ -23,7 +23,7 @@
 					<label for="saleDate" class="col-sm-2 control-label">販売日 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							 value="${sales.saleDate}" name="saleDate" readonly>
+							 value="${HTMLUtils.parseDate(sales.saleDate)}" name="saleDate" readonly>
 					</div>
 				</div>
 
@@ -33,7 +33,7 @@
 						<select class="form-control" id="person" name="account" readonly>
 							<c:forEach var="account" items="${accountMap}">
 								<option value="${account.key}"
-									${sales.account == account.key ? 'checked' : ''}>${account.value}</option>
+									${sales.account == account.key ? 'selected' : 'disabled'}>${account.value}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -45,7 +45,7 @@
 						<c:forEach var="category" items="${categoryMap}">
 							<label class="radio-inline"> <input type="radio"
 								name="category" value="${category.key}"
-								${sales.category == category.key ? 'selected' : ''}>${category.value}
+								${sales.category == category.key ? 'checked readonly' : 'disabled'}>${category.value}
 							</label>
 						</c:forEach>
 					</div>

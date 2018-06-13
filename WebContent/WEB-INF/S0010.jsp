@@ -26,7 +26,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							value="${param.saleDate == null ? today : param.saleDate}"
+							value="${param.saleDate != null ? param.saleDate : HTMLUtils.parseDate(sales.saleDate) != null ? HTMLUtils.parseDate(sales.saleDate) : today}"
 							name="saleDate">
 					</div>
 				</div>
@@ -39,7 +39,7 @@
 							<option value="">選択してください</option>
 							<c:forEach var="account" items="${accountMap}">
 								<option value="${account.key}"
-									${param.account == account.key ? 'selected' : ''}>${account.value}</option>
+									${param.account == account.key ? 'selected' : sales.account == account.key ? 'selected' : ''}>${account.value}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -53,7 +53,7 @@
 						<c:forEach var="category" items="${categoryMap}">
 							<label class="radio-inline"> <input type="radio"
 								name="category" value="${category.key}"
-								${param.category == category.key ? 'checked' : ''}>${category.value}
+								${param.category == category.key ? 'checked' :sales.category == category.key ? 'checked' : ''}>${category.value}
 							</label>
 						</c:forEach>
 					</div>
@@ -64,7 +64,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name"
-							placeholder="商品名" value="${param.tradeName}" name="tradeName">
+							placeholder="商品名" value="${param.tradeName != null ? param.tradeName : sales.tradeName}" name="tradeName">
 					</div>
 				</div>
 
@@ -73,9 +73,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
-							placeholder="単価"
-							value="${HTMLUtils.DeleteComma(param.unitPrice)}"
-							name="unitPrice">
+							placeholder="単価" value="${param.unitPrice != null ? param.unitPrice : sales.unitPrice}" name="unitPrice">
 					</div>
 				</div>
 
@@ -84,7 +82,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="count"
-							placeholder="個数" value="${param.saleNumber}" name="saleNumber">
+							placeholder="個数" value="${param.saleNumber != null ? param.saleNumber : sales.saleNumber}" name="saleNumber">
 					</div>
 				</div>
 
@@ -92,7 +90,7 @@
 					<label for="note" class="col-sm-2 control-label">備考 </label>
 					<div class="col-sm-5">
 						<textarea class="form-control" id="note" placeholder="備考" rows="5"
-							name="note">${param.note}</textarea>
+							name="note">${param.note != null ? param.note : sales.note}</textarea>
 					</div>
 				</div>
 
