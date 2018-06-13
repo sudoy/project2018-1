@@ -1,11 +1,11 @@
 package com.abc.asms.beans;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Sales {
 
 	private int saleId;
-	private Date saleDate;
+	private LocalDate saleDate;
 	private String account;
 	private String category;
 	private String tradeName;
@@ -13,7 +13,7 @@ public class Sales {
 	private int saleNumber;
 	private String note;
 
-	public Sales(int saleId, Date saleDate, String account, String category, String tradeName, int unitPrice, int saleNumber,
+	public Sales(int saleId, LocalDate saleDate, String account, String category, String tradeName, int unitPrice, int saleNumber,
 			String note) {
 		super();
 		this.saleId = saleId;
@@ -32,10 +32,10 @@ public class Sales {
 	public void setSaleId(int saleId) {
 		this.saleId = saleId;
 	}
-	public Date getSaleDate() {
+	public LocalDate getSaleDate() {
 		return saleDate;
 	}
-	public void setSaleDate(Date saleDate) {
+	public void setSaleDate(LocalDate saleDate) {
 		this.saleDate = saleDate;
 	}
 	public String getAccount() {
