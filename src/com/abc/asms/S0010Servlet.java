@@ -83,7 +83,6 @@ public class S0010Servlet extends HttpServlet {
 //			return;
 //		}
 
-
 		Sales sales = new Sales(0,
 				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
 				req.getParameter("account"),
@@ -93,13 +92,6 @@ public class S0010Servlet extends HttpServlet {
 				Integer.parseInt(req.getParameter("saleNumber")),
 				req.getParameter("note"));
 
-		System.out.println(LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")) +
-				req.getParameter("account") +
-				req.getParameter("category") +
-				req.getParameter("tradeName") +
-				Integer.parseInt(req.getParameter("unitPrice")) +
-				Integer.parseInt(req.getParameter("saleNumber")) +
-				req.getParameter("note"));
 
 		session.setAttribute("sales", sales);
 		resp.sendRedirect("S0011.html");

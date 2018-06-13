@@ -39,8 +39,6 @@ public class S0011Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
-
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
