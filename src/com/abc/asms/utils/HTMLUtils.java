@@ -2,6 +2,7 @@ package com.abc.asms.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 public class HTMLUtils {
 
@@ -32,4 +33,25 @@ public class HTMLUtils {
 		return s;
 
 	}
+
+	public static String DeleteComma(String strNum) {
+
+	      //トークン格納用
+	      String strNextToken = "";
+
+	      //戻り値格納用(編集後数値)
+	      String strNewNum = "";
+
+	      StringTokenizer st = new StringTokenizer(strNum, ",");
+
+	      //トークンが存在する間ループし変数にトークンを格納
+	      while (st.hasMoreTokens()) {
+	        strNextToken = st.nextToken();
+	        strNewNum += strNextToken;
+	      }
+
+	      return strNewNum;
+
+	    }
+
 }

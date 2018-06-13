@@ -18,14 +18,39 @@ import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0011.html")
 public class S0011Servlet extends HttpServlet {
+
+	// 売上関係用権限チェック、のちに共通化する
+	public static boolean checked(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+		HttpSession session = req.getSession();
+
+		if(session.getAttribute("authority").equals("1") || session.getAttribute("authority").equals("11")) {
+			return true;
+		} else {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("C0020.html");
+			return false;
+		}
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+//		if(checked(req, resp) == false) {
+//			return;
+//		}
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0011.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+//		if(checked(req, resp) == false) {
+//			return;
+//		}
 
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
@@ -47,6 +72,7 @@ public class S0011Servlet extends HttpServlet {
 			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
 			return;
 		}
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;

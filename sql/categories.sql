@@ -11,4 +11,5 @@ INSERT INTO categories VALUES (4, '酒類', 1);
 INSERT INTO categories VALUES (5, '冷凍食品', 1);
 INSERT INTO categories VALUES (6, 'たばこ', 1);
 INSERT INTO categories VALUES (7, 'その他', 1);
-
+INSERT INTO categories(category_name, active_flg) VALUES ('嗜好品', 0);
+INSERT INTO categories(category_name, active_flg) VALUES ('新聞', 0);

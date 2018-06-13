@@ -12,18 +12,40 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0010.html")
 public class S0010Servlet extends HttpServlet {
 
+
+	// 売上関係用権限チェック、のちに共通化する
+	public static boolean checked(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+		HttpSession session = req.getSession();
+
+		if(session.getAttribute("authority").equals("1") || session.getAttribute("authority").equals("11")) {
+			return true;
+		} else {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("C0020.html");
+			return false;
+		}
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+//		if(checked(req, resp) == false) {
+//			return;
+//		}
+
 		LocalDate ld = LocalDate.now();
 
-		// 表示月とその月初末の変数宣言
+		// 本日表示用
 		String today = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(ld);
 		req.setAttribute("today", today);
 
@@ -38,6 +60,10 @@ public class S0010Servlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+//		if(checked(req, resp) == false) {
+//			return;
+//		}
 
 		req.setCharacterEncoding("utf-8");
 
