@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,9 +39,12 @@ public class S0011Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		if(checked(req, resp) == false) {
-//			return;
-//		}
+
+
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0011.jsp").forward(req, resp);
 	}
@@ -69,7 +73,8 @@ public class S0011Servlet extends HttpServlet {
 		String note = req.getParameter("note");
 
 		if(req.getParameter("NG") != null) {
-			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
+//			session.setAttribute("list", list);
+			resp.sendRedirect("S0010.html");
 			return;
 		}
 
@@ -85,8 +90,8 @@ public class S0011Servlet extends HttpServlet {
 			ps = con.prepareStatement(sql);
 
 			ps.setString(1, saleDate);
-			ps.setString(2, ServletUtils.pairAccount(account));
-			ps.setString(3, ServletUtils.pairCategory(category));
+			ps.setString(2, account);
+			ps.setString(3, category);
 			ps.setString(4, tradeName);
 			ps.setString(5, unitPrice.replaceAll(",",""));
 			ps.setString(6, saleNumber.replaceAll(",",""));

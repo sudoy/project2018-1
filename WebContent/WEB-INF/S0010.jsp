@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="com.abc.asms.beans.*"%>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -37,9 +37,9 @@
 					<div class="col-sm-5">
 						<select class="form-control" id="person" name="account">
 							<option value="">選択してください</option>
-							<c:forEach var="account" items="${accountList}">
-								<option value="${account}"
-									${param.account == account ? 'selected' : ''}>${account}</option>
+							<c:forEach var="account" items="${accountMap}">
+								<option value="${account.key}"
+									${param.account == account.key ? 'selected' : ''}>${account.value}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -50,13 +50,12 @@
 						<span class="badge">必須</span>
 					</label>
 					<div class="col-sm-5">
-						<select class="form-control" name="category" id="category">
-							<option value="">選択してください</option>
-							<c:forEach var="category" items="${categoryList}">
-								<option value="${category}"
-									${param.category == category ? 'selected' : ''}>${category}</option>
-							</c:forEach>
-						</select>
+						<c:forEach var="category" items="${categoryMap}">
+							<label class="radio-inline"> <input type="radio"
+								name="category" value="${category.key}"
+								${param.category == category.key ? 'checked' : ''}>${category.value}
+							</label>
+						</c:forEach>
 					</div>
 				</div>
 
@@ -74,7 +73,9 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
-							placeholder="単価" value="${HTMLUtils.DeleteComma(param.unitPrice)}" name="unitPrice">
+							placeholder="単価"
+							value="${HTMLUtils.DeleteComma(param.unitPrice)}"
+							name="unitPrice">
 					</div>
 				</div>
 
@@ -97,7 +98,10 @@
 
 				<div class="form-group">
 					<div class="col-sm-offset-3">
-						<button type="submit" class="btn btn-primary" value="登 録"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 登 録</button>
+						<button type="submit" class="btn btn-primary" value="登 録">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 登
+							録
+						</button>
 					</div>
 				</div>
 

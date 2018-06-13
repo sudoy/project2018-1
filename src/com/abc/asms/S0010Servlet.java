@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0010.html")
@@ -49,10 +51,10 @@ public class S0010Servlet extends HttpServlet {
 		String today = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(ld);
 		req.setAttribute("today", today);
 
-		List<String> categoryList = ServletUtils.categoryList(req);
-		req.setAttribute("categoryList", categoryList);
-		List<String> accountList = ServletUtils.accountList(req);
-		req.setAttribute("accountList", accountList);
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
 	}
@@ -66,21 +68,41 @@ public class S0010Servlet extends HttpServlet {
 //		}
 
 		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
 
-		List<String> categoryList = ServletUtils.categoryList(req);
-		req.setAttribute("categoryList", categoryList);
-		List<String> accountList = ServletUtils.accountList(req);
-		req.setAttribute("accountList", accountList);
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
 
 		//バリデーションチェック
-		List<String> errors = validate(req);
-		if (errors.size() != 0) {
-			req.setAttribute("errors", errors);
-			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
-			return;
-		}
+//		List<String> errors = validate(req);
+//		if (errors.size() != 0) {
+//			req.setAttribute("errors", errors);
+//			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
+//			return;
+//		}
 
-		getServletContext().getRequestDispatcher("/WEB-INF/S0011.jsp").forward(req, resp);
+
+		Sales sales = new Sales(0,
+				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
+				req.getParameter("account"),
+				req.getParameter("category"),
+				req.getParameter("tradeName"),
+				Integer.parseInt(req.getParameter("unitPrice")),
+				Integer.parseInt(req.getParameter("saleNumber")),
+				req.getParameter("note"));
+
+		System.out.println(LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")) +
+				req.getParameter("account") +
+				req.getParameter("category") +
+				req.getParameter("tradeName") +
+				Integer.parseInt(req.getParameter("unitPrice")) +
+				Integer.parseInt(req.getParameter("saleNumber")) +
+				req.getParameter("note"));
+
+		session.setAttribute("sales", sales);
+		resp.sendRedirect("S0011.html");
 	}
 
 

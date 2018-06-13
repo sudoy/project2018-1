@@ -19,46 +19,39 @@
 		<div class="row">
 			<form class="form-horizontal" action="S0011.html" method="post">
 				<div class="form-group">
-					<label for="saleDate" class="col-sm-2 control-label">販売日 <span
-						class="badge">必須</span></label>
+					<label for="saleDate" class="col-sm-2 control-label">販売日 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							 value="${param.saleDate}" name="saleDate" readonly>
+							 value="${sales.saleDate}" name="saleDate" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="person" class="col-sm-2 control-label">担当 <span
-						class="badge">必須</span></label>
+					<label for="person" class="col-sm-2 control-label">担当 </label>
 					<div class="col-sm-5">
-						<select class="form-control" id="person" name="account">
-							<option value="" disabled>選択してください</option>
-							<c:forEach var="account" items="${accountList}">
-								<option value="${account}"
-									${param.account == account ? 'selected' : 'disabled'}>${account}</option>
+						<select class="form-control" id="person" name="account" readonly>
+							<c:forEach var="account" items="${accountMap}">
+								<option value="${account.key}"
+									${param.account == account.key ? 'checked' : ''}>${account.value}</option>
 							</c:forEach>
 						</select>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="category" class="col-sm-2 control-label">商品カテゴリー
-						<span class="badge">必須</span>
-					</label>
+					<label for="category" class="col-sm-2 control-label">商品カテゴリー </label>
 					<div class="col-sm-5">
-						<select class="form-control" name="category" id="category">
-							<option value="" disabled>選択してください</option>
-							<c:forEach var="category" items="${categoryList}">
-								<option value="${category}"
-									${param.category == category ? 'selected' : 'disabled'}>${category}</option>
-							</c:forEach>
-						</select>
+						<c:forEach var="category" items="${categoryMap}">
+							<label class="radio-inline"> <input type="radio"
+								name="category" value="${category.key}"
+								${param.category == category.key ? 'selected' : ''}>${category.value}
+							</label>
+						</c:forEach>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="name" class="col-sm-2 control-label">商品名 <span
-						class="badge">必須</span></label>
+					<label for="name" class="col-sm-2 control-label">商品名 </label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name"
 							placeholder="商品名" value="${param.tradeName}" name="tradeName" readonly>
@@ -66,8 +59,7 @@
 				</div>
 
 				<div class="form-group">
-					<label for="price" class="col-sm-2 control-label">単価 <span
-						class="badge">必須</span></label>
+					<label for="price" class="col-sm-2 control-label">単価 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
 							placeholder="単価" value="<fmt:formatNumber value="${param.unitPrice}" />" name="unitPrice" readonly>
@@ -75,11 +67,18 @@
 				</div>
 
 				<div class="form-group">
-					<label for="count" class="col-sm-2 control-label">個数 <span
-						class="badge">必須</span></label>
+					<label for="count" class="col-sm-2 control-label">個数 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="count"
-							placeholder="個数" value="${param.saleNumber}" name="saleNumber" readonly>
+							placeholder="個数" value="<fmt:formatNumber value="${param.saleNumber}" />" name="saleNumber" readonly>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="count" class="col-sm-2 control-label">小計 </label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control text-right" id="count"
+							placeholder="個数" value="<fmt:formatNumber value="${param.saleNumber}" />" name="saleNumber" readonly>
 					</div>
 				</div>
 
