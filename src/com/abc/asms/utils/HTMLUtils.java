@@ -1,20 +1,18 @@
 package com.abc.asms.utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.StringTokenizer;
 
 public class HTMLUtils {
 
-	public static String parseDate(Date date) {
-
+	public static String parseDate(LocalDate date) {
 		String s = "";
 		if(date == null) {
 			return "";
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		s = sdf.format(date);
-
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		s = f.format(date);
 		return s;
 
 	}
