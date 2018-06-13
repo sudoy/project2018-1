@@ -22,7 +22,7 @@ import com.abc.asms.utils.ServletUtils;
 public class S0010Servlet extends HttpServlet {
 
 
-	// 売上関係用権限チェック、のちに共通化する
+	// 売上関係用権限チェック、のちに共通化する、Accountsに格納してるから取ってくる
 	public static boolean checked(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 		HttpSession session = req.getSession();
@@ -41,9 +41,9 @@ public class S0010Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		if(checked(req, resp) == false) {
-//			return;
-//		}
+		//		if(checked(req, resp) == false) {
+		//			return;
+		//		}
 
 		LocalDate ld = LocalDate.now();
 
@@ -63,9 +63,9 @@ public class S0010Servlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		if(checked(req, resp) == false) {
-//			return;
-//		}
+		//		if(checked(req, resp) == false) {
+		//			return;
+		//		}
 
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
@@ -141,16 +141,17 @@ public class S0010Servlet extends HttpServlet {
 		}
 		else if(req.getParameter("unitPrice").length() > 9) {
 			errors.add("単価が長すぎます。");
-		}
-		// 単価形式のチェック
-		int check1 = 0;
-		try {
-			check1 = Integer.parseInt(req.getParameter("unitPrice"));
-			if (!req.getParameter("unitPrice").equals("") && check1 < 1) {
+		} else {
+			// 単価形式のチェック
+			int check1 = 0;
+			try {
+				check1 = Integer.parseInt(req.getParameter("unitPrice"));
+				if (!req.getParameter("unitPrice").equals("") && check1 < 1) {
+					errors.add("単価を正しく入力して下さい。");
+				}
+			} catch(Exception e) {
 				errors.add("単価を正しく入力して下さい。");
 			}
-		} catch(Exception e) {
-			errors.add("単価を正しく入力して下さい。");
 		}
 
 		//個数の必須入力
@@ -158,16 +159,17 @@ public class S0010Servlet extends HttpServlet {
 			errors.add("個数を入力して下さい。");
 		}else if(req.getParameter("saleNumber").length() > 9) {
 			errors.add("個数が長すぎます。");
-		}
-		// 個数形式のチェック
-		int check2 = 0;
-		try {
-			check2 = Integer.parseInt(req.getParameter("saleNumber"));
-			if (!req.getParameter("saleNumber").equals("") && check2 < 1) {
+		} else {
+			// 個数形式のチェック
+			int check2 = 0;
+			try {
+				check2 = Integer.parseInt(req.getParameter("saleNumber"));
+				if (!req.getParameter("saleNumber").equals("") && check2 < 1) {
+					errors.add("個数を正しく入力して下さい。");
+				}
+			} catch(Exception e) {
 				errors.add("個数を正しく入力して下さい。");
 			}
-		} catch(Exception e) {
-			errors.add("個数を正しく入力して下さい。");
 		}
 
 		// 備考の長さチェック
