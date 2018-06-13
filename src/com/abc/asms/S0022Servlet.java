@@ -4,14 +4,16 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.abc.asms.beans.SaleList;
+import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
 
 @WebServlet("/S0022.html")
@@ -19,6 +21,8 @@ public class S0022Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		//セッションaccountsの読み込み
+		HttpSession session = req.getSession();
 
 		req.setCharacterEncoding("utf-8");
 
@@ -36,7 +40,8 @@ public class S0022Servlet extends HttpServlet {
 			String id = req.getParameter("sale_id");
 
 			//SQL
-			sql = "select s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price, s.sale_number, s.unit_price * s.sale_number as total, s.note " +
+			sql = "select s.sale_id, s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price," +
+					"s.sale_number, s.note " +
 					"FROM sales s " +
 					"JOIN accounts a ON s.account_id = a.account_id " +
 					"JOIN categories c ON s.category_id = c.category_id " +
@@ -48,15 +53,16 @@ public class S0022Servlet extends HttpServlet {
 			//パラメータをセット
 			ps.setString(1, id);
 
-
 			//実行
 			rs = ps.executeQuery();
 
 			rs.next();
 
-			SaleList s = new SaleList(
+			LocalDate saleDate = LocalDate.parse(rs.getString("sale_date"));
 
-					rs.getDate("sale_date"),
+			Sales s = new Sales(
+					rs.getInt("sale_id"),
+					saleDate,
 					rs.getString("name"),
 					rs.getString("category_name"),
 					rs.getString("trade_name"),

@@ -23,11 +23,11 @@
 			</div>
 
 			<div class="row">
-				<form class="form-horizontal" action="S0024.html?sale_id=${param.sale_id}" method="post">
+				<form class="form-horizontal" action="S0024.html?sale_id=${list.saleId}" method="post">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日" value="${HTMLUtils.parseDate(list.saleDate)}" readonly>
+							<input type="text" class="form-control" name="saleDate" id="salesDate" placeholder="販売日" value="${HTMLUtils.parseDate(list.saleDate)}" readonly>
 						</div>
 					</div>
 
@@ -35,16 +35,7 @@
 						<label for="person" class="col-sm-2 control-label">担当</label>
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person" readonly>
-								<option value="" disabled>選択してください</option>
-								<c:forEach var="account" items="${accountList}">
-									<c:if test="${list.staffName eq account || param.staff_name eq account}">
-										<option value="${account}" selected>${account}</option>
-									</c:if>
-								 	<c:if test="${list.staffName ne account && param.staff_name ne account}">
-										<option value="${account}" disabled>${account}</option>
-									</c:if>
-
-								</c:forEach>
+								<option value="${list.account }" selected>${list.account }</option>
 							</select>
 						</div>
 					</div>
@@ -52,16 +43,8 @@
 					<div class="form-group">
 						<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="category" id="category" readonly>
-								<option value="" disabled>選択してください</option>
-								<c:forEach var="category" items="${categoryList}">
-									<c:if test="${list.categoryName eq category || param.category_name eq category}">
-										<option value="${category}" selected>${category}</option>
-									</c:if>
-								 	<c:if test="${list.categoryName ne category && param.category_name ne category}">
-										<option value="${category}" disabled>${category}</option>
-									</c:if>
-								</c:forEach>
+							<select class="form-control" name="category" id="category"  readonly>
+								<option value="${list.category }" selected>${list.category }</option>
 							</select>
 						</div>
 					</div>
@@ -69,21 +52,21 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="trade_name" id="name" placeholder="商品名" value="${list.tradeName}" readonly>
+							<input type="text" class="form-control" name="tradeName" id="name" placeholder="商品名" value="${list.tradeName}" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="price" class="col-sm-2 control-label">単価</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right"name="unit_price" id="price" placeholder="単価" value="${list.unitPrice}" readonly>
+							<input type="text" class="form-control text-right"name="unitPrice" id="price" placeholder="単価" value="${list.unitPrice}" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="count" class="col-sm-2 control-label">個数</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="sale_number" id="count" placeholder="個数" value="${list.saleNumber}" readonly>
+							<input type="text" class="form-control text-right" name="saleNumber" id="count" placeholder="個数" value="${list.saleNumber}" readonly>
 						</div>
 					</div>
 
@@ -103,8 +86,8 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<button type="submit" class="btn btn-primary" name="submit" value="OK"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</button>
-							<a href="S0023.html?sale_id=${param.sale_id }" class="btn btn-default"> キャンセル</a>
+							<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</button>
+							<a href="S0023.html?sale_id=${list.saleId}" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 

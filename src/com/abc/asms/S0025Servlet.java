@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.abc.asms.beans.SaleList;
+import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
-import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0025.html")
 public class S0025Servlet extends HttpServlet {
@@ -40,7 +41,9 @@ public class S0025Servlet extends HttpServlet {
 			String id = req.getParameter("sale_id");
 
 			//SQL
-			sql = "select s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price, s.sale_number, s.unit_price * s.sale_number as total, s.note " +
+			//totalいらない
+			sql = "select s.sale_id, s.sale_date, a.name, c.category_name, " +
+					"s.trade_name, s.unit_price, s.sale_number, s.note " +
 					"FROM sales s " +
 					"JOIN accounts a ON s.account_id = a.account_id " +
 					"JOIN categories c ON s.category_id = c.category_id " +
@@ -57,8 +60,11 @@ public class S0025Servlet extends HttpServlet {
 
 			rs.next();
 
-			SaleList s = new SaleList(
-					rs.getDate("sale_date"),
+			LocalDate saleDate = LocalDate.parse(rs.getString("sale_date"));
+
+			Sales s = new Sales(
+					rs.getInt("sale_id"),
+					saleDate,
 					rs.getString("name"),
 					rs.getString("category_name"),
 					rs.getString("trade_name"),
@@ -67,14 +73,6 @@ public class S0025Servlet extends HttpServlet {
 					rs.getString("note")
 					);
 			req.setAttribute("list", s);
-
-			//カテゴリーリスト
-			List<String> categoryList = ServletUtils.categoryList(req);
-			req.setAttribute("categoryList", categoryList);
-
-			//担当リスト
-			List<String> accountList = ServletUtils.accountList(req);
-			req.setAttribute("accountList", accountList);
 
 			//フォワード
 			getServletContext().getRequestDispatcher("/WEB-INF/S0025.jsp").forward(req, resp);
@@ -97,8 +95,10 @@ public class S0025Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		req.setCharacterEncoding("utf-8");
+		//セッションの読み込み
+		HttpSession session = req.getSession();
 
+		req.setCharacterEncoding("utf-8");
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -109,27 +109,22 @@ public class S0025Servlet extends HttpServlet {
 
 			sql = "DELETE FROM sales WHERE sale_id = ?";
 
-
 			//準備
 			ps = con.prepareStatement(sql);
 
 			//データをセット
 			ps.setString(1, req.getParameter("sale_id"));
 
-			System.out.println(ps);
-
 			//実行
 			ps.executeUpdate();
-
-
 
 			List<String> successes = new ArrayList<>();
 			String success = "No" +  req.getParameter("sale_id") + "の売上を削除しました。";
 
 			successes.add(success);
-			req.setAttribute("successes", successes);
+			session.setAttribute("successes", successes);
 
-
+			resp.sendRedirect("S0021.html");
 
 		}catch(Exception e){
 			throw new ServletException(e);
@@ -144,10 +139,6 @@ public class S0025Servlet extends HttpServlet {
 
 			}
 		}
-
-		//フォワード
-		getServletContext().getRequestDispatcher("/WEB-INF/S0021.jsp").forward(req, resp);
-
 
 	}
 }

@@ -26,12 +26,14 @@
 			</div>
 
 			<div class="row">
-				<form class="form-horizontal" action="S0024.html?sale_id=${param.sale_id }" method="POST">
+				<form class="form-horizontal" action="S0023.html?sale_id=${list.saleId }" method="POST">
 					<div class="form-group">
-						<label for="salesDate" class="col-sm-2 control-label">販売日 <span class="badge">必須</span></label>
+						<label for="salesDate" class="col-sm-2 control-label">販売日
+							<span class="badge">必須</span>
+						</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="sale_date" id="salesDate" placeholder="販売日"
-							 value="${param.sale_date != null ? param.sale_date : HTMLUtils.parseDate(list.saleDate)}">
+							<input type="text" class="form-control" name="saleDate" id="saleDate" placeholder="販売日"
+							 value="${param.saleDate != null ? param.saleDate : HTMLUtils.parseDate(list.saleDate)}">
 						</div>
 					</div>
 
@@ -39,16 +41,13 @@
 						<label for="person" class="col-sm-2 control-label">担当 <span class="badge">必須</span></label>
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person">
-								<option value="">選択してください</option>
-
 								<c:forEach var="account" items="${accountList}">
-									<c:if test="${list.staffName eq account || param.account eq account}">
-										<option value="${account}" selected>${account}</option>
+									<c:if test="${list.account eq account.value || param.account eq account.value}">
+										<option value="${account.value}" selected>${account.value}</option>
 									</c:if>
-								 	<c:if test="${list.staffName ne account && param.account ne account}">
-										<option value="${account}">${account}</option>
+								 	<c:if test="${list.account ne account.value && param.account ne account.value}">
+										<option value="${account.value}">${account.value}</option>
 									</c:if>
-
 								</c:forEach>
 							</select>
 						</div>
@@ -58,13 +57,12 @@
 						<label for="category" class="col-sm-2 control-label">商品カテゴリー <span class="badge">必須</span></label>
 						<div class="col-sm-5">
 							<select class="form-control" name="category" id="category">
-								<option value="">選択してください</option>
 								<c:forEach var="category" items="${categoryList}">
-									<c:if test="${list.categoryName eq category || param.category eq category}">
-										<option value="${category}" selected>${category}</option>
+									<c:if test="${list.category eq category.value || param.category eq category.value}">
+										<option value="${category.value}" selected>${category.value}</option>
 									</c:if>
-								 	<c:if test="${list.categoryName ne category && param.category ne category}">
-										<option value="${category}">${category}</option>
+								 	<c:if test="${list.category ne category.value && param.category ne category.value}">
+										<option value="${category.value}">${category.value}</option>
 									</c:if>
 								</c:forEach>
 							</select>
@@ -74,39 +72,39 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名 <span class="badge">必須</span></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="trade_name" id="name" placeholder="商品名"
-							value="${param.trade_name != null ? param.trade_name : list.tradeName }">
+							<input type="text" class="form-control" name="tradeName" id="name" placeholder="商品名"
+							value="${param.tradeName != null ? param.tradeName : list.tradeName }">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="price" class="col-sm-2 control-label">単価 <span class="badge">必須</span></label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control  text-right" name="unit_price" id="price" placeholder="単価"
-							value="${param.unit_price != null ? param.unit_price : list.unitPrice }">
+							<input type="text" class="form-control  text-right" name="unitPrice" id="price" placeholder="単価"
+							value="${param.unitPrice != null ? param.unitPrice : list.unitPrice }">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="count" class="col-sm-2 control-label">個数 <span class="badge">必須</span></label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control  text-right" name="sale_number" id="count" placeholder="個数"
-							value="${param.sale_number != null ? param.sale_number : list.saleNumber }">
+							<input type="text" class="form-control  text-right" name="saleNumber" id="count" placeholder="個数"
+							value="${param.saleNumber != null ? param.saleNumber : list.saleNumber }">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考 </label>
 						<div class="col-sm-5">
-							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5">${param.note != null ? param.note : list.note }
-							</textarea>
+							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5">
+${param.note != null ? param.note : list.note }</textarea>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<button type="submit" class="btn btn-primary" name="submit" value=""><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 更 新</button>
-							<a href="S0022.html?sale_id=${param.sale_id }" class="btn btn-default"> キャンセル</a>
+							<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 更 新</button>
+							<a href="S0022.html?sale_id=${list.saleId }" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 
