@@ -21,29 +21,16 @@ import com.abc.asms.utils.ServletUtils;
 @WebServlet("/S0010.html")
 public class S0010Servlet extends HttpServlet {
 
-
-	// 売上関係用権限チェック、のちに共通化する、Accountsに格納してるから取ってくる
-	public static boolean checked(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-		HttpSession session = req.getSession();
-
-		if(session.getAttribute("authority").equals("1") || session.getAttribute("authority").equals("11")) {
-			return true;
-		} else {
-			List<String> errors = new ArrayList<>();
-			errors.add("不正なアクセスです。");
-			session.setAttribute("errors", errors);
-			resp.sendRedirect("C0020.html");
-			return false;
-		}
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		//		if(checked(req, resp) == false) {
-		//			return;
-		//		}
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
+		if(!ServletUtils.checkSales(req, resp)) {
+			return;
+		}
 
 		LocalDate ld = LocalDate.now();
 
@@ -63,12 +50,17 @@ public class S0010Servlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		//		if(checked(req, resp) == false) {
-		//			return;
-		//		}
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
+		if(!ServletUtils.checkSales(req, resp)) {
+			return;
+		}
+
+		HttpSession session = req.getSession();
 
 		req.setCharacterEncoding("utf-8");
-		HttpSession session = req.getSession();
 
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);

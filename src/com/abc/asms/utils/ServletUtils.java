@@ -1,13 +1,20 @@
 package com.abc.asms.utils;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.abc.asms.beans.Accounts;
 
 public class ServletUtils {
 
@@ -261,7 +268,7 @@ public class ServletUtils {
 
 
 	// S0011専用
-	public static String registerId() {
+	public static String registerSId() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -275,13 +282,11 @@ public class ServletUtils {
 			sql = "SELECT sale_id FROM sales ORDER BY sale_id DESC LIMIT 1";
 
 			ps = con.prepareStatement(sql);
-
 			rs = ps.executeQuery();
 
 			rs.next();
 
 			registerId = rs.getString("sale_id");
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -294,10 +299,91 @@ public class ServletUtils {
 				e.printStackTrace();
 			}
 		}
-
-
 		return registerId;
-
 	}
 
+	// S0031専用
+	public static String registerAId() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		String registerAId = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT account_id FROM accounts ORDER BY account_id DESC LIMIT 1";
+
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			rs.next();
+
+			registerAId = rs.getString("account_id");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return registerAId;
+	}
+
+	// ログインチェック
+	public static boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+		HttpSession session = req.getSession();
+
+		if(session.getAttribute("accounts") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("ログインしてください。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("C0010.html");
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	// 売上権限チェック
+	public static boolean checkSales(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+		HttpSession session = req.getSession();
+
+		Accounts authority = (Accounts)session.getAttribute("accounts");
+		if(!(authority.getAuthority() == 1) && !(authority.getAuthority() == 11)) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("C0020.html");
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	// アカウント権限チェック
+	public static boolean checkAccounts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+		HttpSession session = req.getSession();
+
+		Accounts authority = (Accounts)session.getAttribute("accounts");
+		if(!(authority.getAuthority() == 10) && !(authority.getAuthority() == 11)) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("C0020.html");
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

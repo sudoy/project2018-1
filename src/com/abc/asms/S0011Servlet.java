@@ -111,7 +111,7 @@ public class S0011Servlet extends HttpServlet {
 
 			ps.executeUpdate();
 			List<String> successes = new ArrayList<>();
-			successes.add("No" + ServletUtils.registerId() + "の売上を登録しました。");
+			successes.add("No" + ServletUtils.registerSId() + "の売上を登録しました。");
 			session.setAttribute("successes", successes);
 
 			resp.sendRedirect("S0010.html");
