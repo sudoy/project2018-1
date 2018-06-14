@@ -26,13 +26,10 @@ public class S0022Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
-
-
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
 		ResultSet rs = null;
-
 
 		try {
 			//データベース接続

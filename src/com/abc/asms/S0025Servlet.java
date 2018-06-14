@@ -3,8 +3,6 @@ package com.abc.asms;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Accounts;
-import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
-import com.abc.asms.utils.HTMLUtils;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0025.html")
@@ -32,13 +28,10 @@ public class S0025Servlet extends HttpServlet {
 		//セッションの読み込み
 		HttpSession session = req.getSession();
 
-
-		req.setCharacterEncoding("utf-8");
-
 		//権限チェック
 		List<String> check = checkAuthority(req);
 		if(check.size() != 0) {
-			session.setAttribute("check", check);
+			session.setAttribute("errors", check);
 
 			resp.sendRedirect("C0020.html");
 		}
@@ -47,67 +40,14 @@ public class S0025Servlet extends HttpServlet {
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
 
-		Connection con = null;
-		PreparedStatement ps = null;
-		String sql = null;
-		ResultSet rs = null;
+		//担当リスト
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
+
+		//フォワード
+		getServletContext().getRequestDispatcher("/WEB-INF/S0025.jsp").forward(req, resp);
 
 
-		try {
-			//データベース接続
-			con = DBUtils.getConnection();
-
-			//GETパラメータを取得
-			String id = req.getParameter("sale_id");
-
-			//SQL
-			sql = "select s.sale_id, s.sale_date, a.name, c.category_name, " +
-					"s.trade_name, s.unit_price, s.sale_number, s.note " +
-					"FROM sales s " +
-					"JOIN accounts a ON s.account_id = a.account_id " +
-					"JOIN categories c ON s.category_id = c.category_id " +
-					"WHERE sale_id = ?";
-
-			//準備
-			ps = con.prepareStatement(sql);
-
-			//パラメータをセット
-			ps.setString(1, id);
-
-			//実行
-			rs = ps.executeQuery();
-
-			rs.next();
-
-			LocalDate saleDate = LocalDate.parse(rs.getString("sale_date"));
-
-			Sales s = new Sales(
-					rs.getInt("sale_id"),
-					saleDate,
-					rs.getString("name"),
-					rs.getString("category_name"),
-					rs.getString("trade_name"),
-					rs.getInt(HTMLUtils.deleteComma("unit_price")),
-					rs.getInt(HTMLUtils.deleteComma("sale_number")),
-					rs.getString("note")
-					);
-			req.setAttribute("list", s);
-
-			//フォワード
-			getServletContext().getRequestDispatcher("/WEB-INF/S0025.jsp").forward(req, resp);
-
-		}catch(Exception e){
-			throw new ServletException(e);
-		}finally{
-
-			try{
-				DBUtils.close(rs);
-				DBUtils.close(ps);
-				DBUtils.close(con);
-			}catch(Exception e){
-
-			}
-		}
 	}
 
 	@Override
@@ -120,7 +60,7 @@ public class S0025Servlet extends HttpServlet {
 		//権限チェック
 		List<String> check = checkAuthority(req);
 		if(check.size() != 0) {
-			session.setAttribute("check", check);
+			session.setAttribute("errors", check);
 
 			resp.sendRedirect("C0020.html");
 		}
@@ -151,6 +91,8 @@ public class S0025Servlet extends HttpServlet {
 			successes.add(success);
 			session.setAttribute("successes", successes);
 
+			session.setAttribute("saleList", null);
+
 			resp.sendRedirect("S0021.html");
 
 		}catch(Exception e){
@@ -178,7 +120,7 @@ public class S0025Servlet extends HttpServlet {
 		Accounts a = (Accounts)session.getAttribute("accounts");
 		int authority = a.getAuthority();
 
-		if(!(authority == 0 || authority == 10)) {
+		if(!(authority == 1 || authority == 11)) {
 			list.add("不正なアクセスです");
 		}
 
