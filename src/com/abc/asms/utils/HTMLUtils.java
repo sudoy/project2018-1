@@ -45,6 +45,22 @@ public class HTMLUtils {
 
 	public static String deleteComma(String strNewNum) {
 	      return strNewNum.replaceAll(",","");
-	    }
+	}
+
+	public static String parseAuthority(int authority) {
+		if(authority == 0) {
+			return "権限なし";
+		}
+		if(authority == 1) {
+			return "売上登録";
+		}
+		if(authority == 10) {
+			return "アカウント登録";
+		}
+		if(authority == 11) {
+			return "売上登録/アカウント登録";
+		}
+		return "error";
+	}
 
 }
