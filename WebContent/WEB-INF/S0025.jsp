@@ -94,8 +94,8 @@
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考</label>
 						<div class="col-sm-5">
-							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5" readonly>
-${list.note}</textarea>
+							<textarea class="form-control" name="note" id="note"
+							placeholder="備考" rows="5" readonly>${list.note}</textarea>
 						</div>
 					</div>
 

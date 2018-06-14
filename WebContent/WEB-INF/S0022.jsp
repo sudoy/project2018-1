@@ -72,7 +72,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<c:if test="${accounts.authority eq 0 || accounts.authority eq 10 }">
+							<c:if test="${accounts.authority eq 1 || accounts.authority eq 11 }">
 								<a href="S0023.html?sale_id=${saleList.saleId }" class="btn btn-primary">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 編 集
 								</a>

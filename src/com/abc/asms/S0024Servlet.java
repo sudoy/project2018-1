@@ -32,7 +32,7 @@ public class S0024Servlet extends HttpServlet {
 		//権限チェック
 		List<String> check = checkAuthority(req);
 		if(check.size() != 0) {
-			session.setAttribute("check", check);
+			session.setAttribute("errors", check);
 
 			resp.sendRedirect("C0020.html");
 		}
@@ -61,7 +61,7 @@ public class S0024Servlet extends HttpServlet {
 		//権限チェック
 		List<String> check = checkAuthority(req);
 		if(check.size() != 0) {
-			session.setAttribute("check", check);
+			session.setAttribute("errors", check);
 
 			resp.sendRedirect("C0020.html");
 		}
@@ -139,7 +139,7 @@ public class S0024Servlet extends HttpServlet {
 		Accounts a = (Accounts)session.getAttribute("accounts");
 		int authority = a.getAuthority();
 
-		if(!(authority == 0 || authority == 10)) {
+		if(!(authority == 1 || authority == 11)) {
 			list.add("不正なアクセスです");
 		}
 
