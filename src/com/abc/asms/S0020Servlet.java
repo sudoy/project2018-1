@@ -96,10 +96,21 @@ public class S0020Servlet extends HttpServlet {
 				sql = sql.concat(" and account_id = ?");
 				sqlParameter.put("account", req.getParameter("account"));
 			}
+			String[] categories = req.getParameterValues("category");
+			if(categories != null) {
+				sql = sql.concat(" and category_id in(");
 
-			if(!req.getParameter("category").equals("")) {
-				sql = sql.concat(" and category_id = ?");
-				sqlParameter.put("category", req.getParameter("category"));
+				for(int i = 0; i < categories.length; i++) {
+					if(i == 0) {
+						sql = sql.concat("?");
+						sqlParameter.put("category" + i, categories[i]);
+					}else {
+						sql = sql.concat(",?");
+						sqlParameter.put("category" + i, categories[i]);
+					}
+				}
+
+				sql = sql.concat(")");
 			}
 
 			if(!req.getParameter("tradeName").equals("")) {
@@ -113,6 +124,7 @@ public class S0020Servlet extends HttpServlet {
 			}
 
 			sql = sql.concat(" order by sale_id desc");
+
 
 			SearchForm searchForm = new SearchForm(sql, sqlParameter);
 

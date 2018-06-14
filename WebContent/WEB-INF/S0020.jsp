@@ -49,12 +49,11 @@
 					<div class="form-group">
 						<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="category" id="category">
-								<option value="">選択してください</option>
-								<c:forEach var="category" items="${categoryMap}">
-									<option value="${category.key}" ${param.category == category.key ? 'selected' : ''}>${category.value}</option>
-								</c:forEach>
-							</select>
+							<c:forEach var="category" items="${categoryMap}" varStatus="s">
+								<label class="checkbox-inline">
+									<input type="checkbox" name="category" value="${category.key}" ${HTMLUtils.judgeCheckbox(paramValues.category, category.key) ? 'checked' : ''}>${category.value}
+								</label>
+							</c:forEach>
 						</div>
 					</div>
 
@@ -86,6 +85,7 @@
 
 
 		<jsp:include page="_footer.jsp" />
+
 
 	</body>
 </html>

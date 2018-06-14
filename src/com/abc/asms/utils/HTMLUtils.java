@@ -16,6 +16,18 @@ public class HTMLUtils {
 
 	}
 
+	public static boolean judgeCheckbox(String[] param, String key) {
+		if(param == null) {
+			return true;
+		}
+		for(String p : param) {
+			if(p.equals(key)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static int sumCalc(int unitPrice, int saleNumber) {
 		return unitPrice * saleNumber;
 	}
