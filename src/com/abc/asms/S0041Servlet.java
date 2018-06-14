@@ -27,6 +27,10 @@ public class S0041Servlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
+		Accounts accounts = (Accounts)session.getAttribute("accounts");
+
+		req.setAttribute("check", accounts.getAuthority());
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -46,7 +50,6 @@ public class S0041Servlet extends HttpServlet {
 			for(String p : sqlParameter) {
 				ps.setString(count++, p);
 			}
-			System.out.println(ps);
 			rs = ps.executeQuery();
 
 			while(rs.next()) {
@@ -54,6 +57,13 @@ public class S0041Servlet extends HttpServlet {
 						rs.getString("mail"), rs.getString("password"),
 						rs.getInt("authority"));
 				accountList.add(a);
+			}
+
+			if(accountList.isEmpty()) {
+				errors.add("検索結果はありません。");
+				session.setAttribute("errors", errors);
+				resp.sendRedirect("S0040.html");
+				return;
 			}
 
 			req.setAttribute("accountList", accountList);

@@ -25,8 +25,10 @@
 
 					<table class="table">
 						<tr>
-							<th class="col-sm-2">操作</th>
-							<th>No</th>
+							<c:if test="${check == 10 || check == 11}">
+								<th class="col-sm-2">操作</th>
+							</c:if>
+							<th class="col-sm-1">No</th>
 							<th class="col-sm-2">氏名</th>
 							<th class="col-sm-4">メールアドレス</th>
 							<th class="col-sm-4">権限</th>
@@ -34,10 +36,12 @@
 
 						<c:forEach var="account" items="${accountList}">
 							<tr>
-								<td>
-									<a href="S0042.html?accountId=${account.accountId}" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 編 集</a>
-									<a href="S0044.html?accountId=${account.accountId}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 削 除</a>
-								</td>
+								<c:if test="${check == 10 || check == 11}">
+									<td>
+										<a href="S0042.html?accountId=${account.accountId}" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 編 集</a>
+										<a href="S0044.html?accountId=${account.accountId}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 削 除</a>
+									</td>
+								</c:if>
 								<td class="text-right">${account.accountId}</td>
 								<td>${account.name}</td>
 								<td>${account.mail}</td>

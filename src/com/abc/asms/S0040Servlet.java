@@ -87,8 +87,6 @@ public class S0040Servlet extends HttpServlet {
 				sql = sql.concat(")");
 			}
 
-			System.out.println(sql);
-
 			SearchForm searchForm = new SearchForm(sql, sqlParameter);
 
 			session.setAttribute("searchForm", searchForm);
