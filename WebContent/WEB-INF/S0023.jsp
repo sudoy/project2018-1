@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="row">
-				<form class="form-horizontal" action="S0023.html?sale_id=${list.saleId }" method="POST">
+				<form class="form-horizontal" action="S0023.html?sale_id=${list.saleId}" method="POST">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日
 							<span class="badge">必須</span>
@@ -41,29 +41,23 @@
 						<label for="person" class="col-sm-2 control-label">担当 <span class="badge">必須</span></label>
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person">
-								<c:forEach var="account" items="${accountList}">
-									<c:if test="${list.account eq account.value || param.account eq account.value}">
-										<option value="${account.value}" selected>${account.value}</option>
-									</c:if>
-								 	<c:if test="${list.account ne account.value && param.account ne account.value}">
-										<option value="${account.value}">${account.value}</option>
-									</c:if>
+								<c:forEach var="account" items="${accountMap}">
+									<option value="${account.value}" ${param.account eq account.value ? 'selected' :
+									list.account eq account.value ? 'selected' :  '' }>${account.value}</option>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label for="category" class="col-sm-2 control-label">商品カテゴリー <span class="badge">必須</span></label>
+						<label for="category" class="col-sm-2 control-label">
+							商品カテゴリー <span class="badge">必須</span>
+						</label>
 						<div class="col-sm-5">
 							<select class="form-control" name="category" id="category">
-								<c:forEach var="category" items="${categoryList}">
-									<c:if test="${list.category eq category.value || param.category eq category.value}">
-										<option value="${category.value}" selected>${category.value}</option>
-									</c:if>
-								 	<c:if test="${list.category ne category.value && param.category ne category.value}">
-										<option value="${category.value}">${category.value}</option>
-									</c:if>
+								<c:forEach var="category" items="${categoryMap}">
+									<option value="${category.value}" ${param.category eq category.value ? 'selected' :
+									list.category eq category.value ? 'selected' :  '' }>${category.value}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -80,7 +74,8 @@
 					<div class="form-group">
 						<label for="price" class="col-sm-2 control-label">単価 <span class="badge">必須</span></label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control  text-right" name="unitPrice" id="price" placeholder="単価"
+							<input type="text" class="form-control  text-right" name="unitPrice"
+							id="price" placeholder="単価"
 							value="${param.unitPrice != null ? param.unitPrice : list.unitPrice }">
 						</div>
 					</div>
@@ -88,7 +83,8 @@
 					<div class="form-group">
 						<label for="count" class="col-sm-2 control-label">個数 <span class="badge">必須</span></label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control  text-right" name="saleNumber" id="count" placeholder="個数"
+							<input type="text" class="form-control  text-right" name="saleNumber"
+							id="count" placeholder="個数"
 							value="${param.saleNumber != null ? param.saleNumber : list.saleNumber }">
 						</div>
 					</div>
@@ -103,8 +99,9 @@ ${param.note != null ? param.note : list.note }</textarea>
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 更 新</button>
-							<a href="S0022.html?sale_id=${list.saleId }" class="btn btn-default"> キャンセル</a>
+							<button type="submit" class="btn btn-primary">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>更 新</button>
+							<a href="S0022.html?sale_id=${list.saleId}" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 

@@ -31,10 +31,6 @@ public class S0023Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		//セッションの読み込み
-		HttpSession session = req.getSession();
-
-
 		req.setCharacterEncoding("utf-8");
 
 //		//権限チェック
@@ -48,6 +44,15 @@ public class S0023Servlet extends HttpServlet {
 		PreparedStatement ps = null;
 		String sql = null;
 		ResultSet rs = null;
+
+		//担当リスト
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
+
+		//カテゴリーリスト
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
+
 
 
 		try {
@@ -67,6 +72,8 @@ public class S0023Servlet extends HttpServlet {
 
 			//準備
 			ps = con.prepareStatement(sql);
+
+
 
 			//パラメータをセット
 			ps.setString(1, id);
@@ -88,15 +95,8 @@ public class S0023Servlet extends HttpServlet {
 					rs.getInt("sale_number"),
 					rs.getString("note")
 					);
+
 			req.setAttribute("list", s);
-
-			//カテゴリーリスト
-			Map<Integer, String> categoryList = ServletUtils.getCategoryMap(req);
-			req.setAttribute("categoryList", categoryList);
-
-			//担当リスト
-			Map<Integer, String> accountList = ServletUtils.getAccountMap(req);
-			req.setAttribute("accountList", accountList);
 
 			//フォワード
 			getServletContext().getRequestDispatcher("/WEB-INF/S0023.jsp").forward(req, resp);
@@ -125,21 +125,24 @@ public class S0023Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
-		//カテゴリーリスト
-		Map<Integer, String> categoryList = ServletUtils.getCategoryMap(req);
-		req.setAttribute("categoryList", categoryList);
-
-		//担当リスト
-		Map<Integer, String> accountList = ServletUtils.getAccountMap(req);
-		req.setAttribute("accountList", accountList);
-
 		//バリデーション
 		List<String> errors = validate(req);
 		if(errors.size() != 0) {
 			req.setAttribute("errors", errors);
 
+			System.out.println("発生1");
+
+			//カテゴリーリスト
+			Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+			req.setAttribute("categoryMap", categoryMap);
+
+			//担当リスト
+			Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+			req.setAttribute("accountMap", accountMap);
+
+
 			getServletContext().getRequestDispatcher("/WEB-INF/S0023.jsp").forward(req, resp);
-;
+
 			return;
 		}
 
@@ -156,7 +159,9 @@ public class S0023Servlet extends HttpServlet {
 				req.getParameter("note")
 				);
 
-		session.setAttribute("list", s);
+		session.setAttribute("saleList", s);
+
+
 
 		resp.sendRedirect("S0024.html");
 
@@ -192,23 +197,26 @@ public class S0023Servlet extends HttpServlet {
 		// 担当の必須入力
 		if (req.getParameter("account").equals("")) {
 			list.add("担当が未選択です。");
-		}else if (ServletUtils.matchAccount(req.getParameter("account")) == false) {
-			//アカウントテーブルのチェック
-			list.add("アカウントテーブルに存在しません。");
 		}
+//		else if (ServletUtils.matchAccount(req.getParameter("account")) == false) {
+//			//アカウントテーブルのチェック
+//			list.add("アカウントテーブルに存在しません。");
+//		}
 
 		//カテゴリーの必須入力
 		if (req.getParameter("category").equals("")) {
 			list.add("商品カテゴリーが未選択です。");
-		}else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
-			//カテゴリーテーブルのチェック
-			list.add("商品カテゴリーテーブルに存在しません。");
 		}
+//		else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
+//			//カテゴリーテーブルのチェック
+//			list.add("商品カテゴリーテーブルに存在しません。");
+//		}
 
 		//商品名の必須入力
 		if (req.getParameter("tradeName").equals("")) {
 			list.add("商品名を入力して下さい。");
-		} else if(req.getParameter("tradeName").length() > 100) {
+		}
+		else if(req.getParameter("tradeName").length() > 100) {
 			//商品名の長さチェック
 			list.add("商品名が長すぎます。");
 		}

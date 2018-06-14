@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.abc.asms.utils.DBUtils;
+import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0024.html")
 public class S0024Servlet extends HttpServlet {
@@ -21,6 +23,17 @@ public class S0024Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
+		//セッションの読み込み
+		HttpSession session = req.getSession();
+
+		//カテゴリーリスト
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
+
+		//担当リスト
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
 
 		//フォワード
 		getServletContext().getRequestDispatcher("/WEB-INF/S0024.jsp").forward(req, resp);
@@ -35,6 +48,14 @@ public class S0024Servlet extends HttpServlet {
 
 		//アップデート
 		req.setCharacterEncoding("utf-8");
+
+		//カテゴリーリスト
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
+
+		//担当リスト
+		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
+		req.setAttribute("accountMap", accountMap);
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -51,10 +72,6 @@ public class S0024Servlet extends HttpServlet {
 			//データをセット
 			ps.setString(1, req.getParameter("saleDate"));
 
-			//変更
-//			ps.setString(2, ServletUtils.pairAccount(req.getParameter("account")));
-//			ps.setString(3, ServletUtils.pairCategory(req.getParameter("category")));
-
 			ps.setString(2, req.getParameter("account"));
 			ps.setString(3, req.getParameter("category"));
 
@@ -63,6 +80,8 @@ public class S0024Servlet extends HttpServlet {
 			ps.setString(6, req.getParameter("saleNumber"));
 			ps.setString(7, req.getParameter("note"));
 			ps.setString(8, req.getParameter("sale_id"));
+
+			System.out.println(ps);
 
 			//実行
 			ps.executeUpdate();
