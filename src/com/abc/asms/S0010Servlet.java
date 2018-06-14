@@ -114,7 +114,7 @@ public class S0010Servlet extends HttpServlet {
 		}
 
 		//カテゴリーの必須入力
-		if (req.getParameter("category").equals("") || req.getParameter("category") == null) {
+		if (req.getParameter("category") == null) {
 			errors.add("商品カテゴリーが未選択です。");
 		} else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
 			errors.add("商品カテゴリーテーブルに存在しません。");

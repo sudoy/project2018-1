@@ -24,24 +24,16 @@ import com.abc.asms.utils.ServletUtils;
 @WebServlet("/S0011.html")
 public class S0011Servlet extends HttpServlet {
 
-	// 売上関係用権限チェック、のちに共通化する
-	public static boolean checked(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-		HttpSession session = req.getSession();
-
-		if(session.getAttribute("authority").equals("1") || session.getAttribute("authority").equals("11")) {
-			return true;
-		} else {
-			List<String> errors = new ArrayList<>();
-			errors.add("不正なアクセスです。");
-			session.setAttribute("errors", errors);
-			resp.sendRedirect("C0020.html");
-			return false;
-		}
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
+		if(!ServletUtils.checkSales(req, resp)) {
+			return;
+		}
 
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
@@ -54,9 +46,13 @@ public class S0011Servlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		//		if(checked(req, resp) == false) {
-		//			return;
-		//		}
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
+		if(!ServletUtils.checkSales(req, resp)) {
+			return;
+		}
 
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();

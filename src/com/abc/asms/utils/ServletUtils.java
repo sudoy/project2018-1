@@ -238,7 +238,7 @@ public class ServletUtils {
 
 		try {
 			con = DBUtils.getConnection();
-			sql = "SELECT category_name FROM categories WHERE category_id = ? ORDER BY category_id";
+			sql = "SELECT category_name FROM categories WHERE active_flg = 1 AND category_id = ? ORDER BY category_id";
 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, category);

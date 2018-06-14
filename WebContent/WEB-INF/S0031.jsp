@@ -19,13 +19,13 @@
 		</div>
 
 		<div class="row">
-			<form class="form-horizontal" action="#" method="post">
+			<form class="form-horizontal" action="S0031.html" method="post">
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">氏名 <span
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name" placeholder="氏名"
-							value="" disabled>
+							value="${entry.name}" name="name">
 					</div>
 				</div>
 
@@ -34,26 +34,26 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="mail"
-							placeholder="メールアドレス" value="" disabled>
+							placeholder="メールアドレス" value="${entry.mail}"name="mail">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="pass" class="col-sm-2 control-label">パスワード <span
+					<label for="password1" class="col-sm-2 control-label">パスワード <span
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" id="pass"
-							placeholder="パスワード" value="" disabled>
+						<input type="password" class="form-control" id="password1"
+							placeholder="パスワード" value="${entry.password}" name="password1">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="pass2" class="col-sm-2 control-label">パスワード(確認)
+					<label for="password2" class="col-sm-2 control-label">パスワード(確認)
 						<span class="badge">必須</span>
 					</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" id="pass2"
-							placeholder="パスワード(確認)" value="" disabled>
+						<input type="password" class="form-control" id="password1"
+							placeholder="パスワード(確認)" value="${entry.password}" name="password1">
 					</div>
 				</div>
 
@@ -62,9 +62,9 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<label class="radio-inline"> <input type="radio"
-							name="salesRadio" value="権限なし" disabled> 権限なし
+							name="authority1" value="0" ${entry.authority == 0 || entry.authority == 10 ? 'checked' : ''}> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
-							name="salesRadio" value="権限あり" disabled> 権限あり
+							name="authority1" value="1" ${entry.authority == 1 || entry.authority == 11 ? 'checked' : ''}> 権限あり
 						</label>
 					</div>
 				</div>
@@ -74,18 +74,17 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<label class="radio-inline"> <input type="radio"
-							name="acountRadio" value="権限なし" disabled> 権限なし
+							name="authority2" value="0" ${entry.authority == 0 || entry.authority == 1 ? 'checked' : ''}> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
-							name="acountRadio" value="権限あり" disabled> 権限あり
+							name="authority2" value="1" ${entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}> 権限あり
 						</label>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-offset-3">
-						<a href="s0030.html" class="btn btn-primary"><span
-							class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</a> <a
-							href="s0030.html" class="btn btn-default"> キャンセル</a>
+						<button type="submit" name="OK" class="btn btn-primary" value="O K"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O K</button>
+						<button type="submit" name="NG" class="btn btn-default" value="キャンセル"> キャンセル</button>
 					</div>
 				</div>
 

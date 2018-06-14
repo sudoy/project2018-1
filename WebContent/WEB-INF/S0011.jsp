@@ -32,8 +32,9 @@
 					<div class="col-sm-5">
 						<select class="form-control" id="person" name="account" readonly>
 							<c:forEach var="account" items="${accountMap}">
-								<option value="${account.key}"
-									${sales.account == account.key ? 'selected' : 'disabled'}>${account.value}</option>
+							<c:if test="${sales.account == account.key}" >
+								<option value="${account.key}" selected>${account.value}</option>
+							</c:if>
 							</c:forEach>
 						</select>
 					</div>
