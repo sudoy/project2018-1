@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,24 +76,24 @@ public class S0020Servlet extends HttpServlet {
 
 		}
 
-			Map<String, String> sqlParameter = new LinkedHashMap<>();
+			List<String> sqlParameter = new ArrayList<>();
 
 			String sql = "select sale_id, sale_date, account_id, category_id, trade_name, unit_price, sale_number, note "
 					+ "from sales where 0=0";
 
 			if(!req.getParameter("start").equals("")) {
 				sql = sql.concat(" and sale_date >= ?");
-				sqlParameter.put("start", req.getParameter("start"));
+				sqlParameter.add(req.getParameter("start"));
 			}
 
 			if(!req.getParameter("end").equals("")) {
 				sql = sql.concat(" and sale_date <= ?");
-				sqlParameter.put("end", req.getParameter("end"));
+				sqlParameter.add(req.getParameter("end"));
 			}
 
 			if(!req.getParameter("account").equals("")) {
 				sql = sql.concat(" and account_id = ?");
-				sqlParameter.put("account", req.getParameter("account"));
+				sqlParameter.add(req.getParameter("account"));
 			}
 			String[] categories = req.getParameterValues("category");
 			if(categories != null) {
@@ -103,10 +102,10 @@ public class S0020Servlet extends HttpServlet {
 				for(int i = 0; i < categories.length; i++) {
 					if(i == 0) {
 						sql = sql.concat("?");
-						sqlParameter.put("category" + i, categories[i]);
+						sqlParameter.add(categories[i]);
 					}else {
 						sql = sql.concat(",?");
-						sqlParameter.put("category" + i, categories[i]);
+						sqlParameter.add(categories[i]);
 					}
 				}
 
@@ -115,12 +114,12 @@ public class S0020Servlet extends HttpServlet {
 
 			if(!req.getParameter("tradeName").equals("")) {
 				sql = sql.concat(" and trade_name like ?");
-				sqlParameter.put("tradeName", req.getParameter("tradeName"));
+				sqlParameter.add("%" + req.getParameter("tradeName") + "%");
 			}
 
 			if(!req.getParameter("note").equals("")) {
 				sql = sql.concat(" and note like ?");
-				sqlParameter.put("note", req.getParameter("note"));
+				sqlParameter.add("%" + req.getParameter("note") + "%");
 			}
 
 			sql = sql.concat(" order by sale_id desc");

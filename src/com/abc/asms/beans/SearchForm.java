@@ -1,11 +1,11 @@
 package com.abc.asms.beans;
 
-import java.util.Map;
+import java.util.List;
 
 public class SearchForm {
 	private String sql;
-	private Map<String, String> sqlParameter;
-	public SearchForm(String sql, Map<String, String> sqlParameter) {
+	private List<String> sqlParameter;
+	public SearchForm(String sql, List<String> sqlParameter) {
 		this.sql = sql;
 		this.sqlParameter = sqlParameter;
 	}
@@ -15,10 +15,10 @@ public class SearchForm {
 	public void setSql(String sql) {
 		this.sql = sql;
 	}
-	public Map<String, String> getSqlParameter() {
+	public List<String> getSqlParameter() {
 		return sqlParameter;
 	}
-	public void setSqlParameter(Map<String, String> sqlParameter) {
+	public void setSqlParameter(List<String> sqlParameter) {
 		this.sqlParameter = sqlParameter;
 	}
 

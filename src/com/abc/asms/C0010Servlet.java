@@ -101,7 +101,7 @@ public class C0010Servlet extends HttpServlet {
 			errors.add("メールアドレスを入力してください。");
 		}
 
-		if(req.getParameter("password").length() > 100) {
+		if(req.getParameter("mail").length() > 100) {
 			errors.add("メールアドレスが長すぎます。");
 		}
 
