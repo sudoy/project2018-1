@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.abc.asms.utils.HTMLUtils" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
@@ -44,9 +45,15 @@
 					<div class="form-group">
 						<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="category" id="category"  readonly>
-								<option value="${list.category }" selected>${list.category }</option>
-							</select>
+
+							<c:forEach var="category" items="${categoryMap}">
+								<label class="radio-inline">
+								<input type="radio" name="category" value="${category.key }"
+								${list.category eq category.value ? 'checked' : '' }
+								readonly onclick="return false;">
+								${category.value}
+								</label>
+							</c:forEach>
 						</div>
 					</div>
 

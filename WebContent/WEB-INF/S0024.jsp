@@ -49,13 +49,16 @@
 					<div class="form-group">
 						<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="category" id="category" readonly>
+
 							<c:forEach var="category" items="${categoryMap}">
-									<c:if test="${saleList.category eq category.value }">
-										<option value="${category.key }" selected>${saleList.category}</option>
-									</c:if>
+								<label class="radio-inline">
+									<input type="radio" name="category" value="${category.key }"
+									${saleList.category eq category.value ? 'checked' : '' }
+									readonly onclick="return false;">
+									${category.value}
+								</label>
 							</c:forEach>
-							</select>
+
 						</div>
 					</div>
 

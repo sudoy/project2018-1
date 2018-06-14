@@ -64,22 +64,25 @@
 							商品カテゴリー <span class="badge">必須</span>
 						</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="category" id="category">
 
-								<c:if test="${param.category ne null}">
-									<c:forEach var="category" items="${categoryMap}">
-									<option value="${category.key}"
-									${param.category eq category.key ? 'selected' :  '' }>${category.value}</option>
+							<c:if test="${param.category ne null}">
+								<c:forEach var="category" items="${categoryMap}">
+									<label class="radio-inline">
+										<input type="radio" name="category" value="${category.key}"
+										${param.category eq category.key ? 'checked' :  '' }>${category.value}
+									</label>
 								</c:forEach>
-								</c:if>
+							</c:if>
 
-								<c:if test="${param.category eq null }">
-									<c:forEach var="category" items="${categoryMap}">
-									<option value="${category.key}"
-									${saleList.category eq category.value ? 'selected' :  '' }>${category.value}</option>
+							<c:if test="${param.category eq null }">
+								<c:forEach var="category" items="${categoryMap}">
+									<label class="radio-inline">
+										<input type="radio" name="category" value="${category.key}"
+										${saleList.category eq category.value ? 'checked' :  '' }>${category.value}
+									</label>
 								</c:forEach>
-								</c:if>
-							</select>
+							</c:if>
+
 						</div>
 					</div>
 

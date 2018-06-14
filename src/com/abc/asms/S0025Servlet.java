@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import com.abc.asms.beans.Accounts;
 import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.HTMLUtils;
+import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0025.html")
 public class S0025Servlet extends HttpServlet {
@@ -40,6 +42,10 @@ public class S0025Servlet extends HttpServlet {
 
 			resp.sendRedirect("C0020.html");
 		}
+
+		//カテゴリーリスト
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		req.setAttribute("categoryMap", categoryMap);
 
 		Connection con = null;
 		PreparedStatement ps = null;
