@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.abc.asms.utils.HTMLUtils" %>
 
 <!DOCTYPE html>
@@ -69,7 +70,8 @@
 						<label for="price" class="col-sm-2 control-label">単価</label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control text-right"name="unitPrice" id="price"
-							 placeholder="単価" value="${list.unitPrice}" readonly>
+							 placeholder="単価"
+							 value="<fmt:formatNumber value="${list.unitPrice}" />" readonly>
 						</div>
 					</div>
 
@@ -77,7 +79,8 @@
 						<label for="count" class="col-sm-2 control-label">個数</label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control text-right" name="saleNumber" id="count"
-							 placeholder="個数" value="${list.saleNumber}" readonly>
+							 placeholder="個数"
+							 value="<fmt:formatNumber value="${list.saleNumber}" />" readonly>
 						</div>
 					</div>
 
@@ -85,7 +88,9 @@
 						<label for="total" class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control text-right" name="total" id="total"
-							placeholder="小計" value="${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}" readonly>
+							placeholder="小計"
+							value="<fmt:formatNumber value="${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}" />"
+							readonly>
 						</div>
 					</div>
 

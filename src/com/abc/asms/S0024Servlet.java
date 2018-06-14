@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Accounts;
 import com.abc.asms.utils.DBUtils;
+import com.abc.asms.utils.HTMLUtils;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0024.html")
@@ -94,12 +95,10 @@ public class S0024Servlet extends HttpServlet {
 			ps.setString(3, req.getParameter("category"));
 
 			ps.setString(4, req.getParameter("tradeName"));
-			ps.setString(5, req.getParameter("unitPrice"));
-			ps.setString(6, req.getParameter("saleNumber"));
+			ps.setString(5, HTMLUtils.deleteComma(req.getParameter("unitPrice")));
+			ps.setString(6, HTMLUtils.deleteComma(req.getParameter("saleNumber")));
 			ps.setString(7, req.getParameter("note"));
 			ps.setString(8, req.getParameter("sale_id"));
-
-			System.out.println(ps);
 
 			//実行
 			ps.executeUpdate();

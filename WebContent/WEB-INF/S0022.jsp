@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.abc.asms.utils.HTMLUtils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -47,18 +48,20 @@
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">単価</label>
-						<div class="col-sm-2 form-control-static text-right">${list.unitPrice}</div>
+						<div class="col-sm-2 form-control-static text-right">
+						<fmt:formatNumber value="${list.unitPrice}" /></div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">個数</label>
-						<div class="col-sm-2 form-control-static text-right">${list.saleNumber}</div>
+						<div class="col-sm-2 form-control-static text-right">
+						<fmt:formatNumber value="${list.saleNumber}" /></div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2  form-control-static text-right">
-							${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}
+							<fmt:formatNumber value="${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}" />
 						</div>
 					</div>
 

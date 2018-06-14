@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.abc.asms.utils.HTMLUtils" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -26,7 +27,8 @@
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="saleDate" id="salesDate" placeholder="販売日" value="${HTMLUtils.parseDate(list.saleDate) }" readonly>
+							<input type="text" class="form-control" name="saleDate" id="salesDate"
+							placeholder="販売日" value="${HTMLUtils.parseDate(list.saleDate) }" readonly>
 						</div>
 					</div>
 
@@ -51,41 +53,49 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="tradeName" id="name" placeholder="商品名" value="${list.tradeName} " readonly>
+							<input type="text" class="form-control" name="tradeName" id="name"
+							placeholder="商品名" value="${list.tradeName} " readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="price" class="col-sm-2 control-label">単価</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="unitPrice" id="price" placeholder="単価" value="${list.unitPrice}" readonly>
+							<input type="text" class="form-control text-right" name="unitPrice" id="price"
+							placeholder="単価" value="<fmt:formatNumber value="${list.unitPrice}" />" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="count" class="col-sm-2 control-label">個数</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="saleNumber" id="count" placeholder="個数" value="${list.saleNumber}" readonly>
+							<input type="text" class="form-control text-right" name="saleNumber" id="count"
+							placeholder="個数" value="<fmt:formatNumber value="${list.saleNumber}" />" readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="total" class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right" name="total" id="total" placeholder="小計" value="${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}" readonly>
+							<input type="text" class="form-control text-right" name="total" id="total"
+							placeholder="小計"
+							value="<fmt:formatNumber value="${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}" />"
+							readonly>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考</label>
 						<div class="col-sm-5">
-							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5" readonly>${list.note}</textarea>
+							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5" readonly>
+${list.note}</textarea>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<button  class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> OK</button>
+							<button  class="btn btn-danger">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> OK</button>
 							<a href="S0022.html?sale_id=${list.saleId}" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.abc.asms.beans.Accounts;
 import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
+import com.abc.asms.utils.HTMLUtils;
 
 @WebServlet("/S0025.html")
 public class S0025Servlet extends HttpServlet {
@@ -81,8 +82,8 @@ public class S0025Servlet extends HttpServlet {
 					rs.getString("name"),
 					rs.getString("category_name"),
 					rs.getString("trade_name"),
-					rs.getInt("unit_price"),
-					rs.getInt("sale_number"),
+					rs.getInt(HTMLUtils.deleteComma("unit_price")),
+					rs.getInt(HTMLUtils.deleteComma("sale_number")),
 					rs.getString("note")
 					);
 			req.setAttribute("list", s);
