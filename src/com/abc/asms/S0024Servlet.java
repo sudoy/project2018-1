@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Accounts;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
 
@@ -26,6 +27,14 @@ public class S0024Servlet extends HttpServlet {
 
 		//セッションの読み込み
 		HttpSession session = req.getSession();
+
+		//権限チェック
+		List<String> check = checkAuthority(req);
+		if(check.size() != 0) {
+			session.setAttribute("check", check);
+
+			resp.sendRedirect("C0020.html");
+		}
 
 		//カテゴリーリスト
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
@@ -46,8 +55,15 @@ public class S0024Servlet extends HttpServlet {
 		//セッションの読み込み
 		HttpSession session = req.getSession();
 
-		//アップデート
 		req.setCharacterEncoding("utf-8");
+
+		//権限チェック
+		List<String> check = checkAuthority(req);
+		if(check.size() != 0) {
+			session.setAttribute("check", check);
+
+			resp.sendRedirect("C0020.html");
+		}
 
 		//カテゴリーリスト
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
@@ -57,6 +73,7 @@ public class S0024Servlet extends HttpServlet {
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
 		req.setAttribute("accountMap", accountMap);
 
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -64,7 +81,8 @@ public class S0024Servlet extends HttpServlet {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "UPDATE sales SET sale_date = ?, account_id = ?, category_id = ?, trade_name = ?, unit_price = ?, sale_number = ?, note = ? WHERE sale_id = ?";
+			sql = "UPDATE sales SET sale_date = ?, account_id = ?, category_id = ?, trade_name = ?,"
+					+ " unit_price = ?, sale_number = ?, note = ? WHERE sale_id = ?";
 
 			//準備
 			ps = con.prepareStatement(sql);
@@ -92,6 +110,8 @@ public class S0024Servlet extends HttpServlet {
 			successes.add(success);
 			session.setAttribute("successes", successes);
 
+			session.setAttribute("list", null);
+
 			resp.sendRedirect("S0021.html");
 
 
@@ -111,6 +131,20 @@ public class S0024Servlet extends HttpServlet {
 
 	}
 
+	private List<String> checkAuthority(HttpServletRequest req){
+		List<String> list = new ArrayList<>();
 
+		//セッションの読み込み
+		HttpSession session = req.getSession();
+
+		Accounts a = (Accounts)session.getAttribute("accounts");
+		int authority = a.getAuthority();
+
+		if(authority == 1 || authority == 11) {
+			list.add("不正なアクセスです");
+		}
+
+		return list;
+	}
 
 }

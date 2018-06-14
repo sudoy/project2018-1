@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Accounts;
 import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
 
@@ -25,7 +26,19 @@ public class S0025Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
+		//セッションの読み込み
+		HttpSession session = req.getSession();
+
+
 		req.setCharacterEncoding("utf-8");
+
+		//権限チェック
+		List<String> check = checkAuthority(req);
+		if(check.size() != 0) {
+			session.setAttribute("check", check);
+
+			resp.sendRedirect("C0020.html");
+		}
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -98,6 +111,14 @@ public class S0025Servlet extends HttpServlet {
 		//セッションの読み込み
 		HttpSession session = req.getSession();
 
+		//権限チェック
+		List<String> check = checkAuthority(req);
+		if(check.size() != 0) {
+			session.setAttribute("check", check);
+
+			resp.sendRedirect("C0020.html");
+		}
+
 		req.setCharacterEncoding("utf-8");
 
 		Connection con = null;
@@ -140,5 +161,21 @@ public class S0025Servlet extends HttpServlet {
 			}
 		}
 
+	}
+
+	private List<String> checkAuthority(HttpServletRequest req){
+		List<String> list = new ArrayList<>();
+
+		//セッションの読み込み
+		HttpSession session = req.getSession();
+
+		Accounts a = (Accounts)session.getAttribute("accounts");
+		int authority = a.getAuthority();
+
+		if(authority == 1 || authority == 11) {
+			list.add("不正なアクセスです");
+		}
+
+		return list;
 	}
 }

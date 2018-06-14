@@ -26,6 +26,8 @@ public class S0022Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
+
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -71,7 +73,7 @@ public class S0022Servlet extends HttpServlet {
 					rs.getString("note")
 					);
 
-			req.setAttribute("list", s);
+			session.setAttribute("list", s);
 
 			//フォワード
 			getServletContext().getRequestDispatcher("/WEB-INF/S0022.jsp").forward(req, resp);

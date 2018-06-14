@@ -41,10 +41,18 @@
 						<label for="person" class="col-sm-2 control-label">担当 <span class="badge">必須</span></label>
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person">
-								<c:forEach var="account" items="${accountMap}">
-									<option value="${account.value}" ${param.account eq account.value ? 'selected' :
-									list.account eq account.value ? 'selected' :  '' }>${account.value}</option>
-								</c:forEach>
+
+								<c:if test="${param.account ne null}">
+									<c:forEach var="account" items="${accountMap}">
+										<option value="${account.value}" ${param.account eq account.value ? 'selected' :'' }>${account.value}</option>
+									</c:forEach>
+								</c:if>
+
+								<c:if test="${param.account eq null }">
+									<c:forEach var="account" items="${accountMap}">
+										<option value="${account.value}" ${list.account eq account.value ? 'selected' :  '' }>${account.value}</option>
+									</c:forEach>
+								</c:if>
 							</select>
 						</div>
 					</div>
@@ -55,10 +63,18 @@
 						</label>
 						<div class="col-sm-5">
 							<select class="form-control" name="category" id="category">
-								<c:forEach var="category" items="${categoryMap}">
-									<option value="${category.value}" ${param.category eq category.value ? 'selected' :
-									list.category eq category.value ? 'selected' :  '' }>${category.value}</option>
+
+								<c:if test="${param.category ne null}">
+									<c:forEach var="category" items="${categoryMap}">
+									<option value="${category.value}" ${param.category eq category.value ? 'selected' :  '' }>${category.value}</option>
 								</c:forEach>
+								</c:if>
+
+								<c:if test="${param.category eq null }">
+									<c:forEach var="category" items="${categoryMap}">
+									<option value="${category.value}" ${list.category eq category.value ? 'selected' :  '' }>${category.value}</option>
+								</c:forEach>
+								</c:if>
 							</select>
 						</div>
 					</div>
