@@ -44,14 +44,14 @@
 
 								<c:if test="${param.account ne null}">
 									<c:forEach var="account" items="${accountMap}">
-										<option value="${account.value}"
-										${param.account eq account.value ? 'selected' :'' }>${account.value}</option>
+										<option value="${account.key}"
+										${param.account eq account.key ? 'selected' :'' }>${account.value}</option>
 									</c:forEach>
 								</c:if>
 
 								<c:if test="${param.account eq null }">
 									<c:forEach var="account" items="${accountMap}">
-										<option value="${account.value}"
+										<option value="${account.key}"
 										${saleList.account eq account.value ? 'selected' :  '' }>${account.value}</option>
 									</c:forEach>
 								</c:if>
@@ -68,14 +68,14 @@
 
 								<c:if test="${param.category ne null}">
 									<c:forEach var="category" items="${categoryMap}">
-									<option value="${category.value}"
-									${param.category eq category.value ? 'selected' :  '' }>${category.value}</option>
+									<option value="${category.key}"
+									${param.category eq category.key ? 'selected' :  '' }>${category.value}</option>
 								</c:forEach>
 								</c:if>
 
 								<c:if test="${param.category eq null }">
 									<c:forEach var="category" items="${categoryMap}">
-									<option value="${category.value}"
+									<option value="${category.key}"
 									${saleList.category eq category.value ? 'selected' :  '' }>${category.value}</option>
 								</c:forEach>
 								</c:if>

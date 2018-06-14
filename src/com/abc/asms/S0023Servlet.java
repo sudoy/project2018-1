@@ -97,8 +97,8 @@ public class S0023Servlet extends HttpServlet {
 		Sales s = new Sales(
 				Integer.parseInt(req.getParameter("sale_id")),
 				saleDate,
-				req.getParameter("account"),
-				req.getParameter("category"),
+				ServletUtils.parseAccountName(Integer.parseInt(req.getParameter("account"))),
+				ServletUtils.parseCategoryName(Integer.parseInt(req.getParameter("category"))),
 				req.getParameter("tradeName"),
 				Integer.parseInt(req.getParameter("unitPrice")),
 				Integer.parseInt(req.getParameter("saleNumber")),
@@ -158,19 +158,19 @@ public class S0023Servlet extends HttpServlet {
 		if (req.getParameter("account").equals("")) {
 			list.add("担当が未選択です。");
 		}
-//		else if (ServletUtils.matchAccount(req.getParameter("account")) == false) {
-//			//アカウントテーブルのチェック
-//			list.add("アカウントテーブルに存在しません。");
-//		}
+		else if (ServletUtils.matchAccount(req.getParameter("account")) == false) {
+			//アカウントテーブルのチェック
+			list.add("アカウントテーブルに存在しません。");
+		}
 
 		//カテゴリーの必須入力
 		if (req.getParameter("category").equals("")) {
 			list.add("商品カテゴリーが未選択です。");
 		}
-//		else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
-//			//カテゴリーテーブルのチェック
-//			list.add("商品カテゴリーテーブルに存在しません。");
-//		}
+		else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
+			//カテゴリーテーブルのチェック
+			list.add("商品カテゴリーテーブルに存在しません。");
+		}
 
 		//商品名の必須入力
 		if (req.getParameter("tradeName").equals("")) {
