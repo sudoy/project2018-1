@@ -73,7 +73,7 @@ public class S0022Servlet extends HttpServlet {
 					rs.getString("note")
 					);
 
-			session.setAttribute("list", s);
+			session.setAttribute("saleList", s);
 
 			//フォワード
 			getServletContext().getRequestDispatcher("/WEB-INF/S0022.jsp").forward(req, resp);

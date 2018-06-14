@@ -55,7 +55,6 @@ public class S0025Servlet extends HttpServlet {
 			String id = req.getParameter("sale_id");
 
 			//SQL
-			//totalいらない
 			sql = "select s.sale_id, s.sale_date, a.name, c.category_name, " +
 					"s.trade_name, s.unit_price, s.sale_number, s.note " +
 					"FROM sales s " +
@@ -173,7 +172,7 @@ public class S0025Servlet extends HttpServlet {
 		Accounts a = (Accounts)session.getAttribute("accounts");
 		int authority = a.getAuthority();
 
-		if(authority == 1 || authority == 11) {
+		if(!(authority == 0 || authority == 10)) {
 			list.add("不正なアクセスです");
 		}
 

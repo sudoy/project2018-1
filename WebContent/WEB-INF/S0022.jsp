@@ -28,55 +28,55 @@
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">販売日</label>
-						<div class="col-sm-2 form-control-static">${HTMLUtils.parseDate(list.saleDate)}</div>
+						<div class="col-sm-2 form-control-static">${HTMLUtils.parseDate(saleList.saleDate)}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">担当</label>
-						<div class="col-sm-5 form-control-static">${list.account}</div>
+						<div class="col-sm-5 form-control-static">${saleList.account}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品カテゴリー</label>
-						<div class="col-sm-5 form-control-static">${list.category}</div>
+						<div class="col-sm-5 form-control-static">${saleList.category}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品名</label>
-						<div class="col-sm-5 form-control-static">${list.tradeName}</div>
+						<div class="col-sm-5 form-control-static">${saleList.tradeName}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">単価</label>
 						<div class="col-sm-2 form-control-static text-right">
-						<fmt:formatNumber value="${list.unitPrice}" /></div>
+						<fmt:formatNumber value="${saleList.unitPrice}" /></div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">個数</label>
 						<div class="col-sm-2 form-control-static text-right">
-						<fmt:formatNumber value="${list.saleNumber}" /></div>
+						<fmt:formatNumber value="${saleList.saleNumber}" /></div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2  form-control-static text-right">
-							<fmt:formatNumber value="${HTMLUtils.sumCalc(list.unitPrice,list.saleNumber)}" />
+							<fmt:formatNumber value="${HTMLUtils.sumCalc(saleList.unitPrice,saleList.saleNumber)}" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">備考 </label>
-						<div class="col-sm-5 form-control-static">${list.note}</div>
+						<div class="col-sm-5 form-control-static">${saleList.note}</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
 							<c:if test="${accounts.authority eq 0 || accounts.authority eq 10 }">
-								<a href="S0023.html?sale_id=${list.saleId }" class="btn btn-primary">
+								<a href="S0023.html?sale_id=${saleList.saleId }" class="btn btn-primary">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 編 集
 								</a>
-								<a href="S0025.html?sale_id=${list.saleId }" class="btn btn-danger">
+								<a href="S0025.html?sale_id=${saleList.saleId }" class="btn btn-danger">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 削 除
 								</a>
 							</c:if>

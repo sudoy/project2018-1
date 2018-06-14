@@ -26,14 +26,14 @@
 			</div>
 
 			<div class="row">
-				<form class="form-horizontal" action="S0023.html?sale_id=${list.saleId}" method="POST">
+				<form class="form-horizontal" action="S0023.html?sale_id=${saleList.saleId}" method="POST">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日
 							<span class="badge">必須</span>
 						</label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control" name="saleDate" id="saleDate" placeholder="販売日"
-							 value="${param.saleDate != null ? param.saleDate : HTMLUtils.parseDate(list.saleDate)}">
+							 value="${param.saleDate != null ? param.saleDate : HTMLUtils.parseDate(saleList.saleDate)}">
 						</div>
 					</div>
 
@@ -52,7 +52,7 @@
 								<c:if test="${param.account eq null }">
 									<c:forEach var="account" items="${accountMap}">
 										<option value="${account.value}"
-										${list.account eq account.value ? 'selected' :  '' }>${account.value}</option>
+										${saleList.account eq account.value ? 'selected' :  '' }>${account.value}</option>
 									</c:forEach>
 								</c:if>
 							</select>
@@ -76,7 +76,7 @@
 								<c:if test="${param.category eq null }">
 									<c:forEach var="category" items="${categoryMap}">
 									<option value="${category.value}"
-									${list.category eq category.value ? 'selected' :  '' }>${category.value}</option>
+									${saleList.category eq category.value ? 'selected' :  '' }>${category.value}</option>
 								</c:forEach>
 								</c:if>
 							</select>
@@ -87,7 +87,7 @@
 						<label for="name" class="col-sm-2 control-label">商品名 <span class="badge">必須</span></label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="tradeName" id="name" placeholder="商品名"
-							value="${param.tradeName != null ? param.tradeName : list.tradeName }">
+							value="${param.tradeName != null ? param.tradeName : saleList.tradeName }">
 						</div>
 					</div>
 
@@ -96,7 +96,7 @@
 						<div class="col-sm-2">
 							<input type="text" class="form-control  text-right" name="unitPrice"
 							id="price" placeholder="単価"
-							value="${param.unitPrice != null ? param.unitPrice : list.unitPrice }">
+							value="${param.unitPrice != null ? param.unitPrice : saleList.unitPrice }">
 						</div>
 					</div>
 
@@ -105,7 +105,7 @@
 						<div class="col-sm-2">
 							<input type="text" class="form-control  text-right" name="saleNumber"
 							id="count" placeholder="個数"
-							value="${param.saleNumber != null ? param.saleNumber : list.saleNumber }">
+							value="${param.saleNumber != null ? param.saleNumber : saleList.saleNumber }">
 						</div>
 					</div>
 
@@ -113,7 +113,7 @@
 						<label for="note" class="col-sm-2 control-label">備考 </label>
 						<div class="col-sm-5">
 							<textarea class="form-control" name="note" id="note" placeholder="備考" rows="5">
-${param.note != null ? param.note : list.note }</textarea>
+${param.note != null ? param.note : saleList.note }</textarea>
 						</div>
 					</div>
 
@@ -121,7 +121,7 @@ ${param.note != null ? param.note : list.note }</textarea>
 						<div class="col-sm-offset-3">
 							<button type="submit" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>更 新</button>
-							<a href="S0022.html?sale_id=${list.saleId}" class="btn btn-default"> キャンセル</a>
+							<a href="S0022.html?sale_id=${saleList.saleId}" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 

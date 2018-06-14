@@ -109,7 +109,7 @@ public class S0024Servlet extends HttpServlet {
 			successes.add(success);
 			session.setAttribute("successes", successes);
 
-			session.setAttribute("list", null);
+			session.setAttribute("saleList", null);
 
 			resp.sendRedirect("S0021.html");
 
@@ -139,7 +139,7 @@ public class S0024Servlet extends HttpServlet {
 		Accounts a = (Accounts)session.getAttribute("accounts");
 		int authority = a.getAuthority();
 
-		if(authority == 1 || authority == 11) {
+		if(!(authority == 0 || authority == 10)) {
 			list.add("不正なアクセスです");
 		}
 
