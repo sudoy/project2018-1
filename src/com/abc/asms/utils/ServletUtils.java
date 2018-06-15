@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,9 +38,7 @@ public class ServletUtils {
 					+ "order by category_id";
 
 			ps = con.prepareStatement(sql);
-
 			rs = ps.executeQuery();
-
 
 			while(rs.next()) {
 				if(rs.getInt("active_flg") == 1) {
@@ -58,9 +57,9 @@ public class ServletUtils {
 				e.printStackTrace();
 			}
 		}
-
 		return categoryMap;
 	}
+
 
 	public static Map<Integer, String> getAccountMap(HttpServletRequest req){
 
@@ -80,9 +79,7 @@ public class ServletUtils {
 					+ "order by account_id";
 
 			ps = con.prepareStatement(sql);
-
 			rs = ps.executeQuery();
-
 
 			while(rs.next()) {
 				accountMap.put(rs.getInt("account_id"), rs.getString("name"));
@@ -99,9 +96,9 @@ public class ServletUtils {
 				e.printStackTrace();
 			}
 		}
-
 		return accountMap;
 	}
+
 
 	public static String parseAccountName(int accountId) {
 		Connection con = null;
@@ -121,15 +118,10 @@ public class ServletUtils {
 			sql = "select account_id, name from accounts where account_id=? order by account_id";
 
 			ps = con.prepareStatement(sql);
-
 			ps.setString(1, String.valueOf(accountId));
-
 			rs = ps.executeQuery();
-
 			rs.next();
-
 			name = rs.getString("name");
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,11 +134,9 @@ public class ServletUtils {
 				e.printStackTrace();
 			}
 		}
-
-
 		return name;
-
 	}
+
 
 	public static String parseCategoryName(int categoryId) {
 		Connection con = null;
@@ -166,15 +156,10 @@ public class ServletUtils {
 			sql = "select category_id, category_name from categories where category_id=? order by category_id";
 
 			ps = con.prepareStatement(sql);
-
 			ps.setString(1, String.valueOf(categoryId));
-
 			rs = ps.executeQuery();
-
 			rs.next();
-
 			name = rs.getString("category_name");
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -187,11 +172,50 @@ public class ServletUtils {
 				e.printStackTrace();
 			}
 		}
-
-
 		return name;
-
 	}
+
+
+	// C0020用	前月売上合計
+	public static int beforeTotal(LocalDate first, LocalDate last, int loginId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		int beforeTotal = 0;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT unit_price, sale_number  FROM sales " +
+					"WHERE sale_date BETWEEN ? AND ? AND account_id = ? " +
+					"ORDER BY sale_date";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, first.withDayOfMonth(1).minusMonths(1).toString());
+			ps.setString(2, last.withDayOfMonth(1).minusDays(1).toString());
+			ps.setString(3, Integer.toString(loginId));
+			rs = ps.executeQuery();
+
+			while(rs.next()) {
+				beforeTotal += rs.getInt("unit_price") * rs.getInt("sale_number");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return beforeTotal;
+	}
+
 
 	// アカウントテーブルのバリデーションチェック用、== falseならエラー表示
 	public static boolean matchAccount(String account) {
@@ -202,11 +226,11 @@ public class ServletUtils {
 
 		try {
 			con = DBUtils.getConnection();
+
 			sql = "SELECT name FROM accounts WHERE account_id = ? ORDER BY account_id";
 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, account);
-
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				return true;
@@ -228,6 +252,7 @@ public class ServletUtils {
 			}
 		}
 	}
+
 
 	// カテゴリーテーブルのバリデーションチェック用、== falseならエラー表示
 	public static boolean matchCategory(String category) {
@@ -238,11 +263,11 @@ public class ServletUtils {
 
 		try {
 			con = DBUtils.getConnection();
+
 			sql = "SELECT category_name FROM categories WHERE active_flg = 1 AND category_id = ? ORDER BY category_id";
 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, category);
-
 			rs = ps.executeQuery();
 
 			if(rs.next()) {
@@ -265,6 +290,44 @@ public class ServletUtils {
 			}
 		}
 	}
+
+
+	// メールアドレス重複チェック == trueで弾く
+		public static boolean overlapMail(String mail) {
+			Connection con = null;
+			PreparedStatement ps = null;
+			String sql = null;
+			ResultSet rs = null;
+
+			try {
+				con = DBUtils.getConnection();
+
+				sql = "SELECT mail FROM accounts WHERE mail = ? ORDER BY mail";
+
+				ps = con.prepareStatement(sql);
+				ps.setString(1, mail);
+				rs = ps.executeQuery();
+
+				if(rs.next()) {
+					return true;
+				} else {
+					return false;
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}finally {
+				try {
+					DBUtils.close(con);
+					DBUtils.close(ps);
+					DBUtils.close(rs);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}
 
 
 	// S0011専用
@@ -283,9 +346,7 @@ public class ServletUtils {
 
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-
 			rs.next();
-
 			registerId = rs.getString("sale_id");
 
 		} catch (Exception e) {
@@ -301,6 +362,7 @@ public class ServletUtils {
 		}
 		return registerId;
 	}
+
 
 	// S0031専用
 	public static String registerAId() {
@@ -318,9 +380,7 @@ public class ServletUtils {
 
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-
 			rs.next();
-
 			registerAId = rs.getString("account_id");
 
 		} catch (Exception e) {
@@ -335,43 +395,6 @@ public class ServletUtils {
 			}
 		}
 		return registerAId;
-	}
-
-	// メールアドレス重複チェック == trueで弾く
-	public static boolean overlapMail(String mail) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		String sql = null;
-		ResultSet rs = null;
-
-		try {
-			con = DBUtils.getConnection();
-
-			sql = "SELECT mail FROM accounts WHERE mail = ? ORDER BY mail";
-
-			ps = con.prepareStatement(sql);
-			ps.setString(1, mail);
-			rs = ps.executeQuery();
-
-			if(rs.next()) {
-				return true;
-			} else {
-				return false;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}finally {
-			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
-				DBUtils.close(rs);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return false;
-			}
-		}
 	}
 
 
@@ -391,6 +414,7 @@ public class ServletUtils {
 		}
 	}
 
+
 	// 売上権限チェック
 	public static boolean checkSales(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -407,6 +431,7 @@ public class ServletUtils {
 			return true;
 		}
 	}
+
 
 	// アカウント権限チェック
 	public static boolean checkAccounts(HttpServletRequest req, HttpServletResponse resp) throws IOException {

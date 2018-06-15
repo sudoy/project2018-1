@@ -13,6 +13,16 @@ public class Sales {
 	private int saleNumber;
 	private String note;
 
+	public Sales(int saleId, LocalDate saleDate, String category, String tradeName, int unitPrice, int saleNumber) {
+		super();
+		this.saleId = saleId;
+		this.saleDate = saleDate;
+		this.category = category;
+		this.tradeName = tradeName;
+		this.unitPrice = unitPrice;
+		this.saleNumber = saleNumber;
+	}
+
 	public Sales(int saleId, LocalDate saleDate, String account, String category, String tradeName, int unitPrice, int saleNumber,
 			String note) {
 		super();
