@@ -25,7 +25,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name" placeholder="氏名"
-							value="${entry.name}" name="name">
+							value="${entry.name}" name="name" readonly>
 					</div>
 				</div>
 
@@ -34,7 +34,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="mail"
-							placeholder="メールアドレス" value="${entry.mail}"name="mail">
+							placeholder="メールアドレス" value="${entry.mail}"name="mail" readonly>
 					</div>
 				</div>
 
@@ -43,7 +43,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="password" class="form-control" id="password1"
-							placeholder="パスワード" value="${entry.password}" name="password1">
+							placeholder="パスワード" value="${entry.password}" name="password1" readonly>
 					</div>
 				</div>
 
@@ -53,7 +53,7 @@
 					</label>
 					<div class="col-sm-5">
 						<input type="password" class="form-control" id="password1"
-							placeholder="パスワード(確認)" value="${entry.password}" name="password1">
+							placeholder="パスワード(確認)" value="${entry.password}" readonly>
 					</div>
 				</div>
 
@@ -62,9 +62,9 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<label class="radio-inline"> <input type="radio"
-							name="authority1" value="0" ${entry.authority == 0 || entry.authority == 10 ? 'checked' : ''}> 権限なし
+							name="authority1" value="0" ${entry.authority == 0 || entry.authority == 10 ? 'checked readonly' : 'disabled'}> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
-							name="authority1" value="1" ${entry.authority == 1 || entry.authority == 11 ? 'checked' : ''}> 権限あり
+							name="authority1" value="1" ${entry.authority == 1 || entry.authority == 11 ? 'checked readonly' : 'disabled'}> 権限あり
 						</label>
 					</div>
 				</div>
@@ -74,9 +74,9 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<label class="radio-inline"> <input type="radio"
-							name="authority2" value="0" ${entry.authority == 0 || entry.authority == 1 ? 'checked' : ''}> 権限なし
+							name="authority2" value="0" ${entry.authority == 0 || entry.authority == 1 ? 'checked readonly' : 'disabled'}> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
-							name="authority2" value="1" ${entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}> 権限あり
+							name="authority2" value="1" ${entry.authority == 10 || entry.authority == 11 ? 'checked readonly' : 'disabled'}> 権限あり
 						</label>
 					</div>
 				</div>

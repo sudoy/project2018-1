@@ -17,62 +17,78 @@
 	<div class="container">
 
 		<div class="row">
-				<h1 class="col-xs-6 col-xs-offset-3">ダッシュボード</h1>
-			</div>
+			<h1 class="col-xs-6 col-xs-offset-3">ダッシュボード</h1>
+		</div>
 
-			<div class="col-sm-2">
-				<nav class="float-left">
-					<ul class="pagination">
-						<li class="page-item">
-							<a class="page-link" href="C0020.html?before=${date}"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-left"></span> 前年</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="C0020.html?back=${date}"><span class="glyphicon glyphicon-chevron-left"></span> 前月</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
+		<div class="col-sm-2">
+			<nav class="float-left">
+				<ul class="pagination">
+					<li class="page-item"><a class="page-link"
+						href="C0020.html?before=${date}"><span
+							class="glyphicon glyphicon-chevron-left"></span><span
+							class="glyphicon glyphicon-chevron-left"></span> 前年</a></li>
+					<li class="page-item"><a class="page-link"
+						href="C0020.html?back=${date}"><span
+							class="glyphicon glyphicon-chevron-left"></span> 前月</a></li>
+				</ul>
+			</nav>
+		</div>
 
-			<div class="col-sm-5 text-center">
-				<h2 class="font-weight-bold">${date}</h2>
-			</div>
+		<div class="col-sm-5 text-center">
+			<h2 class="font-weight-bold">${date}</h2>
+		</div>
 
-			<div class="col-sm-4">
+		<div class="col-sm-4">
 
-					<ul class="pagination">
-						<li class="page-item">
-							<a class="page-link" href="C0020.html?next=${date}">翌月 <span class="glyphicon glyphicon-chevron-right"></span></a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="C0020.html?next=${date}">翌年 <span class="glyphicon glyphicon-chevron-right"></span><span class="glyphicon glyphicon-chevron-right"></span></a>
-						</li>
-					</ul>
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link"
+					href="C0020.html?next=${date}">翌月 <span
+						class="glyphicon glyphicon-chevron-right"></span></a></li>
+				<li class="page-item"><a class="page-link"
+					href="C0020.html?next=${date}">翌年 <span
+						class="glyphicon glyphicon-chevron-right"></span><span
+						class="glyphicon glyphicon-chevron-right"></span></a></li>
+			</ul>
 
-			</div>
+		</div>
 
 		<div class="col-sm-3">
 			<div class="panel panel-default">
-				<div class="panel-heading">前月(5月)の売上合計</div>
-				<div class="panel-body"><fmt:formatNumber value="${lastMonth}" />円</div>
+				<div class="panel-heading">前月(${HTMLUtils.parseMonth(lastday)})の売上合計</div>
+				<div class="panel-body">
+					<fmt:formatNumber value="${lastMonth}" />
+					円
+				</div>
 			</div>
 		</div>
 		<div class="col-sm-3">
 			<div class="panel panel-default">
-				<div class="panel-heading">今月(6月)の売上合計</div>
-				<div class="panel-body"><fmt:formatNumber value="${toMonth}" />円</div>
+				<div class="panel-heading">今月(${HTMLUtils.parseMonth(today)})の売上合計</div>
+				<div class="panel-body">
+					<fmt:formatNumber value="${toMonth}" />
+					円
+				</div>
 			</div>
 		</div>
 		<div class="col-sm-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">前月比</div>
 				<div class="panel-body">
-				<span class="${(toMonth / lastMonth) >= 1 ? 'text-success' : 'text-danger'}">
-				<c:choose><c:when test="${(toMonth / lastMonth) >= 1}"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></c:when>
-				<c:otherwise><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></c:otherwise></c:choose>
-				<fmt:formatNumber value="${toMonth / lastMonth}" pattern="###.00%" />
-				</span>
+					<span
+						class="${HTMLUtils.judgeRatio(toMonth, lastMonth) ? 'text-success' : 'text-danger'}">
+						<c:choose>
+							<c:when test="${HTMLUtils.judgeRatio(toMonth, lastMonth)}">
+								<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+							</c:when>
+							<c:otherwise>
+								<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+							</c:otherwise>
+						</c:choose> <fmt:formatNumber
+							value="${HTMLUtils.ratioCalc(toMonth, lastMonth)}"
+							pattern="##0.00%" />
+					</span>
 				</div>
-			</div>HTMLUtils.judgeRatio(toMonth, lastMonth) HTMLUtils.ratioCalc(toMonth, lastMonth)
+			</div>
 		</div>
 
 		<div class="col-sm-9">
@@ -89,17 +105,17 @@
 						<th>個数</th>
 						<th>小計</th>
 					</tr>
-<c:forEach var="sales" items="${list}">
-							<tr>
-								<th>${sales.saleId}</th>
-								<td>${HTMLUtils.parseDate(sales.saleDate)}</td>
-								<td>${sales.category}</td>
-								<td>${sales.tradeName}</td>
-								<td>${sales.unitPrice}</td>
-								<td>${sales.saleNumber}</td>
-								<td>${HTMLUtils.sumCalc(sales.unitPrice, sales.saleNumber)}</td>
-							</tr>
-						</c:forEach>
+					<c:forEach var="sales" items="${list}">
+						<tr>
+							<th>${sales.saleId}</th>
+							<td>${HTMLUtils.parseDate(sales.saleDate)}</td>
+							<td>${sales.category}</td>
+							<td>${sales.tradeName}</td>
+							<td>${sales.unitPrice}</td>
+							<td>${sales.saleNumber}</td>
+							<td>${HTMLUtils.sumCalc(sales.unitPrice, sales.saleNumber)}</td>
+						</tr>
+					</c:forEach>
 					<tr>
 						<td colspan="5"></td>
 						<th>合計</th>

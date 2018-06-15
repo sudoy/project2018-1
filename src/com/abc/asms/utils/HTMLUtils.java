@@ -13,7 +13,6 @@ public class HTMLUtils {
 		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		s = f.format(date);
 		return s;
-
 	}
 
 	public static boolean judgeCheckbox(String[] param, String key) {
@@ -28,8 +27,8 @@ public class HTMLUtils {
 		return false;
 	}
 
-	public static boolean judgeRatio(int toMonth, int lastMonth) {
-		int ratio = toMonth / lastMonth;
+	public static boolean judgeRatio(double toMonth, double lastMonth) {
+		double ratio = toMonth / lastMonth;
 		if(ratio >= 1) {
 			return true;
 		} else {
@@ -41,8 +40,14 @@ public class HTMLUtils {
 		return unitPrice * saleNumber;
 	}
 
-	public static int ratioCalc(int toMonth, int lastMonth) {
-		return toMonth / lastMonth;
+	public static double ratioCalc(double toMonth, double lastMonth) {
+		double ratio = toMonth / lastMonth;
+		if(true == Double.isInfinite(ratio)) {
+			ratio = 0;
+			return ratio;
+		} else {
+			return ratio;
+		}
 	}
 
 	public static String dateFormat(String saleDate) {
@@ -53,11 +58,18 @@ public class HTMLUtils {
 		}
 		s = saleDate.replace("/", "-");
 		return s;
-
 	}
 
-	public static String deleteComma(String strNewNum) {
-	      return strNewNum.replaceAll(",","");
+	public static String parseMonth(String today) {
+		String s = today.substring(5);
+		if(s.indexOf("0") == 0) {
+			return s.substring(1);
+		}
+		return s;
+	}
+
+	public static String deleteComma(String Numbers) {
+	      return Numbers.replaceAll(",","");
 	}
 
 	public static String parseAuthority(int authority) {
