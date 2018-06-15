@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
+import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0022.html")
 public class S0022Servlet extends HttpServlet {
@@ -25,6 +26,12 @@ public class S0022Servlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		req.setCharacterEncoding("utf-8");
+
+		//ログインチェック
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
 
 		Connection con = null;
 		PreparedStatement ps = null;

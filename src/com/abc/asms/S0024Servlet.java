@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.abc.asms.beans.Accounts;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.HTMLUtils;
 import com.abc.asms.utils.ServletUtils;
@@ -29,12 +28,14 @@ public class S0024Servlet extends HttpServlet {
 		//セッションの読み込み
 		HttpSession session = req.getSession();
 
-		//権限チェック
-		List<String> check = checkAuthority(req);
-		if(check.size() != 0) {
-			session.setAttribute("errors", check);
+		//ログインチェック
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
 
-			resp.sendRedirect("C0020.html");
+		//売上権限チェック
+		if(!ServletUtils.checkSales(req, resp)) {
+			return;
 		}
 
 		//カテゴリーリスト
@@ -58,12 +59,14 @@ public class S0024Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
-		//権限チェック
-		List<String> check = checkAuthority(req);
-		if(check.size() != 0) {
-			session.setAttribute("errors", check);
+		//ログインチェック
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
 
-			resp.sendRedirect("C0020.html");
+		//売上権限チェック
+		if(!ServletUtils.checkSales(req, resp)) {
+			return;
 		}
 
 		//カテゴリーリスト
@@ -130,20 +133,6 @@ public class S0024Servlet extends HttpServlet {
 
 	}
 
-	private List<String> checkAuthority(HttpServletRequest req){
-		List<String> list = new ArrayList<>();
 
-		//セッションの読み込み
-		HttpSession session = req.getSession();
-
-		Accounts a = (Accounts)session.getAttribute("accounts");
-		int authority = a.getAuthority();
-
-		if(!(authority == 1 || authority == 11)) {
-			list.add("不正なアクセスです");
-		}
-
-		return list;
-	}
 
 }
