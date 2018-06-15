@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.abc.asms.beans.SearchForm;
+import com.abc.asms.beans.SearchSaleForm;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0020.html")
@@ -34,6 +34,15 @@ public class S0020Servlet extends HttpServlet {
 //			resp.sendRedirect("C0010.html");
 //			return;
 //		}
+
+		if(session.getAttribute("ssf") != null) {
+
+			SearchSaleForm ssf = (SearchSaleForm) session.getAttribute("ssf");
+			req.setAttribute("ssf", ssf);
+			session.setAttribute("ssf", null);
+
+		}
+
 
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
@@ -65,70 +74,22 @@ public class S0020Servlet extends HttpServlet {
 		req.setAttribute("accountMap", accountMap);
 
 		HttpSession session = req.getSession();
+
+		SearchSaleForm ssf = new SearchSaleForm(req.getParameter("start"), req.getParameter("end"),
+				req.getParameter("account"), req.getParameterValues("category"), req.getParameter("tradeName"), req.getParameter("note"));
+
 		List<String> errors = validate(req);
 
 		if(errors.size() != 0) {
 			session.setAttribute("errors", errors);
+			req.setAttribute("ssf", ssf);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/S0020.jsp")
 			.forward(req, resp);
 			return;
 
 		}
-
-			List<String> sqlParameter = new ArrayList<>();
-
-			String sql = "select sale_id, sale_date, account_id, category_id, trade_name, unit_price, sale_number, note "
-					+ "from sales where 0=0";
-
-			if(!req.getParameter("start").equals("")) {
-				sql = sql.concat(" and sale_date >= ?");
-				sqlParameter.add(req.getParameter("start"));
-			}
-
-			if(!req.getParameter("end").equals("")) {
-				sql = sql.concat(" and sale_date <= ?");
-				sqlParameter.add(req.getParameter("end"));
-			}
-
-			if(!req.getParameter("account").equals("")) {
-				sql = sql.concat(" and account_id = ?");
-				sqlParameter.add(req.getParameter("account"));
-			}
-			String[] categories = req.getParameterValues("category");
-			if(categories != null) {
-				sql = sql.concat(" and category_id in(");
-
-				for(int i = 0; i < categories.length; i++) {
-					if(i == 0) {
-						sql = sql.concat("?");
-						sqlParameter.add(categories[i]);
-					}else {
-						sql = sql.concat(",?");
-						sqlParameter.add(categories[i]);
-					}
-				}
-
-				sql = sql.concat(")");
-			}
-
-			if(!req.getParameter("tradeName").equals("")) {
-				sql = sql.concat(" and trade_name like ?");
-				sqlParameter.add("%" + req.getParameter("tradeName") + "%");
-			}
-
-			if(!req.getParameter("note").equals("")) {
-				sql = sql.concat(" and note like ?");
-				sqlParameter.add("%" + req.getParameter("note") + "%");
-			}
-
-			sql = sql.concat(" order by sale_id desc");
-
-
-			SearchForm searchForm = new SearchForm(sql, sqlParameter);
-
-			session.setAttribute("searchForm", searchForm);
-
+		session.setAttribute("ssf", ssf);
 
 		resp.sendRedirect("S0021.html");
 

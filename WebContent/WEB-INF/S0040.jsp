@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.abc.asms.utils.HTMLUtils" %>
+
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -23,28 +25,28 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">氏名 <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="name" name="name" placeholder="氏名" value="${param.name}">
+							<input type="text" class="form-control" id="name" name="name" placeholder="氏名" value="${saf.name}">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="mail" class="col-sm-2 control-label">メールアドレス</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="mail" name="mail" placeholder="メールアドレス" value="${param.mail}">
+							<input type="text" class="form-control" id="mail" name="mail" placeholder="メールアドレス" value="${saf.mail}">
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-2 control-label">売上登録権限</label>
+						<label class="col-sm-2 control-label">売上登録権限${saf.saleAuthority}</label>
 						<div class="col-sm-5">
 							<label class="radio-inline">
-								<input type="radio" name="salesAuthority" value="0,1" ${param.salesAuthority == "0,1" || param.accountAuthority == null  ? "checked" : ""}> 全て
+								<input type="radio" name="saleAuthority" value="0,1" ${saf.saleAuthority == "0,1" || saf.saleAuthority == null ? "checked" : ""}> 全て
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="salesAuthority" value="0" ${param.salesAuthority == "0" ? "checked" : ""}> 権限なし
+								<input type="radio" name="saleAuthority" value="0" ${saf.saleAuthority == "0" ? "checked" : ""}> 権限なし
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="salesAuthority" value="1" ${param.salesAuthority == "1" ? "checked" : ""}> 権限あり
+								<input type="radio" name="saleAuthority" value="1" ${saf.saleAuthority == "1" ? "checked" : ""}> 権限あり
 							</label>
 						</div>
 					</div>
@@ -53,13 +55,13 @@
 						<label class="col-sm-2 control-label">アカウント権限</label>
 						<div class="col-sm-5">
 							<label class="radio-inline">
-								<input type="radio" name="accountAuthority" value="0,1" ${param.accountAuthority == "0,1" || param.accountAuthority == null ? "checked" : ""}> 全て
+								<input type="radio" name="accountAuthority" value="0,1" ${saf.accountAuthority == "0,1" || saf.accountAuthority == null ? "checked" : ""}> 全て
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="accountAuthority" value="0" ${param.accountAuthority == "0" ? "checked" : ""}> 権限なし
+								<input type="radio" name="accountAuthority" value="0" ${saf.accountAuthority == "0" ? "checked" : ""}> 権限なし
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="accountAuthority" value="1" ${param.accountAuthority == "1" ? "checked" : ""}> 権限あり
+								<input type="radio" name="accountAuthority" value="1" ${saf.accountAuthority == "1" ? "checked" : ""}> 権限あり
 							</label>
 						</div>
 					</div>

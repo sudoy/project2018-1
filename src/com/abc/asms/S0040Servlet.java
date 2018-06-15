@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.abc.asms.beans.SearchForm;
+import com.abc.asms.beans.SearchAccountForm;
+
 
 @WebServlet("/S0040.html")
 public class S0040Servlet extends HttpServlet {
@@ -19,6 +20,14 @@ public class S0040Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
+		if(session.getAttribute("saf") != null) {
+			System.out.println("うごいてるよー");
+			SearchAccountForm saf = (SearchAccountForm) session.getAttribute("saf");
+			req.setAttribute("saf", saf);
+			session.setAttribute("saf", null);
+		}
+
 		getServletContext().getRequestDispatcher("/WEB-INF/S0040.jsp")
 			.forward(req, resp);
 	}
@@ -30,8 +39,12 @@ public class S0040Servlet extends HttpServlet {
 
 		List<String> errors = validate(req);
 
+		SearchAccountForm saf = new SearchAccountForm(req.getParameter("name"), req.getParameter("mail"),
+				req.getParameter("saleAuthority"), req.getParameter("accountAuthority"));
+
 		if(errors.size() != 0) {
 			session.setAttribute("errors", errors);
+			req.setAttribute("saf", saf);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/S0040.jsp")
 			.forward(req, resp);
@@ -40,57 +53,7 @@ public class S0040Servlet extends HttpServlet {
 		}
 
 
-		String sql = null;
-
-
-
-			List<String> sqlParameter = new ArrayList<>();
-
-			sql = "select account_id, name, mail, password, authority from accounts where 0=0";
-
-			if(!req.getParameter("name").equals("")) {
-				sql = sql.concat(" and name like ?");
-				sqlParameter.add("%" + req.getParameter("name") + "%");
-			}
-			if(!req.getParameter("mail").equals("")) {
-				sql = sql.concat(" and mail = ?");
-				sqlParameter.add(req.getParameter("mail"));
-			}
-
-
-			String[] salesAuthority = req.getParameter("salesAuthority").split(",", 2);
-			String[] accountAuthority = req.getParameter("accountAuthority").split(",", 2);
-			List<String> authorities = new ArrayList<>();
-
-			//
-			for(String s : salesAuthority) {
-				for(String a : accountAuthority) {
-					String authority = a + s;
-					authorities.add(authority);
-				}
-			}
-
-
-			if(authorities != null) {
-				sql = sql.concat(" and authority in(");
-				for(int i = 0; i < authorities.size(); i++) {
-					System.out.println(authorities.get(i));
-					if(i == 0) {
-						sql = sql.concat("?");
-						sqlParameter.add(authorities.get(i));
-					}else {
-						sql = sql.concat(",?");
-						sqlParameter.add(authorities.get(i));
-					}
-				}
-
-				sql = sql.concat(")");
-			}
-
-			SearchForm searchForm = new SearchForm(sql, sqlParameter);
-
-			session.setAttribute("searchForm", searchForm);
-
+		session.setAttribute("saf", saf);
 		resp.sendRedirect("S0041.html");
 
 	}

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Sales;
-import com.abc.asms.beans.SearchForm;
+import com.abc.asms.beans.SearchSaleForm;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
 
@@ -45,9 +45,55 @@ public class S0021Servlet extends HttpServlet {
 		List<Sales> salesList = new ArrayList<>();
 		List<String> errors = new ArrayList<>();
 
-		SearchForm searchForm = (SearchForm) session.getAttribute("searchForm");
-		String sql = searchForm.getSql();
-		List<String> sqlParameter = searchForm.getSqlParameter();
+		List<String> sqlParameter = new ArrayList<>();
+
+		SearchSaleForm ssf = (SearchSaleForm) session.getAttribute("ssf");
+
+		String sql = "select sale_id, sale_date, account_id, category_id, trade_name, unit_price, sale_number, note "
+				+ "from sales where 0=0";
+
+		if(!ssf.getStart().equals("")) {
+			sql = sql.concat(" and sale_date >= ?");
+			sqlParameter.add(ssf.getStart());
+		}
+
+		if(!ssf.getEnd().equals("")) {
+			sql = sql.concat(" and sale_date <= ?");
+			sqlParameter.add(ssf.getEnd());
+		}
+
+		if(!ssf.getAccount().equals("")) {
+			sql = sql.concat(" and account_id = ?");
+			sqlParameter.add(ssf.getAccount());
+		}
+		String[] categories = ssf.getCategory();
+		if(categories != null) {
+			sql = sql.concat(" and category_id in(");
+
+			for(int i = 0; i < categories.length; i++) {
+				if(i == 0) {
+					sql = sql.concat("?");
+					sqlParameter.add(categories[i]);
+				}else {
+					sql = sql.concat(",?");
+					sqlParameter.add(categories[i]);
+				}
+			}
+
+			sql = sql.concat(")");
+		}
+
+		if(!ssf.getTradeName().equals("")) {
+			sql = sql.concat(" and trade_name like ?");
+			sqlParameter.add("%" + ssf.getTradeName() + "%");
+		}
+
+		if(!ssf.getNote().equals("")) {
+			sql = sql.concat(" and note like ?");
+			sqlParameter.add("%" + ssf.getNote() + "%");
+		}
+
+		sql = sql.concat(" order by sale_id desc");
 
 		try{
 
@@ -55,8 +101,8 @@ public class S0021Servlet extends HttpServlet {
 
 			ps = con.prepareStatement(sql);
 			int count = 1;
-			for(String p : sqlParameter) {
-				ps.setString(count++, p);
+			for(String s : sqlParameter) {
+					ps.setString(count++, s);
 			}
 
 			rs = ps.executeQuery();
@@ -79,6 +125,7 @@ public class S0021Servlet extends HttpServlet {
 				return;
 			}
 
+			session.setAttribute("ssf", null);
 			req.setAttribute("salesList", salesList);
 
 		}catch(Exception e){
