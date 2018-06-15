@@ -28,8 +28,21 @@ public class HTMLUtils {
 		return false;
 	}
 
+	public static boolean judgeRatio(int toMonth, int lastMonth) {
+		int ratio = toMonth / lastMonth;
+		if(ratio >= 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static int sumCalc(int unitPrice, int saleNumber) {
 		return unitPrice * saleNumber;
+	}
+
+	public static int ratioCalc(int toMonth, int lastMonth) {
+		return toMonth / lastMonth;
 	}
 
 	public static String dateFormat(String saleDate) {

@@ -25,9 +25,9 @@ public class C0020Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		if(!ServletUtils.checkLogin(req, resp)) {
-			return;
-		}
+//		if(!ServletUtils.checkLogin(req, resp)) {
+//			return;
+//		}
 
 		HttpSession session = req.getSession();
 
@@ -36,13 +36,25 @@ public class C0020Servlet extends HttpServlet {
 		String sql = null;
 		ResultSet rs = null;
 
-
 		// localDateから現在時刻を抽出するか否かの判定
 		LocalDate ld = null;
 
-		// checkに何もない場合現在日時抽出、ある場合はLocalDateに変換
+		// どの変数を見るか選択
+		String check = null;
+
 		if(req.getParameter("back") != null) {
-			ld = LocalDate.parse(req.getParameter("back") + "01日", DateTimeFormatter.ofPattern("yyyy年MM月dd日"));
+			check = req.getParameter("back");
+		} else if(req.getParameter("next") != null) {
+			check = req.getParameter("next");
+		} else if(req.getParameter("before") != null) {
+			check = req.getParameter("before");
+		} else if(req.getParameter("after") != null) {
+			check = req.getParameter("after");
+		}
+
+		// checkに何もない場合現在日時抽出、ある場合はLocalDateに変換
+		if(check != null) {
+			ld = LocalDate.parse(check + "01日", DateTimeFormatter.ofPattern("yyyy年MM月dd日"));
 		} else {
 			ld = LocalDate.now();
 		};
@@ -59,6 +71,21 @@ public class C0020Servlet extends HttpServlet {
 			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
 			first = ld.withDayOfMonth(1).minusMonths(1);
 			last = ld.withDayOfMonth(1).minusDays(1);
+		} else if(req.getParameter("next") != null) {
+			// 翌月
+			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusMonths(1));
+			first = ld.withDayOfMonth(1).plusMonths(1);
+			last = ld.withDayOfMonth(1).plusMonths(2).minusDays(1);
+		} else if(req.getParameter("before") != null) {
+			// 前年
+			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusYears(1));
+			first = ld.withDayOfMonth(1).minusYears(1);
+			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1).minusYears(1);
+		} else if(req.getParameter("after") != null) {
+			// 翌年
+			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusYears(1));
+			first = ld.withDayOfMonth(1).plusYears(1);
+			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1).plusYears(1);
 		} else {
 			// 今月
 			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
@@ -66,13 +93,16 @@ public class C0020Servlet extends HttpServlet {
 			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1);
 		};
 
+		int toMonth = 0;
+		int laMonth = 0;
+
 		try {
 			con = DBUtils.getConnection();
-			// SQL	現在、確認用でs.account_id7で検索条件絞り込んでます
-			sql = "SELECT s.sale_id, s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price, s.sale_number, s.note  FROM sales s " +
+
+			sql = "SELECT s.sale_id, s.sale_date, c.category_name, s.trade_name, s.unit_price, s.sale_number  FROM sales s " +
 					"LEFT JOIN categories c ON s.category_id = c.category_id " +
 					"LEFT JOIN accounts a ON s.account_id = a.account_id " +
-					"WHERE s.sale_date BETWEEN ? AND ? AND s.account_id = 7 " +
+					"WHERE s.sale_date BETWEEN ? AND ? AND s.account_id = ? " +
 					"ORDER BY s.sale_date";
 
 
@@ -82,6 +112,9 @@ public class C0020Servlet extends HttpServlet {
 			// where句に代入
 			ps.setString(1, first.toString());
 			ps.setString(2, last.toString());
+//			Accounts accountId = (Accounts)session.getAttribute("accounts");
+//			ps.setString(3, Integer.toString(accountId.getAccountId()));
+			ps.setString(3, Integer.toString(5));
 
 			// 実行
 			rs = ps.executeQuery();
@@ -91,16 +124,20 @@ public class C0020Servlet extends HttpServlet {
 				Sales a = new Sales(
 						rs.getInt("sale_id"),
 						LocalDate.parse(rs.getString("sale_date")),
-						rs.getString("name"),
 						rs.getString("category_name"),
 						rs.getString("trade_name"),
 						rs.getInt("unit_price"),
-						rs.getInt("sale_number"),
-						rs.getString("note"));
+						rs.getInt("sale_number"));
 				list.add(a);
+				toMonth += rs.getInt("unit_price") * rs.getInt("sale_number");
 			}
+
+			laMonth = ServletUtils.beforeTotal(first, last, 5);
+
 			// JavaBeansをJSPに渡す
 			session.setAttribute("today", today);
+			session.setAttribute("toMonth", toMonth);
+			session.setAttribute("lastMonth", laMonth);
 			session.setAttribute("list", list);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/C0020.jsp").forward(req, resp);
@@ -120,64 +157,6 @@ public class C0020Servlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-//		// localDateから現在時刻を抽出するか否かの判定
-//				LocalDate ld = null;
-//
-//				// どの変数を見るか選択
-//				String check = null;
-//
-//				if(req.getParameter("back") != null) {
-//					check = req.getParameter("back");
-//				} else if(req.getParameter("next") != null) {
-//					check = req.getParameter("next");
-//				} else if(req.getParameter("before") != null) {
-//					check = req.getParameter("before");
-//				} else if(req.getParameter("after") != null) {
-//					check = req.getParameter("after");
-//				}
-//
-//				// checkに何もない場合現在日時抽出、ある場合はLocalDateに変換
-//				if(check != null) {
-//					ld = LocalDate.parse(check + "01日", DateTimeFormatter.ofPattern("yyyy年MM月dd日"));
-//				} else {
-//					ld = LocalDate.now();
-//				};
-//
-//				// 表示月とその月初末の変数宣言
-//				String today = null;
-//				LocalDate first = null;
-//				LocalDate last = null;
-//
-//				// 前月と翌月のパラメータ取得
-//
-//				if(req.getParameter("back") != null) {
-//					// 前月
-//					today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
-//					first = ld.withDayOfMonth(1).minusMonths(1);
-//					last = ld.withDayOfMonth(1).minusDays(1);
-//				} else if(req.getParameter("next") != null) {
-//					// 翌月
-//					today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusMonths(1));
-//					first = ld.withDayOfMonth(1).plusMonths(1);
-//					last = ld.withDayOfMonth(1).plusMonths(2).minusDays(1);
-//				} else if(req.getParameter("before") != null) {
-//					// 前年
-//					today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusYears(1));
-//					first = ld.withDayOfMonth(1).minusYears(1);
-//					last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1).minusYears(1);
-//				} else if(req.getParameter("after") != null) {
-//					// 翌年
-//					today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusYears(1));
-//					first = ld.withDayOfMonth(1).plusYears(1);
-//					last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1).plusYears(1);
-//				} else {
-//					// 今月
-//					today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
-//					first = ld.withDayOfMonth(1);
-//					last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1);
-//				};
-
 
 		resp.sendRedirect("C0020.html");
 	}
