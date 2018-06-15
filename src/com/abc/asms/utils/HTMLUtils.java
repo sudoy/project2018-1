@@ -104,4 +104,27 @@ public class HTMLUtils {
 		return "";
 	}
 
+	public static String checkNavbar(String s) {
+		String active = "";
+
+		if(s.contains("C002")) {
+			active = "c2";
+		}
+		if(s.contains("S001")) {
+			active = "s1";
+		}
+		if(s.contains("S002")) {
+			active = "s2";
+		}
+		if(s.contains("S003")) {
+			active = "s3";
+		}
+		if(s.contains("S004")) {
+			active = "s4";
+		}
+
+		return active;
+
+	}
+
 }

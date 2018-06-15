@@ -76,8 +76,6 @@ public class S0046Servlet extends HttpServlet {
 			ps.setString(1, req.getParameter("password1"));
 			ps.setString(2, req.getParameter("user"));
 
-			System.out.println(ps);
-
 			//実行
 			ps.executeUpdate();
 
