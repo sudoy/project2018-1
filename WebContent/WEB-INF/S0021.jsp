@@ -38,7 +38,7 @@
 
 					<c:forEach var="sale" items="${salesList}">
 					<tr>
-						<td><a href="S0022.html?sale_id=${sale.saleId}" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 詳 細</a></td>
+						<td><a href="S0022.html?saleId=${sale.saleId}" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 詳 細</a></td>
 						<td class="text-right">${sale.saleId}</td>
 						<td>${HTMLUtils.parseDate(sale.saleDate)}</td>
 						<td>${sale.account}</td>
