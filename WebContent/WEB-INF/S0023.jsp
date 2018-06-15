@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="row">
-				<form class="form-horizontal" action="S0023.html?sale_id=${saleList.saleId}" method="POST">
+				<form class="form-horizontal" action="S0023.html?saleId=${saleList.saleId}" method="POST">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日
 							<span class="badge">必須</span>
@@ -42,17 +42,17 @@
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person">
 
-								<c:if test="${param.account ne null}">
+								<c:if test="${param.account != null}">
 									<c:forEach var="account" items="${accountMap}">
 										<option value="${account.key}"
-										${param.account eq account.key ? 'selected' :'' }>${account.value}</option>
+										${param.account == account.key ? 'selected' :'' }>${account.value}</option>
 									</c:forEach>
 								</c:if>
 
-								<c:if test="${param.account eq null }">
+								<c:if test="${param.account == null }">
 									<c:forEach var="account" items="${accountMap}">
 										<option value="${account.key}"
-										${saleList.account eq account.value ? 'selected' :  '' }>${account.value}</option>
+										${saleList.account == account.value ? 'selected' :  '' }>${account.value}</option>
 									</c:forEach>
 								</c:if>
 							</select>
@@ -65,20 +65,20 @@
 						</label>
 						<div class="col-sm-5">
 
-							<c:if test="${param.category ne null}">
+							<c:if test="${param.category != null}">
 								<c:forEach var="category" items="${categoryMap}">
 									<label class="radio-inline">
 										<input type="radio" name="category" value="${category.key}"
-										${param.category eq category.key ? 'checked' :  '' }>${category.value}
+										${param.category == category.key ? 'checked' :  '' }>${category.value}
 									</label>
 								</c:forEach>
 							</c:if>
 
-							<c:if test="${param.category eq null }">
+							<c:if test="${param.category == null }">
 								<c:forEach var="category" items="${categoryMap}">
 									<label class="radio-inline">
 										<input type="radio" name="category" value="${category.key}"
-										${saleList.category eq category.value ? 'checked' :  '' }>${category.value}
+										${saleList.category == category.value ? 'checked' :  '' }>${category.value}
 									</label>
 								</c:forEach>
 							</c:if>
@@ -124,7 +124,7 @@
 						<div class="col-sm-offset-3">
 							<button type="submit" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>更 新</button>
-							<a href="S0022.html?sale_id=${saleList.saleId}" class="btn btn-default"> キャンセル</a>
+							<a href="S0022.html?saleId=${saleList.saleId}" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 

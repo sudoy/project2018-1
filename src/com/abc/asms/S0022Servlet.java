@@ -21,7 +21,7 @@ public class S0022Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		//セッションaccountsの読み込み
+
 		HttpSession session = req.getSession();
 
 		req.setCharacterEncoding("utf-8");
@@ -36,7 +36,7 @@ public class S0022Servlet extends HttpServlet {
 			con = DBUtils.getConnection();
 
 			//GETパラメータを取得
-			String id = req.getParameter("sale_id");
+			String id = req.getParameter("saleId");
 
 			//SQL
 			sql = "select s.sale_id, s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price," +

@@ -80,13 +80,13 @@ public class S0025Servlet extends HttpServlet {
 			ps = con.prepareStatement(sql);
 
 			//データをセット
-			ps.setString(1, req.getParameter("sale_id"));
+			ps.setString(1, req.getParameter("saleId"));
 
 			//実行
 			ps.executeUpdate();
 
 			List<String> successes = new ArrayList<>();
-			String success = "No" +  req.getParameter("sale_id") + "の売上を削除しました。";
+			String success = "No" +  req.getParameter("saleId") + "の売上を削除しました。";
 
 			successes.add(success);
 			session.setAttribute("successes", successes);
