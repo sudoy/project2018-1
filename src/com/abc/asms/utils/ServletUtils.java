@@ -337,6 +337,44 @@ public class ServletUtils {
 		return registerAId;
 	}
 
+	// メールアドレス重複チェック == trueで弾く
+	public static boolean overlapMail(String mail) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT mail FROM accounts WHERE mail = ? ORDER BY mail";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, mail);
+			rs = ps.executeQuery();
+
+			if(rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+
+
 	// ログインチェック
 	public static boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 

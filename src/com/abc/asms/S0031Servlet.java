@@ -22,13 +22,13 @@ public class S0031Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		if(!ServletUtils.checkLogin(req, resp)) {
-//			return;
-//		}
-//
-//		if(!ServletUtils.checkAccounts(req, resp)) {
-//			return;
-//		}
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
+		if(!ServletUtils.checkAccounts(req, resp)) {
+			return;
+		}
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0031.jsp").forward(req, resp);
 	}
@@ -36,13 +36,13 @@ public class S0031Servlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		if(!ServletUtils.checkLogin(req, resp)) {
-//			return;
-//		}
-//
-//		if(!ServletUtils.checkAccounts(req, resp)) {
-//			return;
-//		}
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
+		if(!ServletUtils.checkAccounts(req, resp)) {
+			return;
+		}
 
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Accounts;
+import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0030.html")
 public class S0030Servlet extends HttpServlet {
@@ -137,6 +138,11 @@ public class S0030Servlet extends HttpServlet {
 				|| mailCheck[1].length() == 0
 				|| !mailCheck[1].contains(".")) {
 			errors.add("メールアドレスを正しく入力してください。");
+		}
+
+		// メール重複チェック
+		if(ServletUtils.overlapMail(req.getParameter("mail"))) {
+			errors.add("メールアドレスが既に登録されています。");
 		}
 
 		return errors;
