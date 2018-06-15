@@ -72,11 +72,11 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<c:if test="${accounts.authority eq 1 || accounts.authority eq 11 }">
-								<a href="S0023.html?sale_id=${saleList.saleId }" class="btn btn-primary">
+							<c:if test="${accounts.authority == 1 || accounts.authority == 11 }">
+								<a href="S0023.html?saleId=${saleList.saleId }" class="btn btn-primary">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 編 集
 								</a>
-								<a href="S0025.html?sale_id=${saleList.saleId }" class="btn btn-danger">
+								<a href="S0025.html?saleId=${saleList.saleId }" class="btn btn-danger">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 削 除
 								</a>
 							</c:if>

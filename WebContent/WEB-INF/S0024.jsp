@@ -24,7 +24,7 @@
 			</div>
 
 			<div class="row">
-				<form class="form-horizontal" action="S0024.html?sale_id=${saleList.saleId}" method="post">
+				<form class="form-horizontal" action="S0024.html?saleId=${saleList.saleId}" method="post">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
@@ -38,7 +38,7 @@
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person" readonly>
 								<c:forEach var="account" items="${accountMap}">
-									<c:if test="${saleList.account eq account.value }">
+									<c:if test="${saleList.account == account.value }">
 										<option value="${account.key }" selected>${saleList.account}</option>
 									</c:if>
 								</c:forEach>
@@ -53,8 +53,8 @@
 							<c:forEach var="category" items="${categoryMap}">
 								<label class="radio-inline">
 									<input type="radio" name="category" value="${category.key }"
-									${saleList.category eq category.value ? 'checked' : '' }
-									readonly onclick="return false;">
+									${saleList.category == category.value ? 'checked' : '' }
+									readonly onclick="return false">
 									${category.value}
 								</label>
 							</c:forEach>
@@ -110,7 +110,7 @@
 						<div class="col-sm-offset-3">
 							<button type="submit" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</button>
-							<a href="S0023.html?sale_id=${saleList.saleId}" class="btn btn-default"> キャンセル</a>
+							<a href="S0023.html?saleId=${saleList.saleId}" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 

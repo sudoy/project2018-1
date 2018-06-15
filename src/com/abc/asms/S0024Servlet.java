@@ -98,13 +98,13 @@ public class S0024Servlet extends HttpServlet {
 			ps.setString(5, HTMLUtils.deleteComma(req.getParameter("unitPrice")));
 			ps.setString(6, HTMLUtils.deleteComma(req.getParameter("saleNumber")));
 			ps.setString(7, req.getParameter("note"));
-			ps.setString(8, req.getParameter("sale_id"));
+			ps.setString(8, req.getParameter("saleId"));
 
 			//実行
 			ps.executeUpdate();
 
 			List<String> successes = new ArrayList<>();
-			String success = "No" +  req.getParameter("sale_id") + "の売上を更新しました。";
+			String success = "No" +  req.getParameter("saleId") + "の売上を更新しました。";
 
 			successes.add(success);
 			session.setAttribute("successes", successes);

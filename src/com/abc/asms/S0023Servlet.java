@@ -40,6 +40,10 @@ public class S0023Servlet extends HttpServlet {
 
 			resp.sendRedirect("C0020.html");
 		}
+//0614
+		if(ServletUtils.checkSales(req, resp)) {
+
+		}
 
 		//担当リスト
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
@@ -95,7 +99,7 @@ public class S0023Servlet extends HttpServlet {
 		LocalDate saleDate = LocalDate.parse(HTMLUtils.dateFormat(req.getParameter("saleDate")));
 
 		Sales s = new Sales(
-				Integer.parseInt(req.getParameter("sale_id")),
+				Integer.parseInt(req.getParameter("saleId")),
 				saleDate,
 				ServletUtils.parseAccountName(Integer.parseInt(req.getParameter("account"))),
 				ServletUtils.parseCategoryName(Integer.parseInt(req.getParameter("category"))),
@@ -191,10 +195,11 @@ public class S0023Servlet extends HttpServlet {
 		// 単価形式のチェック
 		try {
 			int a = Integer.parseInt(req.getParameter("unitPrice"));
+			if (!req.getParameter("unitPrice").equals("") && Integer.parseInt(req.getParameter("unitPrice")) < 1) {
+				list.add("単価を正しく入力して下さい。");
+			}
+
 		}catch(Exception e) {
-			list.add("単価を正しく入力して下さい。");
-		}
-		if (!req.getParameter("unitPrice").equals("") && Integer.parseInt(req.getParameter("unitPrice")) < 1) {
 			list.add("単価を正しく入力して下さい。");
 		}
 
@@ -206,16 +211,18 @@ public class S0023Servlet extends HttpServlet {
 			//長さチェック
 			list.add("個数が長すぎます。");
 		}
+
 		// 個数形式のチェック
 		try {
 			int a = Integer.parseInt(req.getParameter("saleNumber"));
+			if (!req.getParameter("saleNumber").equals("") && Integer.parseInt(req.getParameter("saleNumber")) < 1) {
+				list.add("個数を正しく入力して下さい。");
+			}
+
 		}catch(Exception e) {
 			list.add("個数を正しく入力して下さい。");
 		}
 
-		if (!req.getParameter("saleNumber").equals("") && Integer.parseInt(req.getParameter("saleNumber")) < 1) {
-			list.add("個数を正しく入力して下さい。");
-		}
 
 		// 備考の長さチェック
 		if(req.getParameter("note").length() > 400) {
