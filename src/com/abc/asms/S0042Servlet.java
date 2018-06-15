@@ -135,9 +135,6 @@ public class S0042Servlet extends HttpServlet {
 				authority
 				);
 
-
-		System.out.println(req.getParameter("password1"));
-
 		session.setAttribute("editAccount", a);
 
 		resp.sendRedirect("S0043.html");
