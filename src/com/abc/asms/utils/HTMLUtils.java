@@ -63,4 +63,20 @@ public class HTMLUtils {
 		return "error";
 	}
 
+	public static String checkAuthority(String authority) {
+		if(authority.equals("0,1")) {
+			System.out.println("c1");
+			return "checked";
+		}
+		if(authority.equals("0")) {
+			System.out.println("c2");
+			return "checked";
+		}
+		if(authority.equals("1")) {
+			System.out.println("c3");
+			return "checked";
+		}
+		return "";
+	}
+
 }
