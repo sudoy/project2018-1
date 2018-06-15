@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Accounts;
 import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
@@ -25,9 +26,9 @@ public class C0020Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		if(!ServletUtils.checkLogin(req, resp)) {
-//			return;
-//		}
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
 
 		HttpSession session = req.getSession();
 
@@ -40,7 +41,7 @@ public class C0020Servlet extends HttpServlet {
 		LocalDate ld = null;
 
 		// どの変数を見るか選択
-		String check= C0020Servlet.subCheck(req, resp);
+		String check= ServletUtils.subCheck(req, resp);
 
 		// checkに何もない場合現在日時抽出、ある場合はLocalDateに変換
 		if(check != null) {
@@ -50,7 +51,7 @@ public class C0020Servlet extends HttpServlet {
 		};
 
 		// 表示月とその月初末の変数宣言
-		String today = null;
+		String date = null;
 		String lastday = null;
 		LocalDate first = null;
 		LocalDate last = null;
@@ -60,31 +61,31 @@ public class C0020Servlet extends HttpServlet {
 		if(req.getParameter("back") != null) {
 			// 前月
 			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(2));
-			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
+			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
 			first = ld.withDayOfMonth(1).minusMonths(1);
 			last = ld.withDayOfMonth(1).minusDays(1);
 		} else if(req.getParameter("next") != null) {
 			// 翌月
 			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
-			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusMonths(1));
+			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusMonths(1));
 			first = ld.withDayOfMonth(1).plusMonths(1);
 			last = ld.withDayOfMonth(1).plusMonths(2).minusDays(1);
 		} else if(req.getParameter("before") != null) {
 			// 前年
 			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
-			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusYears(1));
+			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusYears(1));
 			first = ld.withDayOfMonth(1).minusYears(1);
 			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1).minusYears(1);
 		} else if(req.getParameter("after") != null) {
 			// 翌年
 			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
-			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusYears(1));
+			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusYears(1));
 			first = ld.withDayOfMonth(1).plusYears(1);
 			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1).plusYears(1);
 		} else {
 			// 今月
 			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
-			today = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
+			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
 			first = ld.withDayOfMonth(1);
 			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1);
 		};
@@ -108,9 +109,8 @@ public class C0020Servlet extends HttpServlet {
 			// where句に代入
 			ps.setString(1, first.toString());
 			ps.setString(2, last.toString());
-//			Accounts accountId = (Accounts)session.getAttribute("accounts");
-//			ps.setString(3, Integer.toString(accountId.getAccountId()));
-			ps.setString(3, Integer.toString(5));
+			Accounts accountId = (Accounts)session.getAttribute("accounts");
+			ps.setString(3, Integer.toString(accountId.getAccountId()));
 
 			// 実行
 			rs = ps.executeQuery();
@@ -128,14 +128,18 @@ public class C0020Servlet extends HttpServlet {
 				toMonth += rs.getInt("unit_price") * rs.getInt("sale_number");
 			}
 
-			laMonth = ServletUtils.beforeTotal(first, last, 5);
+			boolean existB = ServletUtils.beforeDisabled(first, accountId.getAccountId());
+			boolean existN = ServletUtils.nextDisabled(last, accountId.getAccountId());
+			laMonth = ServletUtils.beforeTotal(first, last, accountId.getAccountId());
 
 			// JavaBeansをJSPに渡す
-			session.setAttribute("today", today);
-			session.setAttribute("lastday", lastday);
-			session.setAttribute("toMonth", toMonth);
-			session.setAttribute("lastMonth", laMonth);
-			session.setAttribute("list", list);
+			req.setAttribute("date", date);
+			req.setAttribute("lastday", lastday);
+			req.setAttribute("toMonth", toMonth);
+			req.setAttribute("lastMonth", laMonth);
+			req.setAttribute("existB", existB);
+			req.setAttribute("existN", existN);
+			req.setAttribute("list", list);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/C0020.jsp").forward(req, resp);
 
@@ -152,22 +156,4 @@ public class C0020Servlet extends HttpServlet {
 		}
 	}
 
-	public static String subCheck(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		if(req.getParameter("back") != null) {
-			return req.getParameter("back");
-		} else if(req.getParameter("next") != null) {
-			return req.getParameter("next");
-		} else if(req.getParameter("before") != null) {
-			return req.getParameter("before");
-		} else if(req.getParameter("after") != null) {
-			return req.getParameter("after");
-		}
-		return null;
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		resp.sendRedirect("C0020.html");
-	}
 }

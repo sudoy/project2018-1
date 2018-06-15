@@ -176,6 +176,21 @@ public class ServletUtils {
 	}
 
 
+	// C0020用 Getパラメータの有無確認
+	public static String subCheck(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		if(req.getParameter("back") != null) {
+			return req.getParameter("back");
+		} else if(req.getParameter("next") != null) {
+			return req.getParameter("next");
+		} else if(req.getParameter("before") != null) {
+			return req.getParameter("before");
+		} else if(req.getParameter("after") != null) {
+			return req.getParameter("after");
+		}
+		return null;
+	}
+
+
 	// C0020用	前月売上合計
 	public static int beforeTotal(LocalDate first, LocalDate last, int loginId) {
 		Connection con = null;
@@ -214,6 +229,77 @@ public class ServletUtils {
 			}
 		}
 		return beforeTotal;
+	}
+
+
+	// C0020用disabled実装の為、前月以降でなければtrue
+	public static boolean beforeDisabled(LocalDate first, int loginId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT sale_date  FROM sales WHERE sale_date < ? AND account_id = ? ORDER BY sale_date";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, first.toString());
+			ps.setString(2, Integer.toString(loginId));
+			rs = ps.executeQuery();
+
+			if(!rs.next()) {
+				return true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+
+	public static boolean nextDisabled(LocalDate last, int loginId) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT sale_date  FROM sales WHERE sale_date > ? AND account_id = ? ORDER BY sale_date";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, last.toString());
+			ps.setString(2, Integer.toString(loginId));
+			rs = ps.executeQuery();
+
+			if(!rs.next()) {
+				return true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 
 
