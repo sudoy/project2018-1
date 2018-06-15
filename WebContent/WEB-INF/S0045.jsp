@@ -14,7 +14,7 @@
 			<jsp:include page="_successes.jsp" />
 			<jsp:include page="_errors.jsp" />
 
-			<form class="form-signin" action="C0045.html" method="post">
+			<form class="form-signin" action="S0045.html" method="post">
 				<h2 class="form-signin-heading">物品売上管理システム</h2>
 				<h3>パスワード再設定</h3>
 

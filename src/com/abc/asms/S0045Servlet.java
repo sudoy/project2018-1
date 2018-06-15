@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/C0045.html")
-public class C0045Servlet extends HttpServlet {
+@WebServlet("/S0045.html")
+public class S0045Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/WEB-INF/C0045.jsp")
+		getServletContext().getRequestDispatcher("/WEB-INF/S0045.jsp")
 			.forward(req, resp);
 	}
 
@@ -40,7 +40,7 @@ public class C0045Servlet extends HttpServlet {
 		if(errors.size() != 0) {
 			sessionE.setAttribute("errors", errors);
 
-			getServletContext().getRequestDispatcher("/WEB-INF/C0045.jsp")
+			getServletContext().getRequestDispatcher("/WEB-INF/S0045.jsp")
 				.forward(req, resp);
 			return;
 		}
@@ -72,7 +72,7 @@ public class C0045Servlet extends HttpServlet {
 			mimeMessage.setSubject("【物品売上管理システム】パスワード再設定", "ISO-2022-JP");
 			mimeMessage.setText("パスワードの再設定を行います。\n"
 					+ "以下のURLより新パスワードの入力・変更を行ってください。\n"
-					+ "Http://localhost:8080/project1/C0046.html?user="
+					+ "Http://localhost:8080/project1/S0046.html?user="
 					+ req.getParameter("mail"), "ISO-2022-JP");
 
 			Transport.send(mimeMessage);
@@ -81,13 +81,13 @@ public class C0045Servlet extends HttpServlet {
 		} catch (Exception e) {
 			errors.add("予期しないエラーが発生しました。");
 			sessionE.setAttribute("errors", errors);
-			getServletContext().getRequestDispatcher("/WEB-INF/C0045.jsp")
+			getServletContext().getRequestDispatcher("/WEB-INF/S0045.jsp")
 			.forward(req, resp);
 			return;
 		}
 		successes.add("パスワード再設定メールを送信しました。");
 		sessionE.setAttribute("successes", successes);
-		resp.sendRedirect("C0045.html");
+		resp.sendRedirect("S0045.html");
 	}
 
 
