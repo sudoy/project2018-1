@@ -37,7 +37,7 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-sm-2 control-label">売上登録権限${saf.saleAuthority}</label>
+						<label class="col-sm-2 control-label">売上登録権限</label>
 						<div class="col-sm-5">
 							<label class="radio-inline">
 								<input type="radio" name="saleAuthority" value="0,1" ${saf.saleAuthority == "0,1" || saf.saleAuthority == null ? "checked" : ""}> 全て

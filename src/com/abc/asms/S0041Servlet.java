@@ -70,7 +70,6 @@ public class S0041Servlet extends HttpServlet {
 		if(authorities != null) {
 			sql = sql.concat(" and authority in(");
 			for(int i = 0; i < authorities.size(); i++) {
-				System.out.println(authorities.get(i));
 				if(i == 0) {
 					sql = sql.concat("?");
 					sqlParameter.add(authorities.get(i));

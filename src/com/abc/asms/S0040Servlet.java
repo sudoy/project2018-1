@@ -22,7 +22,6 @@ public class S0040Servlet extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
 		if(session.getAttribute("saf") != null) {
-			System.out.println("うごいてるよー");
 			SearchAccountForm saf = (SearchAccountForm) session.getAttribute("saf");
 			req.setAttribute("saf", saf);
 			session.setAttribute("saf", null);
