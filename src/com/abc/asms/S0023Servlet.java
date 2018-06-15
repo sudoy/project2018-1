@@ -115,7 +115,7 @@ public class S0023Servlet extends HttpServlet {
 
 	private List<String> validate(HttpServletRequest req){
 
-		List<String> list = new ArrayList<>();
+		List<String> errors = new ArrayList<>();
 
 		//日付のチェック
 		if(!req.getParameter("saleDate").equals("")) {
@@ -129,89 +129,89 @@ public class S0023Servlet extends HttpServlet {
 			    if(s1.equals(s2)) {
 
 			    }else {
-			    	list.add("販売日を正しく入力してください。");
+			    	errors.add("販売日を正しく入力してください。");
 			    }
 
 			}catch(ParseException p) {
-				list.add("販売日を正しく入力してください。");
+				errors.add("販売日を正しく入力してください。");
 			}
 		}else {
 			//必須入力
-			list.add("販売日を入力して下さい。");
+			errors.add("販売日を入力して下さい。");
 		}
 
 		// 担当の必須入力
 		if (req.getParameter("account").equals("")) {
-			list.add("担当が未選択です。");
+			errors.add("担当が未選択です。");
 		}
 		else if (ServletUtils.matchAccount(req.getParameter("account")) == false) {
 			//アカウントテーブルのチェック
-			list.add("アカウントテーブルに存在しません。");
+			errors.add("アカウントテーブルに存在しません。");
 		}
 
 		//カテゴリーの必須入力
 		if (req.getParameter("category").equals("")) {
-			list.add("商品カテゴリーが未選択です。");
+			errors.add("商品カテゴリーが未選択です。");
 		}
 		else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
 			//カテゴリーテーブルのチェック
-			list.add("商品カテゴリーテーブルに存在しません。");
+			errors.add("商品カテゴリーテーブルに存在しません。");
 		}
 
 		//商品名の必須入力
 		if (req.getParameter("tradeName").equals("")) {
-			list.add("商品名を入力して下さい。");
+			errors.add("商品名を入力して下さい。");
 		}
 		else if(req.getParameter("tradeName").length() > 100) {
 			//商品名の長さチェック
-			list.add("商品名が長すぎます。");
+			errors.add("商品名が長すぎます。");
 		}
 
 		//単価の必須入力
 		if (req.getParameter("unitPrice").equals("")) {
-			list.add("単価を入力して下さい。");
+			errors.add("単価を入力して下さい。");
 		}else if(req.getParameter("unitPrice").length() > 9) {
 			//単価の長さチェック
-			list.add("単価が長すぎます。");
+			errors.add("単価が長すぎます。");
 		}
 		// 単価形式のチェック
 		try {
 			int a = Integer.parseInt(req.getParameter("unitPrice"));
 			if (!req.getParameter("unitPrice").equals("") && Integer.parseInt(req.getParameter("unitPrice")) < 1) {
-				list.add("単価を正しく入力して下さい。");
+				errors.add("単価を正しく入力して下さい。");
 			}
 
 		}catch(Exception e) {
-			list.add("単価を正しく入力して下さい。");
+			errors.add("単価を正しく入力して下さい。");
 		}
 
 		//個数の必須入力
 		if (req.getParameter("saleNumber").equals("")) {
-			list.add("個数を入力して下さい。");
+			errors.add("個数を入力して下さい。");
 		}
 		if(req.getParameter("saleNumber").length() > 9) {
 			//長さチェック
-			list.add("個数が長すぎます。");
+			errors.add("個数が長すぎます。");
 		}
 
 		// 個数形式のチェック
 		try {
 			int a = Integer.parseInt(req.getParameter("saleNumber"));
 			if (!req.getParameter("saleNumber").equals("") && Integer.parseInt(req.getParameter("saleNumber")) < 1) {
-				list.add("個数を正しく入力して下さい。");
+				errors.add("個数を正しく入力して下さい。");
 			}
 
 		}catch(Exception e) {
-			list.add("個数を正しく入力して下さい。");
+			errors.add("個数を正しく入力して下さい。");
 		}
 
 
 		// 備考の長さチェック
 		if(req.getParameter("note").length() > 400) {
-			list.add("備考が長すぎます。");
+			errors.add("備考が長すぎます。");
 		}
 
-		return list;
+		return errors;
 	}
 
 }

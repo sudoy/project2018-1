@@ -21,7 +21,7 @@
 
 
 
-			<form class="form-signin" action="S0046.html?User=${User}" method="POST">
+			<form class="form-signin" action="S0046.html?user=${user}" method="POST">
 				<h2 class="form-signin-heading">物品売上管理システム</h2>
 				<h3>新パスワード入力</h3>
 

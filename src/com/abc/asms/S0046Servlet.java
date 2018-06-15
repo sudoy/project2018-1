@@ -26,10 +26,10 @@ public class S0046Servlet extends HttpServlet {
 
 		req.setCharacterEncoding("utf-8");
 
-		req.setAttribute("User", req.getParameter("User"));
+		req.setAttribute("user", req.getParameter("user"));
 
 		//メールアドレス存在チェック
-		if(req.getParameter("User").equals("")) {
+		if(req.getParameter("user").equals("")) {
 			List<String> errors = new ArrayList<>();
 			errors.add("メールアドレスが存在していません。");
 			session.setAttribute("errors", errors);
@@ -52,7 +52,7 @@ public class S0046Servlet extends HttpServlet {
 		List<String> errors = validate(req);
 		if(errors.size() != 0) {
 			session.setAttribute("errors", errors);
-			req.setAttribute("User", req.getParameter("User"));
+			req.setAttribute("user", req.getParameter("user"));
 
 			getServletContext().getRequestDispatcher("/WEB-INF/S0046.jsp").forward(req, resp);
 
@@ -74,7 +74,7 @@ public class S0046Servlet extends HttpServlet {
 
 			//データをセット
 			ps.setString(1, req.getParameter("password1"));
-			ps.setString(2, req.getParameter("User"));
+			ps.setString(2, req.getParameter("user"));
 
 			System.out.println(ps);
 
@@ -110,7 +110,7 @@ public class S0046Servlet extends HttpServlet {
 		List<String> list = new ArrayList<>();
 
 		//メールアドレス存在チェック
-		if(req.getParameter("User").equals("")) {
+		if(req.getParameter("user").equals("")) {
 			list.add("メールアドレスが存在していません。");
 		}
 
