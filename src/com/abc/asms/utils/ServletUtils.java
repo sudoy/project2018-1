@@ -34,7 +34,6 @@ public class ServletUtils {
 
 			sql = "select category_id, category_name, active_flg "
 					+ "from categories "
-					+ "group by category_id, category_name, active_flg "
 					+ "order by category_id";
 
 			ps = con.prepareStatement(sql);
@@ -75,7 +74,6 @@ public class ServletUtils {
 
 			sql = "select account_id, name "
 					+ "from accounts "
-					+ "group by account_id, name "
 					+ "order by account_id";
 
 			ps = con.prepareStatement(sql);

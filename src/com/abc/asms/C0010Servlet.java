@@ -22,6 +22,15 @@ public class C0010Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		if(req.getParameter("logout") != null) {
+			HttpSession session = req.getSession();
+			session.setAttribute("accounts", null);
+			List<String> successes = new ArrayList<>();
+			successes.add("ログアウトしました。");
+			session.setAttribute("successes", successes);
+		}
+
 		getServletContext().getRequestDispatcher("/WEB-INF/C0010.jsp")
 			.forward(req, resp);
 	}

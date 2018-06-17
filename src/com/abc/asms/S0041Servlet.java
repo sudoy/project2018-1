@@ -17,12 +17,19 @@ import javax.servlet.http.HttpSession;
 import com.abc.asms.beans.Accounts;
 import com.abc.asms.beans.SearchAccountForm;
 import com.abc.asms.utils.DBUtils;
+import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0041.html")
 public class S0041Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		//ログインチェック
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
 		req.setCharacterEncoding("utf-8");
 
 		HttpSession session = req.getSession();
@@ -38,10 +45,12 @@ public class S0041Servlet extends HttpServlet {
 
 		List<Accounts> accountList = new ArrayList<>();
 
+		//検索条件の情報を取得
 		SearchAccountForm saf = (SearchAccountForm) session.getAttribute("saf");
 
 		List<String> sqlParameter = new ArrayList<>();
 
+		//sql文の作成
 		String sql = "select account_id, name, mail, password, authority from accounts where 0=0";
 
 		if(!saf.getName().equals("")) {
@@ -85,7 +94,7 @@ public class S0041Servlet extends HttpServlet {
 
 
 		try {
-
+			//データベースからデータを取得
 			con = DBUtils.getConnection();
 
 			ps = con.prepareStatement(sql);
@@ -95,6 +104,7 @@ public class S0041Servlet extends HttpServlet {
 			}
 			rs = ps.executeQuery();
 
+			//データベースから取得したデータをbeansに格納
 			while(rs.next()) {
 				Accounts a = new Accounts(rs.getInt("account_id"), rs.getString("name"),
 						rs.getString("mail"), rs.getString("password"),
@@ -102,16 +112,17 @@ public class S0041Servlet extends HttpServlet {
 				accountList.add(a);
 			}
 
+			//検索結果がなかった場合にエラーをS0020で出す。
 			if(accountList.isEmpty()) {
 				errors.add("検索結果はありません。");
+				session.setAttribute("remain", "on");
 				session.setAttribute("errors", errors);
 				resp.sendRedirect("S0040.html");
 				return;
 			}
-			session.setAttribute("saf", null);
+//			session.setAttribute("saf", null);
 			req.setAttribute("accountList", accountList);
 		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}finally{
 			try{

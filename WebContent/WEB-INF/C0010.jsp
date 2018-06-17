@@ -10,6 +10,7 @@
 <body>
 	<div class="container">
 
+	<jsp:include page="_successes.jsp" />
 	<jsp:include page="_errors.jsp" />
 
 
@@ -22,7 +23,7 @@
 			<input type="password" id="inputPassword" name="password" class="form-control" placeholder="パスワード" value="">
 
 			<button type="submit" class="btn btn-lg btn-primary btn-block">ログイン</button>
-			<a href="C0045.html">パスワードを忘れた人はこちら</a>
+			<a href="S0045.html">パスワードを忘れた人はこちら</a>
 		</form>
 
 	</div>

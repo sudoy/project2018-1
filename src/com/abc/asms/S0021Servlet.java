@@ -26,18 +26,15 @@ public class S0021Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		//ログインチェック
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
 		req.setCharacterEncoding("utf-8");
 
 		HttpSession session = req.getSession();
-
-		//ログインチェック
-//		if(session.getAttribute("accounts") == null) {
-//			List<String> errors = new ArrayList<>();
-//			errors.add("ログインしてください。");
-//			session.setAttribute("errors", errors);
-//			resp.sendRedirect("C0010.html");
-//			return;
-//		}
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -47,8 +44,10 @@ public class S0021Servlet extends HttpServlet {
 
 		List<String> sqlParameter = new ArrayList<>();
 
+		//検索条件の情報を取得
 		SearchSaleForm ssf = (SearchSaleForm) session.getAttribute("ssf");
 
+		//sql文の作成
 		String sql = "select sale_id, sale_date, account_id, category_id, trade_name, unit_price, sale_number, note "
 				+ "from sales where 0=0";
 
@@ -66,6 +65,8 @@ public class S0021Servlet extends HttpServlet {
 			sql = sql.concat(" and account_id = ?");
 			sqlParameter.add(ssf.getAccount());
 		}
+
+
 		String[] categories = ssf.getCategory();
 		if(categories != null) {
 			sql = sql.concat(" and category_id in(");
@@ -96,7 +97,7 @@ public class S0021Servlet extends HttpServlet {
 		sql = sql.concat(" order by sale_id desc");
 
 		try{
-
+			//データベースからデータを取得
 			con = DBUtils.getConnection();
 
 			ps = con.prepareStatement(sql);
@@ -107,6 +108,7 @@ public class S0021Servlet extends HttpServlet {
 
 			rs = ps.executeQuery();
 
+			//データベースから取得したデータをbeansに格納
 			while(rs.next()) {
 				Sales s = new Sales(rs.getInt("sale_id"),
 						LocalDate.parse(rs.getString("sale_date")),
@@ -118,14 +120,15 @@ public class S0021Servlet extends HttpServlet {
 				salesList.add(s);
 			}
 
+			//検索結果がなかった場合にエラーをS0020で出す。
 			if(salesList.isEmpty()) {
 				errors.add("検索結果がありません。");
 				session.setAttribute("errors", errors);
+				session.setAttribute("remain", "on");
 				resp.sendRedirect("S0020.html");
 				return;
 			}
 
-			session.setAttribute("ssf", null);
 			req.setAttribute("salesList", salesList);
 
 		}catch(Exception e){

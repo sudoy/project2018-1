@@ -1,6 +1,9 @@
 package com.abc.asms;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.utils.DBUtils;
+
 
 @WebServlet("/S0045.html")
 public class S0045Servlet extends HttpServlet {
@@ -33,6 +38,11 @@ public class S0045Servlet extends HttpServlet {
 		HttpSession sessionE = req.getSession();
 
 		req.setCharacterEncoding("utf-8");
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
 
 		List<String> errors = validate(req);
 		List<String> successes = new ArrayList<>();
@@ -43,6 +53,35 @@ public class S0045Servlet extends HttpServlet {
 			getServletContext().getRequestDispatcher("/WEB-INF/S0045.jsp")
 				.forward(req, resp);
 			return;
+		}
+
+		try{
+
+			con = DBUtils.getConnection();
+
+			sql = "select mail from accounts where mail=?";
+
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, req.getParameter("mail"));
+
+			rs = ps.executeQuery();
+
+			if(!rs.next()) {
+				errors.add("メールアドレスを正しく入力してください。");
+				sessionE.setAttribute("errors", errors);
+				getServletContext().getRequestDispatcher("/WEB-INF/S0045.jsp")
+					.forward(req, resp);
+				return;
+			}
+		}catch(Exception e){
+			throw new ServletException(e);
+		}finally{
+			try{
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			}catch(Exception e){}
 		}
 
 		try {
@@ -72,7 +111,7 @@ public class S0045Servlet extends HttpServlet {
 			mimeMessage.setSubject("【物品売上管理システム】パスワード再設定", "ISO-2022-JP");
 			mimeMessage.setText("パスワードの再設定を行います。\n"
 					+ "以下のURLより新パスワードの入力・変更を行ってください。\n"
-					+ "Http://localhost:8080/project1/S0046.html?user="
+					+ "Http://192.168.3.87:8080/project1/S0046.html?user="
 					+ req.getParameter("mail"), "ISO-2022-JP");
 
 			Transport.send(mimeMessage);

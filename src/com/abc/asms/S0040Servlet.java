@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.SearchAccountForm;
+import com.abc.asms.utils.ServletUtils;
 
 
 @WebServlet("/S0040.html")
@@ -19,13 +20,23 @@ public class S0040Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		//ログインチェック
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
-		if(session.getAttribute("saf") != null) {
+
+		//エラーの際の入力保持
+		if(session.getAttribute("saf") != null && session.getAttribute("remain") != null) {
 			SearchAccountForm saf = (SearchAccountForm) session.getAttribute("saf");
 			req.setAttribute("saf", saf);
-			session.setAttribute("saf", null);
+			session.setAttribute("remain", null);
 		}
+		session.setAttribute("saf", null);
+
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0040.jsp")
 			.forward(req, resp);
@@ -33,13 +44,20 @@ public class S0040Servlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
 
-		List<String> errors = validate(req);
-
+		//入力結果を検索結果のページに送る。
 		SearchAccountForm saf = new SearchAccountForm(req.getParameter("name"), req.getParameter("mail"),
 				req.getParameter("saleAuthority"), req.getParameter("accountAuthority"));
+
+		//入力内容のチェック
+		List<String> errors = validate(req);
 
 		if(errors.size() != 0) {
 			session.setAttribute("errors", errors);

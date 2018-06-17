@@ -23,27 +23,24 @@ public class S0020Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		//ログインチェック
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
 
-		//ログインチェック
-//		if(session.getAttribute("accounts") == null) {
-//			List<String> errors = new ArrayList<>();
-//			errors.add("ログインしてください。");
-//			session.setAttribute("errors", errors);
-//			resp.sendRedirect("C0010.html");
-//			return;
-//		}
-
-		if(session.getAttribute("ssf") != null) {
-
+		//エラーの際の入力保持
+		if(session.getAttribute("ssf") != null && session.getAttribute("remain") != null) {
 			SearchSaleForm ssf = (SearchSaleForm) session.getAttribute("ssf");
 			req.setAttribute("ssf", ssf);
-			session.setAttribute("ssf", null);
-
+			session.setAttribute("remain", null);
 		}
+		session.setAttribute("ssf", null);
 
-
+		//商品カテゴリーと担当をデータベースからとってくる。
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
 
@@ -65,8 +62,13 @@ public class S0020Servlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		if(!ServletUtils.checkLogin(req, resp)) {
+			return;
+		}
+
 		req.setCharacterEncoding("utf-8");
 
+		//商品カテゴリーと担当をデータベースからとってくる。
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
 
@@ -75,9 +77,11 @@ public class S0020Servlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
+		//入力結果を検索結果のページに送る。
 		SearchSaleForm ssf = new SearchSaleForm(req.getParameter("start"), req.getParameter("end"),
 				req.getParameter("account"), req.getParameterValues("category"), req.getParameter("tradeName"), req.getParameter("note"));
 
+		//入力内容のチェック
 		List<String> errors = validate(req);
 
 		if(errors.size() != 0) {
@@ -104,6 +108,7 @@ public class S0020Servlet extends HttpServlet {
 		LocalDate dateS = null;
 		LocalDate dateE = null;
 
+		//日付の入力チェック
 		if(!start.equals("")) {
 			try {
 				dateS = LocalDate.parse(start, DateTimeFormatter.ofPattern("uuuu/M/d")
