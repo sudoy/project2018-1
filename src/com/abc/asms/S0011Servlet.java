@@ -73,13 +73,13 @@ public class S0011Servlet extends HttpServlet {
 		if (req.getParameter("NG") != null) {
 
 			Sales sales = new Sales(0,
-					LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
-					req.getParameter("account"),
-					req.getParameter("category"),
-					req.getParameter("tradeName"),
+					LocalDate.parse(escapeHTML(req.getParameter("saleDate")), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
+					escapeHTML(req.getParameter("account")),
+					escapeHTML(req.getParameter("category")),
+					escapeHTML(req.getParameter("tradeName")),
 					Integer.parseInt(HTMLUtils.deleteComma(req.getParameter("unitPrice"))),
 					Integer.parseInt(HTMLUtils.deleteComma(req.getParameter("saleNumber"))),
-					req.getParameter("note"));
+					escapeHTML(req.getParameter("note")));
 
 			session.setAttribute("sales", sales);
 			resp.sendRedirect("S0010.html");

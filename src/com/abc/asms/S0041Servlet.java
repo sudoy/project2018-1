@@ -34,6 +34,15 @@ public class S0041Servlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
+		if(session.getAttribute("saf") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("検索条件を入力してください。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("S0040.html");
+			return;
+		}
+
+
 		Accounts accounts = (Accounts)session.getAttribute("accounts");
 
 		req.setAttribute("check", accounts.getAuthority());

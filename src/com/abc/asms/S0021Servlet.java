@@ -36,6 +36,14 @@ public class S0021Servlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
+		if(session.getAttribute("ssf") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("検索条件を入力してください。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("S0020.html");
+			return;
+		}
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
