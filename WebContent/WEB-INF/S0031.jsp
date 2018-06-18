@@ -32,16 +32,18 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="mail"
-							placeholder="メールアドレス" value="${entry.mail}"name="mail" readonly>
+							placeholder="メールアドレス" value="${entry.mail}" name="mail" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="password1" class="col-sm-2 control-label">パスワード <span
-						class="badge">必須</span></label>
+					<label for="password1" class="col-sm-2 control-label">パスワード
+						<span class="badge">必須</span>
+					</label>
 					<div class="col-sm-5">
 						<input type="password" class="form-control" id="password1"
-							placeholder="パスワード" value="${entry.password}" name="password1" readonly>
+							placeholder="パスワード" value="${entry.password}" name="password1"
+							readonly>
 					</div>
 				</div>
 
@@ -60,9 +62,13 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<label class="radio-inline"> <input type="radio"
-							name="authority1" value="0" ${entry.authority == 0 || entry.authority == 10 ? 'checked readonly' : 'disabled'}> 権限なし
+							name="authority1" value="0"
+							${entry.authority == 0 || entry.authority == 10 ? 'checked' : ''}
+							readonly onclick="return false"> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
-							name="authority1" value="1" ${entry.authority == 1 || entry.authority == 11 ? 'checked readonly' : 'disabled'}> 権限あり
+							name="authority1" value="1"
+							${entry.authority == 1 || entry.authority == 11 ? 'checked' : ''}
+							readonly onclick="return false"> 権限あり
 						</label>
 					</div>
 				</div>
@@ -72,17 +78,26 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<label class="radio-inline"> <input type="radio"
-							name="authority2" value="0" ${entry.authority == 0 || entry.authority == 1 ? 'checked readonly' : 'disabled'}> 権限なし
+							name="authority2" value="0"
+							${entry.authority == 0 || entry.authority == 1 ? 'checked' : ''}
+							readonly onclick="return false"> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
-							name="authority2" value="1" ${entry.authority == 10 || entry.authority == 11 ? 'checked readonly' : 'disabled'}> 権限あり
+							name="authority2" value="1"
+							${entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}
+							readonly onclick="return false"> 権限あり
 						</label>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-offset-3">
-						<button type="submit" name="OK" class="btn btn-primary" value="O K"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O K</button>
-						<button type="submit" name="NG" class="btn btn-default" value="キャンセル"> キャンセル</button>
+						<button type="submit" name="OK" class="btn btn-primary"
+							value="O K">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O
+							K
+						</button>
+						<button type="submit" name="NG" class="btn btn-default"
+							value="キャンセル">キャンセル</button>
 					</div>
 				</div>
 

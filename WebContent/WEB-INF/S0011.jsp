@@ -23,7 +23,8 @@
 					<label for="saleDate" class="col-sm-2 control-label">販売日 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							 value="${HTMLUtils.parseDate(sales.saleDate)}" name="saleDate" readonly>
+							value="${HTMLUtils.parseDate(sales.saleDate)}" name="saleDate"
+							readonly>
 					</div>
 				</div>
 
@@ -32,21 +33,23 @@
 					<div class="col-sm-5">
 						<select class="form-control" id="person" name="account" readonly>
 							<c:forEach var="account" items="${accountMap}">
-							<c:if test="${sales.account == account.key}" >
-								<option value="${account.key}" selected>${account.value}</option>
-							</c:if>
+								<c:if test="${sales.account == account.key}">
+									<option value="${account.key}" selected>${account.value}</option>
+								</c:if>
 							</c:forEach>
 						</select>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="category" class="col-sm-2 control-label">商品カテゴリー </label>
+					<label for="category" class="col-sm-2 control-label">商品カテゴリー
+					</label>
 					<div class="col-sm-5">
 						<c:forEach var="category" items="${categoryMap}">
 							<label class="radio-inline"> <input type="radio"
 								name="category" value="${category.key}"
-								${sales.category == category.key ? 'checked readonly' : 'disabled'}>${category.value}
+								${sales.category == category.key ? 'checked' : ''} readonly
+								onclick="return false">${category.value}
 							</label>
 						</c:forEach>
 					</div>
@@ -56,7 +59,8 @@
 					<label for="name" class="col-sm-2 control-label">商品名 </label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name"
-							placeholder="商品名" value="${sales.tradeName}" name="tradeName" readonly>
+							placeholder="商品名" value="${sales.tradeName}" name="tradeName"
+							readonly>
 					</div>
 				</div>
 
@@ -64,7 +68,9 @@
 					<label for="price" class="col-sm-2 control-label">単価 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
-							placeholder="単価" value="<fmt:formatNumber value="${sales.unitPrice}" />" name="unitPrice" readonly>
+							placeholder="単価"
+							value="<fmt:formatNumber value="${sales.unitPrice}" />"
+							name="unitPrice" readonly>
 					</div>
 				</div>
 
@@ -72,7 +78,9 @@
 					<label for="count" class="col-sm-2 control-label">個数 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="count"
-							placeholder="個数" value="<fmt:formatNumber value="${sales.saleNumber}" />" name="saleNumber" readonly>
+							placeholder="個数"
+							value="<fmt:formatNumber value="${sales.saleNumber}" />"
+							name="saleNumber" readonly>
 					</div>
 				</div>
 
@@ -80,7 +88,9 @@
 					<label for="count" class="col-sm-2 control-label">小計 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="total"
-							placeholder="小計" value="<fmt:formatNumber value="${HTMLUtils.sumCalc(sales.unitPrice, sales.saleNumber)}" />" readonly>
+							placeholder="小計"
+							value="<fmt:formatNumber value="${HTMLUtils.sumCalc(sales.unitPrice, sales.saleNumber)}" />"
+							readonly>
 					</div>
 				</div>
 
@@ -94,8 +104,13 @@
 
 				<div class="form-group">
 					<div class="col-sm-offset-3">
-						<button type="submit" name="OK" class="btn btn-primary" value="O K"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O K</button>
-						<button type="submit" name="NG" class="btn btn-default" value="キャンセル"> キャンセル</button>
+						<button type="submit" name="OK" class="btn btn-primary"
+							value="O K">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O
+							K
+						</button>
+						<button type="submit" name="NG" class="btn btn-default"
+							value="キャンセル">キャンセル</button>
 					</div>
 				</div>
 

@@ -116,12 +116,8 @@ public class S0011Servlet extends HttpServlet {
 			throw new ServletException(e);
 		} finally {
 			try {
-				if (con != null) {
-					con.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
+				DBUtils.close(con);
+				DBUtils.close(ps);
 			} catch (Exception e) {
 			}
 		}
