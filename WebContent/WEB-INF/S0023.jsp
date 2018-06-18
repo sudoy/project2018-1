@@ -13,9 +13,10 @@
 	</head>
 	<body>
 
-		<div class="container">
 		<%-- navbarのinclude --%>
 		<jsp:include page="_navbar.jsp" />
+
+		<div class="container">
 
 		<%-- errorのinclude --%>
 		<jsp:include page="_errors.jsp" />

@@ -1,5 +1,9 @@
 <%@page pageEncoding="UTF-8"%>
 <%@ page import="com.abc.asms.utils.HTMLUtils" %>
+
+<%@ page language="java" contentType="text/html;charset=Windows-31J"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <nav class="navbar navbar-default">
 	<div class="container">
 
@@ -10,28 +14,29 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">物品売上管理システム</a>
+			<a class="navbar-brand" href="C0020.html">物品売上管理システム</a>
 		</div>
 
-		<!-- Collect the nav links, forms, and other content for toggling -->
+
+
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="${HTMLUtils.checkNavbar(pageContext.request.servletPath) == 'c2' ? 'active' : ''}">
+				<li class="${fn:containsIgnoreCase(pageContext.request.servletPath,"C002")  ? 'active' : ''}">
 				<a href="C0020.html">ダッシュボード</a></li>
-				<li class="${HTMLUtils.checkNavbar(pageContext.request.servletPath) == 's1' ? 'active' : ''}">
+				<li class="${fn:containsIgnoreCase(pageContext.request.servletPath,"S001") ? 'active' : ''}">
 				<a href="S0010.html">売上登録</a></li>
-				<li class="${HTMLUtils.checkNavbar(pageContext.request.servletPath) == 's2' ? 'active' : ''}">
+				<li class="${fn:containsIgnoreCase(pageContext.request.servletPath,"S002") ? 'active' : ''}">
 				<a href="S0020.html">売上検索</a></li>
-				<li class="${HTMLUtils.checkNavbar(pageContext.request.servletPath) == 's3' ? 'active' : ''}">
+				<li class="${fn:containsIgnoreCase(pageContext.request.servletPath,"S003") ? 'active' : ''}">
 				<a href="S0030.html">アカウント登録</a></li>
-				<li class="${HTMLUtils.checkNavbar(pageContext.request.servletPath) == 's4' ? 'active' : ''}">
+				<li class="${fn:containsIgnoreCase(pageContext.request.servletPath,"S004") ? 'active' : ''}">
 				<a href="S0040.html">アカウント検索</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="C0030.html">ログアウト</a></li>
+				<li><a href="C0010.html?logout=1">ログアウト</a></li>
 
 			</ul>
-		</div><!-- /.navbar-collapse -->
-	</div><!-- /.container-fluid -->
+		</div>
+	</div>
 </nav>

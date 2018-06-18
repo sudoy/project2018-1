@@ -24,8 +24,7 @@ public class S0025Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		//セッションの読み込み
-		HttpSession session = req.getSession();
+		req.setCharacterEncoding("utf-8");
 
 		//ログインチェック
 		if(!ServletUtils.checkLogin(req, resp)) {
