@@ -15,12 +15,14 @@
 
 	<div class="container">
 
+<div class="container col-sm-offset-1">
 		<div class="row">
-			<h1 class="col-xs-6 col-xs-offset-3">ダッシュボード</h1>
+			<h1 class="col-sm-6 col-sm-offset-3">ダッシュボード</h1>
 		</div>
 
-		<div class="col-sm-2">
-			<nav class="float-left">
+	<div class="row">
+		<div class="col-sm-3">
+
 				<ul class="pagination">
 					<li class="page-item ${existB ? 'disabled' : ''}"><a class="page-link"
 						href="C0020.html?before=${date}"><span
@@ -30,14 +32,14 @@
 						href="C0020.html?back=${date}"><span
 							class="glyphicon glyphicon-chevron-left"></span> 前月</a></li>
 				</ul>
-			</nav>
-		</div>
 
-		<div class="col-sm-5 text-center">
-			<h2 class="font-weight-bold">${date}</h2>
 		</div>
 
 		<div class="col-sm-4">
+			<h2 class="font-weight-bold">${date}</h2>
+		</div>
+
+		<div class="col-sm-3">
 
 			<ul class="pagination">
 				<li class="page-item ${existN ? 'disabled' : ''}"><a class="page-link"
@@ -123,6 +125,8 @@
 				</table>
 			</div>
 		</div>
+		</div>
+	</div>
 
 	</div>
 	<!-- /container -->
