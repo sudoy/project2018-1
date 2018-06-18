@@ -112,6 +112,7 @@ public class S0043Servlet extends HttpServlet {
 
 			session.setAttribute("editAccount", null);
 
+			//アカウント検索結果に遷移
 			resp.sendRedirect("S0041.html");
 
 

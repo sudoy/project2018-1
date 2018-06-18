@@ -62,7 +62,7 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="panel panel-default">
-				<div class="panel-heading">今月(${HTMLUtils.parseMonth(today)})の売上合計</div>
+				<div class="panel-heading">今月(${HTMLUtils.parseMonth(date)})の売上合計</div>
 				<div class="panel-body">
 					<fmt:formatNumber value="${toMonth}" />
 					円

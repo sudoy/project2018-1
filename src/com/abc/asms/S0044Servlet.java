@@ -60,8 +60,6 @@ public class S0044Servlet extends HttpServlet {
 			//パラメータをセット
 			ps.setString(1, id);
 
-
-
 			//実行
 			rs = ps.executeQuery();
 
@@ -135,8 +133,6 @@ public class S0044Servlet extends HttpServlet {
 			//パラメータをセット
 			ps.setString(1, id);
 
-			System.out.println(ps);
-
 			//実行
 			ps.executeUpdate();
 
@@ -146,6 +142,7 @@ public class S0044Servlet extends HttpServlet {
 			successes.add(success);
 			session.setAttribute("successes", successes);
 
+			//アカウント検索結果に遷移
 			resp.sendRedirect("S0041.html");
 
 

@@ -121,10 +121,9 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<button class="btn btn-primary">
+							<button type="submit" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 更 新</button>
-							<a href="S0041.html" class="btn btn-default">
-							 キャンセル</a>
+							<a href="S0041.html" class="btn btn-default">キャンセル</a>
 						</div>
 					</div>
 

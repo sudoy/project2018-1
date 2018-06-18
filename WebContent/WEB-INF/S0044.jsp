@@ -94,7 +94,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">
-							<button class="btn btn-danger">
+							<button type="submit" class="btn btn-danger">
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> OK</button>
 							<a href="S0041.html" class="btn btn-default"> キャンセル</a>
 						</div>

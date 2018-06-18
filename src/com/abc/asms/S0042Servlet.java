@@ -149,7 +149,7 @@ public class S0042Servlet extends HttpServlet {
 			errors.add("氏名を入力して下さい。");
 		}
 		//氏名の長さチェック
-		if(req.getParameter("name").length() > 21) {
+		if(req.getParameter("name").length() > 20) {
 			errors.add("氏名が長すぎます。");
 		}
 
@@ -158,7 +158,7 @@ public class S0042Servlet extends HttpServlet {
 			errors.add("メールアドレスを入力して下さい。");
 		}else{
 			//メールアドレス長さチェック
-			if(req.getParameter("mail").length() > 101) {
+			if(req.getParameter("mail").length() > 100) {
 				errors.add("メールアドレスが長すぎます。");
 			}
 
@@ -178,7 +178,7 @@ public class S0042Servlet extends HttpServlet {
 		}
 
 		//パスワード長さチェック
-		if(req.getParameter("password1").length() > 31) {
+		if(req.getParameter("password1").length() > 30) {
 			errors.add("パスワードが長すぎます。");
 		}
 
