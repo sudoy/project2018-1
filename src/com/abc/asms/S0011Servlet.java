@@ -27,11 +27,11 @@ public class S0011Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		if(!ServletUtils.checkLogin(req, resp)) {
+		if (!ServletUtils.checkLogin(req, resp)) {
 			return;
 		}
 
-		if(!ServletUtils.checkSales(req, resp)) {
+		if (!ServletUtils.checkSales(req, resp)) {
 			return;
 		}
 
@@ -46,11 +46,11 @@ public class S0011Servlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		if(!ServletUtils.checkLogin(req, resp)) {
+		if (!ServletUtils.checkLogin(req, resp)) {
 			return;
 		}
 
-		if(!ServletUtils.checkSales(req, resp)) {
+		if (!ServletUtils.checkSales(req, resp)) {
 			return;
 		}
 
@@ -70,7 +70,7 @@ public class S0011Servlet extends HttpServlet {
 		String saleNumber = req.getParameter("saleNumber");
 		String note = req.getParameter("note");
 
-		if(req.getParameter("NG") != null) {
+		if (req.getParameter("NG") != null) {
 
 			Sales sales = new Sales(0,
 					LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
@@ -97,13 +97,13 @@ public class S0011Servlet extends HttpServlet {
 					"VALUES (?, ?, ?, ?, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
 
-			ps.setString(1, saleDate);
-			ps.setString(2, account);
-			ps.setString(3, category);
-			ps.setString(4, tradeName);
+			ps.setString(1, escapeHTML(saleDate));
+			ps.setString(2, escapeHTML(account));
+			ps.setString(3, escapeHTML(category));
+			ps.setString(4, escapeHTML(tradeName));
 			ps.setString(5, HTMLUtils.deleteComma(unitPrice));
 			ps.setString(6, HTMLUtils.deleteComma(saleNumber));
-			ps.setString(7, note);
+			ps.setString(7, escapeHTML(note));
 
 			ps.executeUpdate();
 			List<String> successes = new ArrayList<>();
@@ -125,6 +125,18 @@ public class S0011Servlet extends HttpServlet {
 			} catch (Exception e) {
 			}
 		}
+	}
+
+	public static String escapeHTML(String val) {
+		if (val == null) {
+			return "";
+		}
+		val = val.replaceAll("&", "&amp;");
+		val = val.replaceAll("<", "&lt;");
+		val = val.replaceAll(">", "&gt;");
+		val = val.replaceAll("\"", "&quot;");
+		val = val.replaceAll("'", "&apos;");
+		return val;
 	}
 
 }
