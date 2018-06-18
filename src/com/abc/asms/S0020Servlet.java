@@ -33,7 +33,7 @@ public class S0020Servlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		//エラーの際の入力保持
-		if(session.getAttribute("ssf") != null && session.getAttribute("remain") != null) {
+		if(session.getAttribute("ssf") != null && session.getAttribute("saleRemain") != null) {
 			SearchSaleForm ssf = (SearchSaleForm) session.getAttribute("ssf");
 			req.setAttribute("ssf", ssf);
 			session.setAttribute("remain", null);

@@ -30,7 +30,7 @@ public class S0040Servlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		//エラーの際の入力保持
-		if(session.getAttribute("saf") != null && session.getAttribute("remain") != null) {
+		if(session.getAttribute("saf") != null && session.getAttribute("accountRemain") != null) {
 			SearchAccountForm saf = (SearchAccountForm) session.getAttribute("saf");
 			req.setAttribute("saf", saf);
 			session.setAttribute("remain", null);
@@ -83,7 +83,7 @@ public class S0040Servlet extends HttpServlet {
 			errors.add("氏名の指定が長すぎます。");
 		}
 		if(req.getParameter("mail").length() > 100) {
-			errors.add("メールアドレスが長すぎます。");
+			errors.add("メールアドレスの指定が長すぎます。");
 		}
 
 		if(!req.getParameter("mail").equals("")) {

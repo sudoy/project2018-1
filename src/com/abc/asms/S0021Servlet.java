@@ -124,7 +124,7 @@ public class S0021Servlet extends HttpServlet {
 			if(salesList.isEmpty()) {
 				errors.add("検索結果がありません。");
 				session.setAttribute("errors", errors);
-				session.setAttribute("remain", "on");
+				session.setAttribute("saleRemain", "on");
 				resp.sendRedirect("S0020.html");
 				return;
 			}

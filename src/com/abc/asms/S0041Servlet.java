@@ -115,12 +115,11 @@ public class S0041Servlet extends HttpServlet {
 			//検索結果がなかった場合にエラーをS0020で出す。
 			if(accountList.isEmpty()) {
 				errors.add("検索結果はありません。");
-				session.setAttribute("remain", "on");
+				session.setAttribute("accountRemain", "on");
 				session.setAttribute("errors", errors);
 				resp.sendRedirect("S0040.html");
 				return;
 			}
-//			session.setAttribute("saf", null);
 			req.setAttribute("accountList", accountList);
 		} catch (Exception e) {
 			e.printStackTrace();
