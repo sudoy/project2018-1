@@ -19,8 +19,7 @@ import com.abc.asms.beans.Accounts;
 
 public class ServletUtils {
 
-
-	public static Map<Integer, String> getCategoryMap(HttpServletRequest req){
+	public static Map<Integer, String> getCategoryMap(HttpServletRequest req) {
 
 		Map<Integer, String> categoryMap = new HashMap<Integer, String>();
 
@@ -39,15 +38,15 @@ public class ServletUtils {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
-			while(rs.next()) {
-				if(rs.getInt("active_flg") == 1) {
+			while (rs.next()) {
+				if (rs.getInt("active_flg") == 1) {
 					categoryMap.put(rs.getInt("category_id"), rs.getString("category_name"));
 				}
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -59,8 +58,7 @@ public class ServletUtils {
 		return categoryMap;
 	}
 
-
-	public static Map<Integer, String> getAccountMap(HttpServletRequest req){
+	public static Map<Integer, String> getAccountMap(HttpServletRequest req) {
 
 		Map<Integer, String> accountMap = new HashMap<Integer, String>();
 
@@ -79,13 +77,13 @@ public class ServletUtils {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
-			while(rs.next()) {
+			while (rs.next()) {
 				accountMap.put(rs.getInt("account_id"), rs.getString("name"));
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -97,7 +95,6 @@ public class ServletUtils {
 		return accountMap;
 	}
 
-
 	public static String parseAccountName(int accountId) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -106,7 +103,7 @@ public class ServletUtils {
 
 		String name = null;
 
-		if(accountId == 0) {
+		if (accountId == 0) {
 			return null;
 		}
 
@@ -123,7 +120,7 @@ public class ServletUtils {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -135,7 +132,6 @@ public class ServletUtils {
 		return name;
 	}
 
-
 	public static String parseCategoryName(int categoryId) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -144,7 +140,7 @@ public class ServletUtils {
 
 		String name = null;
 
-		if(categoryId == 0) {
+		if (categoryId == 0) {
 			return null;
 		}
 
@@ -161,7 +157,7 @@ public class ServletUtils {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -173,21 +169,19 @@ public class ServletUtils {
 		return name;
 	}
 
-
 	// C0020用 Getパラメータの有無確認
 	public static String subCheck(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		if(req.getParameter("back") != null) {
+		if (req.getParameter("back") != null) {
 			return req.getParameter("back");
-		} else if(req.getParameter("next") != null) {
+		} else if (req.getParameter("next") != null) {
 			return req.getParameter("next");
-		} else if(req.getParameter("before") != null) {
+		} else if (req.getParameter("before") != null) {
 			return req.getParameter("before");
-		} else if(req.getParameter("after") != null) {
+		} else if (req.getParameter("after") != null) {
 			return req.getParameter("after");
 		}
 		return null;
 	}
-
 
 	// C0020用	前月売上合計
 	public static int beforeTotal(LocalDate first, LocalDate last, int loginId) {
@@ -208,16 +202,16 @@ public class ServletUtils {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, first.withDayOfMonth(1).minusMonths(1).toString());
 			ps.setString(2, last.withDayOfMonth(1).minusDays(1).toString());
-			ps.setString(3, Integer.toString(loginId));
+			ps.setInt(3, loginId);
 			rs = ps.executeQuery();
 
-			while(rs.next()) {
+			while (rs.next()) {
 				beforeTotal += rs.getInt("unit_price") * rs.getInt("sale_number");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -228,78 +222,6 @@ public class ServletUtils {
 		}
 		return beforeTotal;
 	}
-
-
-	// C0020用disabled実装の為、前月以降でなければtrue
-	public static boolean beforeDisabled(LocalDate first, int loginId) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		String sql = null;
-		ResultSet rs = null;
-
-		try {
-			con = DBUtils.getConnection();
-
-			sql = "SELECT sale_date  FROM sales WHERE sale_date < ? AND account_id = ? ORDER BY sale_date";
-
-			ps = con.prepareStatement(sql);
-			ps.setString(1, first.toString());
-			ps.setString(2, Integer.toString(loginId));
-			rs = ps.executeQuery();
-
-			if(!rs.next()) {
-				return true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
-				DBUtils.close(rs);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return false;
-	}
-
-
-	public static boolean nextDisabled(LocalDate last, int loginId) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		String sql = null;
-		ResultSet rs = null;
-
-		try {
-			con = DBUtils.getConnection();
-
-			sql = "SELECT sale_date  FROM sales WHERE sale_date > ? AND account_id = ? ORDER BY sale_date";
-
-			ps = con.prepareStatement(sql);
-			ps.setString(1, last.toString());
-			ps.setString(2, Integer.toString(loginId));
-			rs = ps.executeQuery();
-
-			if(!rs.next()) {
-				return true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
-				DBUtils.close(rs);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return false;
-	}
-
 
 	// アカウントテーブルのバリデーションチェック用、== falseならエラー表示
 	public static boolean matchAccount(String account) {
@@ -316,7 +238,7 @@ public class ServletUtils {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, account);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return true;
 			} else {
 				return false;
@@ -325,7 +247,7 @@ public class ServletUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -336,7 +258,6 @@ public class ServletUtils {
 			}
 		}
 	}
-
 
 	// カテゴリーテーブルのバリデーションチェック用、== falseならエラー表示
 	public static boolean matchCategory(String category) {
@@ -354,7 +275,7 @@ public class ServletUtils {
 			ps.setString(1, category);
 			rs = ps.executeQuery();
 
-			if(rs.next()) {
+			if (rs.next()) {
 				return true;
 			} else {
 				return false;
@@ -363,7 +284,7 @@ public class ServletUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -375,44 +296,42 @@ public class ServletUtils {
 		}
 	}
 
-
 	// メールアドレス重複チェック == trueで弾く
-		public static boolean overlapMail(String mail) {
-			Connection con = null;
-			PreparedStatement ps = null;
-			String sql = null;
-			ResultSet rs = null;
+	public static boolean overlapMail(String mail) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
 
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT mail FROM accounts WHERE mail = ? ORDER BY mail";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, mail);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
 			try {
-				con = DBUtils.getConnection();
-
-				sql = "SELECT mail FROM accounts WHERE mail = ? ORDER BY mail";
-
-				ps = con.prepareStatement(sql);
-				ps.setString(1, mail);
-				rs = ps.executeQuery();
-
-				if(rs.next()) {
-					return true;
-				} else {
-					return false;
-				}
-
-			} catch (Exception e) {
+				DBUtils.close(con);
+				DBUtils.close(ps);
+				DBUtils.close(rs);
+			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
-			}finally {
-				try {
-					DBUtils.close(con);
-					DBUtils.close(ps);
-					DBUtils.close(rs);
-				} catch (SQLException e) {
-					e.printStackTrace();
-					return false;
-				}
 			}
 		}
-
+	}
 
 	// S0011専用
 	public static String registerSId() {
@@ -435,7 +354,7 @@ public class ServletUtils {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -446,7 +365,6 @@ public class ServletUtils {
 		}
 		return registerId;
 	}
-
 
 	// S0031専用
 	public static String registerAId() {
@@ -469,7 +387,7 @@ public class ServletUtils {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				DBUtils.close(con);
 				DBUtils.close(ps);
@@ -481,13 +399,12 @@ public class ServletUtils {
 		return registerAId;
 	}
 
-
 	// ログインチェック
 	public static boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 		HttpSession session = req.getSession();
 
-		if(session.getAttribute("accounts") == null) {
+		if (session.getAttribute("accounts") == null) {
 			List<String> errors = new ArrayList<>();
 			errors.add("ログインしてください。");
 			session.setAttribute("errors", errors);
@@ -498,14 +415,13 @@ public class ServletUtils {
 		}
 	}
 
-
 	// 売上権限チェック
 	public static boolean checkSales(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 		HttpSession session = req.getSession();
 
-		Accounts authority = (Accounts)session.getAttribute("accounts");
-		if(!(authority.getAuthority() == 1) && !(authority.getAuthority() == 11)) {
+		Accounts authority = (Accounts) session.getAttribute("accounts");
+		if (!(authority.getAuthority() == 1) && !(authority.getAuthority() == 11)) {
 			List<String> errors = new ArrayList<>();
 			errors.add("不正なアクセスです。");
 			session.setAttribute("errors", errors);
@@ -516,14 +432,13 @@ public class ServletUtils {
 		}
 	}
 
-
 	// アカウント権限チェック
 	public static boolean checkAccounts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 		HttpSession session = req.getSession();
 
-		Accounts authority = (Accounts)session.getAttribute("accounts");
-		if(!(authority.getAuthority() == 10) && !(authority.getAuthority() == 11)) {
+		Accounts authority = (Accounts) session.getAttribute("accounts");
+		if (!(authority.getAuthority() == 10) && !(authority.getAuthority() == 11)) {
 			List<String> errors = new ArrayList<>();
 			errors.add("不正なアクセスです。");
 			session.setAttribute("errors", errors);

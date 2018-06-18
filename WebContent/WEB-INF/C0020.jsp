@@ -24,11 +24,11 @@
 		<div class="col-sm-3">
 
 				<ul class="pagination">
-					<li class="page-item ${existB ? 'disabled' : ''}"><a class="page-link"
+					<li class="page-item"><a class="page-link"
 						href="C0020.html?before=${date}"><span
 							class="glyphicon glyphicon-chevron-left"></span><span
 							class="glyphicon glyphicon-chevron-left"></span> 前年</a></li>
-					<li class="page-item  ${existB ? 'disabled' : ''}"><a class="page-link"
+					<li class="page-item"><a class="page-link"
 						href="C0020.html?back=${date}"><span
 							class="glyphicon glyphicon-chevron-left"></span> 前月</a></li>
 				</ul>
@@ -42,10 +42,10 @@
 		<div class="col-sm-3">
 
 			<ul class="pagination">
-				<li class="page-item ${existN ? 'disabled' : ''}"><a class="page-link"
+				<li class="page-item"><a class="page-link"
 					href="C0020.html?next=${date}">翌月 <span
 						class="glyphicon glyphicon-chevron-right"></span></a></li>
-				<li class="page-item ${existN ? 'disabled' : ''}"><a class="page-link"
+				<li class="page-item"><a class="page-link"
 					href="C0020.html?next=${date}">翌年 <span
 						class="glyphicon glyphicon-chevron-right"></span><span
 						class="glyphicon glyphicon-chevron-right"></span></a></li>

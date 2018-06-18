@@ -90,8 +90,9 @@ public class C0020Servlet extends HttpServlet {
 			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1);
 		};
 
+		// 今月売上合計と前月売上合計,初期値0
 		int toMonth = 0;
-		int laMonth = 0;
+		int lastMonth = 0;
 
 		try {
 			con = DBUtils.getConnection();
@@ -109,8 +110,9 @@ public class C0020Servlet extends HttpServlet {
 			// where句に代入
 			ps.setString(1, first.toString());
 			ps.setString(2, last.toString());
+			// ログインIDを取得
 			Accounts accountId = (Accounts)session.getAttribute("accounts");
-			ps.setString(3, Integer.toString(accountId.getAccountId()));
+			ps.setInt(3, accountId.getAccountId());
 
 			// 実行
 			rs = ps.executeQuery();
@@ -125,20 +127,18 @@ public class C0020Servlet extends HttpServlet {
 						rs.getInt("unit_price"),
 						rs.getInt("sale_number"));
 				list.add(a);
+				// 今月売上合計の計算
 				toMonth += rs.getInt("unit_price") * rs.getInt("sale_number");
 			}
 
-			boolean existB = ServletUtils.beforeDisabled(first, accountId.getAccountId());
-			boolean existN = ServletUtils.nextDisabled(last, accountId.getAccountId());
-			laMonth = ServletUtils.beforeTotal(first, last, accountId.getAccountId());
+			// 前月売上合計の計算
+			lastMonth = ServletUtils.beforeTotal(first, last, accountId.getAccountId());
 
 			// JavaBeansをJSPに渡す
 			req.setAttribute("date", date);
 			req.setAttribute("lastday", lastday);
 			req.setAttribute("toMonth", toMonth);
-			req.setAttribute("lastMonth", laMonth);
-			req.setAttribute("existB", existB);
-			req.setAttribute("existN", existN);
+			req.setAttribute("lastMonth", lastMonth);
 			req.setAttribute("list", list);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/C0020.jsp").forward(req, resp);
