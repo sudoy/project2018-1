@@ -108,6 +108,7 @@ public class C0010Servlet extends HttpServlet {
 
 		if(req.getParameter("mail").equals("")) {
 			errors.add("メールアドレスを入力してください。");
+			return errors;
 		}
 
 		if(req.getParameter("mail").length() > 100) {

@@ -45,6 +45,8 @@ public class S0045Servlet extends HttpServlet {
 
 
 		List<String> errors = validate(req);
+
+		//successメッセージ格納用のリスト
 		List<String> successes = new ArrayList<>();
 
 		if(errors.size() != 0) {
@@ -55,6 +57,7 @@ public class S0045Servlet extends HttpServlet {
 			return;
 		}
 
+		//メールアドレスがデータベース内にあるかを確認
 		try{
 
 			con = DBUtils.getConnection();

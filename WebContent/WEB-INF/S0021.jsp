@@ -15,6 +15,7 @@
 
 		<div class="container">
 
+			<jsp:include page="_successes.jsp" />
 			<jsp:include page="_errors.jsp" />
 
 			<div class="row">
