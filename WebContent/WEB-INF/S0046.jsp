@@ -14,12 +14,9 @@
 	</head>
 	<body>
 
+		<div class="container">
 		<%-- errorのinclude --%>
 		<jsp:include page="_errors.jsp" />
-
-		<div class="container">
-
-
 
 			<form class="form-signin" action="S0046.html?user=${user}" method="POST">
 				<h2 class="form-signin-heading">物品売上管理システム</h2>

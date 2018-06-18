@@ -13,11 +13,11 @@
 
 	<div class="container">
 
-		<div class="row">
+		<div class="row col-md-offset-1">
 			<h1>売上を登録してよろしいですか?</h1>
 		</div>
 
-		<div class="row">
+		<div class="row col-md-offset-1">
 			<form class="form-horizontal" action="S0011.html" method="post">
 				<div class="form-group">
 					<label for="saleDate" class="col-sm-2 control-label">販売日 </label>

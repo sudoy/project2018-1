@@ -12,19 +12,18 @@
 	</head>
 	<body>
 
+		<div class="container">
 		<%-- navbarのinclude --%>
 		<jsp:include page="_navbar.jsp" />
 
 		<%-- errorのinclude --%>
 		<jsp:include page="_errors.jsp" />
 
-		<div class="container">
-
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<h1>アカウント編集</h1>
 			</div>
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<form class="form-horizontal" action="S0042.html?accountId=${editAccount.accountId }" method="post">
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">氏名 <span class="badge">必須</span></label>

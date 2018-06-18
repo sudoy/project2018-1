@@ -13,19 +13,18 @@
 	</head>
 	<body>
 
+		<div class="container">
 		<%-- navbarのinclude --%>
 		<jsp:include page="_navbar.jsp" />
 
 		<%-- errorのinclude --%>
 		<jsp:include page="_errors.jsp" />
 
-		<div class="container">
-
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<h1>売上詳細編集</h1>
 			</div>
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<form class="form-horizontal" action="S0023.html?saleId=${saleList.saleId}" method="POST">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日

@@ -19,11 +19,11 @@
 
 		<div class="container">
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<h1>売上を削除してよろしいですか?</h1>
 			</div>
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<form class="form-horizontal" action="S0025.html?saleId=${saleList.saleId}" method="POST">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>

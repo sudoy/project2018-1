@@ -19,11 +19,11 @@
 
 		<div class="container">
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<h1>売上詳細表示</h1>
 			</div>
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<form class="form-horizontal" action="#" method="post">
 
 					<div class="form-group">

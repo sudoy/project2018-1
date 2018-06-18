@@ -17,9 +17,11 @@
 
 		<jsp:include page="_errors.jsp" />
 
+			<div class="row col-md-offset-1">
 				<h1>売上検索条件入力</h1>
+			</div>
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<form class="form-horizontal" action="S0020.html" method="post">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>

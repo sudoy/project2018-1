@@ -17,11 +17,11 @@
 
 		<div class="container">
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<h1>アカウントを削除してよろしいですか?</h1>
 			</div>
 
-			<div class="row">
+			<div class="row col-md-offset-1">
 				<form class="form-horizontal" action="S0044.html?accountId=${deleteAccount.accountId }" method="post">
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">氏名</label>
