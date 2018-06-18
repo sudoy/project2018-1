@@ -33,7 +33,9 @@ public class S0040Servlet extends HttpServlet {
 		if(session.getAttribute("saf") != null && session.getAttribute("accountRemain") != null) {
 			SearchAccountForm saf = (SearchAccountForm) session.getAttribute("saf");
 			req.setAttribute("saf", saf);
-			session.setAttribute("remain", null);
+			System.out.println(session.getAttribute("accountRemain"));
+			session.setAttribute("accountRemain", null);
+			System.out.println("running");
 		}
 		session.setAttribute("saf", null);
 

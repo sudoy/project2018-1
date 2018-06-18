@@ -36,7 +36,7 @@ public class S0020Servlet extends HttpServlet {
 		if(session.getAttribute("ssf") != null && session.getAttribute("saleRemain") != null) {
 			SearchSaleForm ssf = (SearchSaleForm) session.getAttribute("ssf");
 			req.setAttribute("ssf", ssf);
-			session.setAttribute("remain", null);
+			session.setAttribute("saleRemain", null);
 		}
 		session.setAttribute("ssf", null);
 
