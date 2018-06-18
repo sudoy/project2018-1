@@ -77,12 +77,12 @@ public class S0010Servlet extends HttpServlet {
 
 		Sales sales = new Sales(0,
 				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
-				escapeHTML(req.getParameter("account")),
-				escapeHTML(req.getParameter("category")),
-				escapeHTML(req.getParameter("tradeName")),
+				req.getParameter("account"),
+				req.getParameter("category"),
+				req.getParameter("tradeName"),
 				Integer.parseInt(req.getParameter("unitPrice")),
 				Integer.parseInt(req.getParameter("saleNumber")),
-				escapeHTML(req.getParameter("note")));
+				req.getParameter("note"));
 
 
 		session.setAttribute("sales", sales);
@@ -171,18 +171,6 @@ public class S0010Servlet extends HttpServlet {
 
 		return errors;
 
-	}
-
-	public static String escapeHTML(String val) {
-		if (val == null) {
-			return "";
-		}
-		val = val.replaceAll("&", "&amp;");
-		val = val.replaceAll("<", "&lt;");
-		val = val.replaceAll(">", "&gt;");
-		val = val.replaceAll("\"", "&quot;");
-		val = val.replaceAll("'", "&apos;");
-		return val;
 	}
 
 

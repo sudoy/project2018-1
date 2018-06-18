@@ -73,13 +73,13 @@ public class S0011Servlet extends HttpServlet {
 		if (req.getParameter("NG") != null) {
 
 			Sales sales = new Sales(0,
-					LocalDate.parse(escapeHTML(req.getParameter("saleDate")), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
-					escapeHTML(req.getParameter("account")),
-					escapeHTML(req.getParameter("category")),
-					escapeHTML(req.getParameter("tradeName")),
+					LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
+					req.getParameter("account"),
+					req.getParameter("category"),
+					req.getParameter("tradeName"),
 					Integer.parseInt(HTMLUtils.deleteComma(req.getParameter("unitPrice"))),
 					Integer.parseInt(HTMLUtils.deleteComma(req.getParameter("saleNumber"))),
-					escapeHTML(req.getParameter("note")));
+					req.getParameter("note"));
 
 			session.setAttribute("sales", sales);
 			resp.sendRedirect("S0010.html");
@@ -97,13 +97,13 @@ public class S0011Servlet extends HttpServlet {
 					"VALUES (?, ?, ?, ?, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
 
-			ps.setString(1, escapeHTML(saleDate));
-			ps.setString(2, escapeHTML(account));
-			ps.setString(3, escapeHTML(category));
-			ps.setString(4, escapeHTML(tradeName));
+			ps.setString(1, saleDate);
+			ps.setString(2, account);
+			ps.setString(3, category);
+			ps.setString(4, tradeName);
 			ps.setString(5, HTMLUtils.deleteComma(unitPrice));
 			ps.setString(6, HTMLUtils.deleteComma(saleNumber));
-			ps.setString(7, escapeHTML(note));
+			ps.setString(7, note);
 
 			ps.executeUpdate();
 			List<String> successes = new ArrayList<>();
@@ -123,16 +123,5 @@ public class S0011Servlet extends HttpServlet {
 		}
 	}
 
-	public static String escapeHTML(String val) {
-		if (val == null) {
-			return "";
-		}
-		val = val.replaceAll("&", "&amp;");
-		val = val.replaceAll("<", "&lt;");
-		val = val.replaceAll(">", "&gt;");
-		val = val.replaceAll("\"", "&quot;");
-		val = val.replaceAll("'", "&apos;");
-		return val;
-	}
 
 }

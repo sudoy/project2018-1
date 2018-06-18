@@ -76,10 +76,10 @@ public class S0043Servlet extends HttpServlet {
 				ps = con.prepareStatement(sql);
 
 				//データをセット
-				ps.setString(1, escapeHTML(req.getParameter("name")));
-				ps.setString(2, escapeHTML(req.getParameter("mail")));
+				ps.setString(1, req.getParameter("name"));
+				ps.setString(2, req.getParameter("mail"));
 				ps.setLong(3, authority);
-				ps.setString(4, escapeHTML(req.getParameter("accountId")));
+				ps.setString(4, req.getParameter("accountId"));
 
 			}else {
 
@@ -90,11 +90,11 @@ public class S0043Servlet extends HttpServlet {
 				ps = con.prepareStatement(sql);
 
 				//データをセット
-				ps.setString(1, escapeHTML(req.getParameter("name")));
-				ps.setString(2, escapeHTML(req.getParameter("mail")));
-				ps.setString(3, escapeHTML(req.getParameter("password1")));
+				ps.setString(1, req.getParameter("name"));
+				ps.setString(2, req.getParameter("mail"));
+				ps.setString(3, req.getParameter("password1"));
 				ps.setLong(4, authority);
-				ps.setString(5, escapeHTML(req.getParameter("accountId")));
+				ps.setString(5, req.getParameter("accountId"));
 
 
 			}
@@ -131,16 +131,5 @@ public class S0043Servlet extends HttpServlet {
 
 	}
 
-	public static String escapeHTML(String val) {
-		if (val == null) {
-			return "";
-		}
-		val = val.replaceAll("&", "&amp;");
-		val = val.replaceAll("<", "&lt;");
-		val = val.replaceAll(">", "&gt;");
-		val = val.replaceAll("\"", "&quot;");
-		val = val.replaceAll("'", "&apos;");
-		return val;
-	}
 
 }
