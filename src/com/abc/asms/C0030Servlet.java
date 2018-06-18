@@ -22,6 +22,7 @@ public class C0030Servlet extends HttpServlet {
 		if(session.getAttribute("accounts") == null) {
 			List<String> errors = new ArrayList<>();
 			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
 			resp.sendRedirect("C0010.html");
 			return;
 		}
