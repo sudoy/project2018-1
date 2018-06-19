@@ -60,7 +60,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="category" class="col-sm-2 control-label">
+						<label class="col-sm-2 control-label">
 							商品カテゴリー <span class="badge">必須</span>
 						</label>
 						<div class="col-sm-5">
