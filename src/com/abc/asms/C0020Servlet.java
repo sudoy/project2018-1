@@ -42,7 +42,7 @@ public class C0020Servlet extends HttpServlet {
 		LocalDate ld = null;
 
 		// どの変数を見るか選択
-		String check= ServletUtils.subCheck(req, resp);
+		String check= ServletUtils.checkParameter(req, resp);
 
 		// checkに何もない場合現在日時抽出、ある場合はLocalDateに変換
 		if(check != null) {
@@ -132,7 +132,7 @@ public class C0020Servlet extends HttpServlet {
 			}
 
 			// 前月売上合計の計算
-			lastMonth = ServletUtils.beforeTotal(first, last, accountId.getAccountId());
+			lastMonth = ServletUtils.getTotalOfLastMonth(first, last, accountId.getAccountId());
 
 			// JavaBeansをJSPに渡す
 			req.setAttribute("date", date);

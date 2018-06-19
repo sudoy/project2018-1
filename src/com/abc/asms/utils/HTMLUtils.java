@@ -59,7 +59,7 @@ public class HTMLUtils {
 	}
 
 	public static String deleteComma(String Numbers) {
-	      return Numbers.replaceAll(",","");
+		return Numbers.replaceAll(",","");
 	}
 
 	public static String formatAuthority(int authority) {

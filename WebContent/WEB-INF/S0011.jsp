@@ -23,7 +23,7 @@
 					<label for="saleDate" class="col-sm-2 control-label">販売日 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							value="${HTMLUtils.parseDate(sales.saleDate)}" name="saleDate"
+							value="${HTMLUtils.formatLocalDate(sales.saleDate)}" name="saleDate"
 							readonly>
 					</div>
 				</div>

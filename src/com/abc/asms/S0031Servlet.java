@@ -69,7 +69,7 @@ public class S0031Servlet extends HttpServlet {
 
 			ps.executeUpdate();
 			List<String> successes = new ArrayList<>();
-			successes.add("No" + ServletUtils.registerAId() + "のアカウントを登録しました。");
+			successes.add("No" + ServletUtils.registerAccountId() + "のアカウントを登録しました。");
 			session.setAttribute("successes", successes);
 			session.setAttribute("entry", null);
 			resp.sendRedirect("S0030.html");

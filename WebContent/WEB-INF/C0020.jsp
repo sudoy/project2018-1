@@ -55,7 +55,7 @@
 
 		<div class="col-sm-3">
 			<div class="panel panel-default">
-				<div class="panel-heading">前月(${HTMLUtils.parseMonth(lastday)})の売上合計</div>
+				<div class="panel-heading">前月(${HTMLUtils.formatMonth(lastday)})の売上合計</div>
 				<div class="panel-body">
 					<fmt:formatNumber value="${lastMonth}" />
 					円
@@ -64,7 +64,7 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="panel panel-default">
-				<div class="panel-heading">今月(${HTMLUtils.parseMonth(date)})の売上合計</div>
+				<div class="panel-heading">今月(${HTMLUtils.formatMonth(date)})の売上合計</div>
 				<div class="panel-body">
 					<fmt:formatNumber value="${thisMonth}" />
 					円
@@ -85,7 +85,7 @@
 								<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
 							</c:otherwise>
 						</c:choose> <fmt:formatNumber
-							value="${HTMLUtils.ratioCalc(thisMonth, lastMonth)}"
+							value="${HTMLUtils.calcRatio(thisMonth, lastMonth)}"
 							pattern="##0.00%" />
 					</span>
 				</div>
@@ -109,12 +109,12 @@
 					<c:forEach var="sales" items="${list}">
 						<tr>
 							<th>${sales.saleId}</th>
-							<td>${HTMLUtils.parseDate(sales.saleDate)}</td>
+							<td>${HTMLUtils.formatLocalDate(sales.saleDate)}</td>
 							<td>${sales.category}</td>
 							<td>${sales.tradeName}</td>
 							<td><fmt:formatNumber value="${sales.unitPrice}" /></td>
 							<td><fmt:formatNumber value="${sales.saleNumber}" /></td>
-							<td><fmt:formatNumber value="${HTMLUtils.sumCalc(sales.unitPrice, sales.saleNumber)}" /></td>
+							<td><fmt:formatNumber value="${HTMLUtils.calcSum(sales.unitPrice, sales.saleNumber)}" /></td>
 						</tr>
 					</c:forEach>
 					<tr>
