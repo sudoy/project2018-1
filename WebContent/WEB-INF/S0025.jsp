@@ -29,7 +29,7 @@
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control" name="saleDate" id="salesDate"
-							placeholder="販売日" value="${HTMLUtils.parseDate(saleList.saleDate) }" readonly>
+							placeholder="販売日" value="${HTMLUtils.formatLocalDate(saleList.saleDate) }" readonly>
 						</div>
 					</div>
 
@@ -86,7 +86,7 @@
 						<div class="col-sm-2">
 							<input type="text" class="form-control text-right" name="total" id="total"
 							placeholder="小計"
-							value="<fmt:formatNumber value="${HTMLUtils.sumCalc(saleList.unitPrice,saleList.saleNumber)}" />"
+							value="<fmt:formatNumber value="${HTMLUtils.calcSum(saleList.unitPrice,saleList.saleNumber)}" />"
 							readonly>
 						</div>
 					</div>

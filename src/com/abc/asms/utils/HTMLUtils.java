@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class HTMLUtils {
 
-	public static String formatDate(LocalDate date) {
+	public static String formatLocalDate(LocalDate date) {
 		String s = "";
 		if(date == null) {
 			return "";

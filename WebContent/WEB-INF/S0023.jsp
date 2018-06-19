@@ -33,7 +33,7 @@
 						</label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control" name="saleDate" id="saleDate" placeholder="販売日"
-							 value="${param.saleDate != null ? param.saleDate : HTMLUtils.parseDate(saleList.saleDate)}">
+							 value="${param.saleDate != null ? param.saleDate : HTMLUtils.formatLocalDate(saleList.saleDate)}">
 						</div>
 					</div>
 
@@ -52,7 +52,7 @@
 								<c:if test="${param.account == null }">
 									<c:forEach var="account" items="${accountMap}">
 										<option value="${account.key}"
-										${saleList.account == account.value ? 'selected' :  '' }>${account.value}</option>
+										${saleList.account == account.key ? 'selected' :  '' }>${account.value}</option>
 									</c:forEach>
 								</c:if>
 							</select>
@@ -78,7 +78,7 @@
 								<c:forEach var="category" items="${categoryMap}">
 									<label class="radio-inline">
 										<input type="radio" name="category" value="${category.key}"
-										${saleList.category == category.value ? 'checked' :  '' }>${category.value}
+										${saleList.category == category.key ? 'checked' :  '' }>${category.value}
 									</label>
 								</c:forEach>
 							</c:if>

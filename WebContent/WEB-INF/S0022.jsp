@@ -28,7 +28,7 @@
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">販売日</label>
-						<div class="col-sm-2 form-control-static">${HTMLUtils.parseDate(saleList.saleDate)}</div>
+						<div class="col-sm-2 form-control-static">${HTMLUtils.formatLocalDate(saleList.saleDate)}</div>
 					</div>
 
 					<div class="form-group">
@@ -61,7 +61,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2  form-control-static text-right">
-							<fmt:formatNumber value="${HTMLUtils.sumCalc(saleList.unitPrice,saleList.saleNumber)}" />
+							<fmt:formatNumber value="${HTMLUtils.calcSum(saleList.unitPrice,saleList.saleNumber)}" />
 						</div>
 					</div>
 
