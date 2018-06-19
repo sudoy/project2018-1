@@ -67,9 +67,9 @@ public class S0044Servlet extends HttpServlet {
 
 			Accounts a = new Accounts(
 					rs.getInt("account_id"),
-					rs.getString("name"),
-					rs.getString("mail"),
-					rs.getString("password"),
+					ServletUtils.escapeHTML(rs.getString("name")),
+					ServletUtils.escapeHTML(rs.getString("mail")),
+					ServletUtils.escapeHTML(rs.getString("password")),
 					rs.getInt("authority")
 					);
 
