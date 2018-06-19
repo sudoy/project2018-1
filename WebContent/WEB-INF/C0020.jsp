@@ -55,7 +55,7 @@
 
 		<div class="col-sm-3">
 			<div class="panel panel-default">
-				<div class="panel-heading">前月(${HTMLUtils.formatMonth(lastday)})の売上合計</div>
+				<div class="panel-heading">前月(${HTMLUtils.formatMonth(lastDate)})の売上合計</div>
 				<div class="panel-body">
 					<fmt:formatNumber value="${lastMonth}" />
 					円
