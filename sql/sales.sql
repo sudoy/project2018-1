@@ -50,9 +50,9 @@ VALUES ('2018/6/5', 5, 10, 'コエンザイムQ10配合ノンシュガー低カ�
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
 VALUES ('2018/6/5', 6, 10, '大人のひとときレディーボーデンチョコナッツバー 80ml', 96, 1200);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
-VALUES ('2018/6/5', 6, 10, '大人のひとときレディーボーデンストロベリーバー 80ml', 496, 900, '今月からIQOSに変更');
+VALUES ('2018/6/5', 6, 10, '大人のひとときレディーボーデンストロベリーバー 80ml', 496, 900);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
-VALUES ('2018/6/5', 6, 10, 'ソフ バニラ 赤城乳業', 520, 1, '明日から夏向け商品を展開');
+VALUES ('2018/6/5', 6, 10, 'ソフ バニラ 赤城乳業', 520, 1);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
 VALUES ('2018/6/5', 6, 10, '江崎グリコ 【糖質50% オフ※】 スナオ SUNAO チョコクランチ', 91, 1250);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
