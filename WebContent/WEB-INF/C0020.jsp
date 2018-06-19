@@ -46,7 +46,7 @@
 					href="C0020.html?next=${date}">翌月 <span
 						class="glyphicon glyphicon-chevron-right"></span></a></li>
 				<li class="page-item"><a class="page-link"
-					href="C0020.html?next=${date}">翌年 <span
+					href="C0020.html?after=${date}">翌年 <span
 						class="glyphicon glyphicon-chevron-right"></span><span
 						class="glyphicon glyphicon-chevron-right"></span></a></li>
 			</ul>

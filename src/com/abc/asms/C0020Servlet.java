@@ -31,6 +31,7 @@ public class C0020Servlet extends HttpServlet {
 		}
 
 		HttpSession session = req.getSession();
+		req.setCharacterEncoding("utf-8");
 
 		Connection con = null;
 		PreparedStatement ps = null;
