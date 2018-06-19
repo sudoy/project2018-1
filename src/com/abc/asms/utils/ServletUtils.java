@@ -33,7 +33,7 @@ public class ServletUtils {
 
 			sql = "select category_id, category_name "
 					+ "from categories "
-					+ "where active_flg == 1"
+					+ "where active_flg = 1 "
 					+ "order by category_id";
 
 			ps = con.prepareStatement(sql);
