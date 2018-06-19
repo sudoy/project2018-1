@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Sales;
-import com.abc.asms.utils.HTMLUtils;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0023.html")
@@ -91,7 +90,7 @@ public class S0023Servlet extends HttpServlet {
 			return;
 		}
 
-		LocalDate saleDate = LocalDate.parse(HTMLUtils.dateFormat(req.getParameter("saleDate")));
+		LocalDate saleDate = LocalDate.parse(dateFormat(req.getParameter("saleDate")));
 
 		Sales s = new Sales(
 				Integer.parseInt(req.getParameter("saleId")),
@@ -209,6 +208,16 @@ public class S0023Servlet extends HttpServlet {
 		}
 
 		return errors;
+	}
+
+	public static String dateFormat(String saleDate) {
+
+		String s = "";
+		if(saleDate == null) {
+			return "";
+		}
+		s = saleDate.replace("/", "-");
+		return s;
 	}
 
 }
