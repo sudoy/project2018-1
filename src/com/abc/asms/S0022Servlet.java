@@ -46,10 +46,9 @@ public class S0022Servlet extends HttpServlet {
 			String id = req.getParameter("saleId");
 
 			//SQL
-			sql = "select s.sale_id, s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price," +
+			sql = "select s.sale_id, s.sale_date, s.account_id, c.category_name, s.trade_name, s.unit_price," +
 					"s.sale_number, s.note " +
 					"FROM sales s " +
-					"JOIN accounts a ON s.account_id = a.account_id " +
 					"JOIN categories c ON s.category_id = c.category_id " +
 					"WHERE sale_id = ?";
 
@@ -69,7 +68,7 @@ public class S0022Servlet extends HttpServlet {
 			Sales s = new Sales(
 					rs.getInt("sale_id"),
 					saleDate,
-					rs.getString("name"),
+					ServletUtils.parseAccountName(rs.getInt("account_id")),
 					rs.getString("category_name"),
 					rs.getString("trade_name"),
 					rs.getInt("unit_price"),

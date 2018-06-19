@@ -41,7 +41,7 @@
 						<label for="person" class="col-sm-2 control-label">担当 <span class="badge">必須</span></label>
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person">
-
+								<option value="">選択してください</option>
 								<c:if test="${param.account != null}">
 									<c:forEach var="account" items="${accountMap}">
 										<option value="${account.key}"
