@@ -50,8 +50,6 @@ public class S0023Servlet extends HttpServlet {
 		//フォワード
 		getServletContext().getRequestDispatcher("/WEB-INF/S0023.jsp").forward(req, resp);
 
-
-
 	}
 
 	@Override
@@ -96,12 +94,12 @@ public class S0023Servlet extends HttpServlet {
 		Sales s = new Sales(
 				Integer.parseInt(req.getParameter("saleId")),
 				saleDate,
-				req.getParameter("account"),
-				req.getParameter("category"),
-				req.getParameter("tradeName"),
+				ServletUtils.escapeHTML(req.getParameter("account")),
+				ServletUtils.escapeHTML(req.getParameter("category")),
+				ServletUtils.escapeHTML(req.getParameter("tradeName")),
 				Integer.parseInt(req.getParameter("unitPrice")),
 				Integer.parseInt(req.getParameter("saleNumber")),
-				req.getParameter("note")
+				ServletUtils.escapeHTML(req.getParameter("note"))
 				);
 
 		session.setAttribute("saleList", s);
@@ -174,7 +172,7 @@ public class S0023Servlet extends HttpServlet {
 		// 単価形式のチェック
 		try {
 			int a = Integer.parseInt(req.getParameter("unitPrice"));
-			if (!req.getParameter("unitPrice").equals("") && Integer.parseInt(req.getParameter("unitPrice")) < 1) {
+			if (!req.getParameter("unitPrice").equals("") && a < 1) {
 				errors.add("単価を正しく入力して下さい。");
 			}
 
@@ -194,7 +192,7 @@ public class S0023Servlet extends HttpServlet {
 		// 個数形式のチェック
 		try {
 			int a = Integer.parseInt(req.getParameter("saleNumber"));
-			if (!req.getParameter("saleNumber").equals("") && Integer.parseInt(req.getParameter("saleNumber")) < 1) {
+			if (!req.getParameter("saleNumber").equals("") && a < 1) {
 				errors.add("個数を正しく入力して下さい。");
 			}
 
@@ -211,14 +209,7 @@ public class S0023Servlet extends HttpServlet {
 		return errors;
 	}
 
-	public static String dateFormat(String saleDate) {
 
-		String s = "";
-		if(saleDate == null) {
-			return "";
-		}
-		s = saleDate.replace("/", "-");
-		return s;
-	}
+
 
 }
