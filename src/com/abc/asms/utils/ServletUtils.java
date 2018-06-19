@@ -31,17 +31,16 @@ public class ServletUtils {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "select category_id, category_name, active_flg "
+			sql = "select category_id, category_name "
 					+ "from categories "
+					+ "where active_flg == 1"
 					+ "order by category_id";
 
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				if (rs.getInt("active_flg") == 1) {
-					categoryMap.put(rs.getInt("category_id"), rs.getString("category_name"));
-				}
+				categoryMap.put(rs.getInt("category_id"), rs.getString("category_name"));
 			}
 
 		} catch (Exception e) {
