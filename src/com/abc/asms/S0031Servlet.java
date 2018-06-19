@@ -90,10 +90,10 @@ public class S0031Servlet extends HttpServlet {
 					"VALUES (?, ?, MD5(?), ?)";
 			ps = con.prepareStatement(sql);
 
-			ps.setString(1, escapeHTML(name));
-			ps.setString(2, escapeHTML(mail));
-			ps.setString(3, escapeHTML(password1));
-			ps.setString(4, escapeHTML(Integer.toString(authority)));
+			ps.setString(1, name);
+			ps.setString(2, mail);
+			ps.setString(3, password1);
+			ps.setInt(4, authority);
 
 			ps.executeUpdate();
 			List<String> successes = new ArrayList<>();
@@ -112,18 +112,4 @@ public class S0031Servlet extends HttpServlet {
 			}
 		}
 	}
-
-	public static String escapeHTML(String val) {
-		if (val == null) {
-			return "";
-		}
-		val = val.replaceAll("&", "&amp;");
-		val = val.replaceAll("<", "&lt;");
-		val = val.replaceAll(">", "&gt;");
-		val = val.replaceAll("\"", "&quot;");
-		val = val.replaceAll("'", "&apos;");
-		return val;
-	}
-
-
 }
