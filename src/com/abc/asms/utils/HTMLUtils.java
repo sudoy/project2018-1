@@ -40,9 +40,12 @@ public class HTMLUtils {
 		return unitPrice * saleNumber;
 	}
 
-	public static double calcRatio(double toMonth, double lastMonth) {
-		double ratio = toMonth / lastMonth;
-		if(Double.isInfinite(ratio) || Double.isNaN(ratio)) {
+	public static double calcRatio(double thisMonth, double lastMonth) {
+		double ratio = thisMonth / lastMonth;
+		if(thisMonth >=1 && lastMonth == 0) {
+			ratio = 999.9999;
+			return ratio;
+		} else if(Double.isInfinite(ratio) || Double.isNaN(ratio)) {
 			ratio = 0;
 			return ratio;
 		} else {

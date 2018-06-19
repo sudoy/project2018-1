@@ -94,7 +94,6 @@ public class C0020Servlet extends HttpServlet {
 					"WHERE s.sale_date BETWEEN ? AND ? AND s.account_id = ? " +
 					"ORDER BY s.sale_date";
 
-
 			// SELECT命令の準備
 			ps = con.prepareStatement(sql);
 
