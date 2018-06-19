@@ -23,7 +23,7 @@
 					<label for="saleDate" class="col-sm-2 control-label">販売日 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							value="${HTMLUtils.parseDate(sales.saleDate)}" name="saleDate"
+							value="${HTMLUtils.formatLocalDate(sales.saleDate)}" name="saleDate"
 							readonly>
 					</div>
 				</div>
@@ -109,8 +109,7 @@
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O
 							K
 						</button>
-						<button type="submit" name="NG" class="btn btn-default"
-							value="キャンセル">キャンセル</button>
+						<a href="S0010.html" class="btn btn-default">キャンセル</a>
 					</div>
 				</div>
 

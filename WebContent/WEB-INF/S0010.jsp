@@ -27,7 +27,7 @@
 					class="badge">必須</span></label>
 				<div class="col-sm-2">
 				<input type="text" class="form-control" id="saleDate"
-					value="${param.saleDate != null ? param.saleDate : sales.saleDate != null ? HTMLUtils.parseDate(sales.saleDate) : today}"
+					value="${param.saleDate != null ? param.saleDate : sales.saleDate != null ? HTMLUtils.formatLocalDate(sales.saleDate) : today}"
 					name="saleDate" placeholder="販売日">
 				</div>
 			</div>

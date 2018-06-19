@@ -52,7 +52,7 @@
 						<span class="badge">必須</span>
 					</label>
 					<div class="col-sm-5">
-						<input type="password" class="form-control" id="password1"
+						<input type="password" class="form-control" id="password2"
 							placeholder="パスワード(確認)" value="${entry.password}" readonly>
 					</div>
 				</div>
@@ -82,7 +82,7 @@
 							${entry.authority == 0 || entry.authority == 1 ? 'checked' : ''}
 							readonly onclick="return false"> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
-							name="authority2" value="1"
+							name="authority2" value="10"
 							${entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}
 							readonly onclick="return false"> 権限あり
 						</label>
@@ -96,8 +96,7 @@
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O
 							K
 						</button>
-						<button type="submit" name="NG" class="btn btn-default"
-							value="キャンセル">キャンセル</button>
+						<a href="S0030.html" class="btn btn-default">キャンセル</a>
 					</div>
 				</div>
 

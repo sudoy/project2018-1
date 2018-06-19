@@ -3,8 +3,6 @@ package com.abc.asms;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.HTMLUtils;
 import com.abc.asms.utils.ServletUtils;
@@ -70,22 +67,6 @@ public class S0011Servlet extends HttpServlet {
 		String saleNumber = req.getParameter("saleNumber");
 		String note = req.getParameter("note");
 
-		if (req.getParameter("NG") != null) {
-
-			Sales sales = new Sales(0,
-					LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
-					req.getParameter("account"),
-					req.getParameter("category"),
-					req.getParameter("tradeName"),
-					Integer.parseInt(HTMLUtils.deleteComma(req.getParameter("unitPrice"))),
-					Integer.parseInt(HTMLUtils.deleteComma(req.getParameter("saleNumber"))),
-					req.getParameter("note"));
-
-			session.setAttribute("sales", sales);
-			resp.sendRedirect("S0010.html");
-			return;
-		}
-
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -107,17 +88,17 @@ public class S0011Servlet extends HttpServlet {
 
 			ps.executeUpdate();
 			List<String> successes = new ArrayList<>();
-			successes.add("No" + ServletUtils.registerSId() + "の売上を登録しました。");
+			successes.add("No" + ServletUtils.registerSaleId() + "の売上を登録しました。");
 			session.setAttribute("successes", successes);
-
+			session.setAttribute("sales", null);
 			resp.sendRedirect("S0010.html");
 
 		} catch (Exception e) {
 			throw new ServletException(e);
 		} finally {
 			try {
-				DBUtils.close(con);
 				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (Exception e) {
 			}
 		}

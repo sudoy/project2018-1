@@ -70,7 +70,7 @@ public class S0010Servlet extends HttpServlet {
 		//バリデーションチェック
 		List<String> errors = validate(req);
 		if (errors.size() != 0) {
-			req.setAttribute("errors", errors);
+			session.setAttribute("errors", errors);
 			getServletContext().getRequestDispatcher("/WEB-INF/S0010.jsp").forward(req, resp);
 			return;
 		}
@@ -83,7 +83,6 @@ public class S0010Servlet extends HttpServlet {
 				Integer.parseInt(req.getParameter("unitPrice")),
 				Integer.parseInt(req.getParameter("saleNumber")),
 				req.getParameter("note"));
-
 
 		session.setAttribute("sales", sales);
 		resp.sendRedirect("S0011.html");

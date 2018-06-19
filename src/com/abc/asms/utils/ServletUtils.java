@@ -169,21 +169,21 @@ public class ServletUtils {
 	}
 
 	// C0020用 Getパラメータの有無確認
-	public static String subCheck(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		if (req.getParameter("back") != null) {
-			return req.getParameter("back");
-		} else if (req.getParameter("next") != null) {
-			return req.getParameter("next");
-		} else if (req.getParameter("before") != null) {
-			return req.getParameter("before");
-		} else if (req.getParameter("after") != null) {
-			return req.getParameter("after");
+	public static String checkParameter(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		if (req.getParameter("b") != null) {
+			return req.getParameter("b");
+		} else if (req.getParameter("n") != null) {
+			return req.getParameter("n");
+		} else if (req.getParameter("by") != null) {
+			return req.getParameter("by");
+		} else if (req.getParameter("ny") != null) {
+			return req.getParameter("ny");
 		}
 		return null;
 	}
 
 	// C0020用	前月売上合計
-	public static int beforeTotal(LocalDate first, LocalDate last, int loginId) {
+	public static int getTotalOfLastMonth(LocalDate first, LocalDate last, int loginId) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -212,9 +212,9 @@ public class ServletUtils {
 			e.printStackTrace();
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -237,25 +237,20 @@ public class ServletUtils {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, account);
 			rs = ps.executeQuery();
-			if (rs.next()) {
-				return true;
-			} else {
-				return false;
-			}
+			return rs.next();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return false;
 			}
 		}
+		return false;
 	}
 
 	// カテゴリーテーブルのバリデーションチェック用、== falseならエラー表示
@@ -274,25 +269,20 @@ public class ServletUtils {
 			ps.setString(1, category);
 			rs = ps.executeQuery();
 
-			if (rs.next()) {
-				return true;
-			} else {
-				return false;
-			}
+			return rs.next();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return false;
 			}
 		}
+		return false;
 	}
 
 	// メールアドレス重複チェック == trueで弾く
@@ -311,29 +301,25 @@ public class ServletUtils {
 			ps.setString(1, mail);
 			rs = ps.executeQuery();
 
-			if (rs.next()) {
-				return true;
-			} else {
-				return false;
-			}
+			return rs.next();
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return false;
 			}
 		}
+		return false;
 	}
 
 	// S0011専用
-	public static String registerSId() {
+	public static String registerSaleId() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -355,9 +341,9 @@ public class ServletUtils {
 			e.printStackTrace();
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -366,7 +352,7 @@ public class ServletUtils {
 	}
 
 	// S0031専用
-	public static String registerAId() {
+	public static String registerAccountId() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -388,9 +374,9 @@ public class ServletUtils {
 			e.printStackTrace();
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

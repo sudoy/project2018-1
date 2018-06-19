@@ -99,7 +99,7 @@ public class C0010Servlet extends HttpServlet {
 		}
 
 		if(req.getParameter("mail").equals("")) {
-			errors.add("メールアドレスを入力してください。");
+			errors.add("メールアドレスを入力して下さい。");
 			return errors;
 		}
 
@@ -108,7 +108,7 @@ public class C0010Servlet extends HttpServlet {
 		}
 
 		if(!req.getParameter("mail").contains("@")) {
-			errors.add("メールアドレスを正しく入力してください。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 			return errors;
 		}
 
@@ -117,13 +117,13 @@ public class C0010Servlet extends HttpServlet {
 		String mailInitial = req.getParameter("mail").substring(0, 1);
 
 		if(!mailInitial.matches("^[a-zA-Z0-9]*$")) {
-			errors.add("メールアドレスを正しく入力してください。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}else if(!mailCheck[0].matches("^[a-zA-Z-0-9\\._\\-]*$")) {
-			errors.add("メールアドレスを正しく入力してください。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}else if(!mailCheck[1].matches("^[a-zA-Z0-9\\._\\-]*$")
 				|| mailCheck[1].length() == 0
 				|| !mailCheck[1].contains(".")) {
-			errors.add("メールアドレスを正しく入力してください。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}
 
 
