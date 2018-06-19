@@ -182,30 +182,68 @@ public class ServletUtils {
 		return null;
 	}
 
-	// C0020用	前月売上合計
-	public static int getTotalOfLastMonth(LocalDate first, LocalDate last, int loginId) {
+	// C0020用	全体の今月売上合計
+		public static int getTotalOfThisMonthForAll(LocalDate first, LocalDate last) {
+			Connection con = null;
+			PreparedStatement ps = null;
+			String sql = null;
+			ResultSet rs = null;
+
+			int total = 0;
+
+			try {
+				con = DBUtils.getConnection();
+
+				sql = "SELECT unit_price, sale_number  FROM sales " +
+						"WHERE sale_date BETWEEN ? AND ? " +
+						"ORDER BY sale_date";
+
+				ps = con.prepareStatement(sql);
+				ps.setString(1, first.toString());
+				ps.setString(2, last.toString());
+				rs = ps.executeQuery();
+
+				while (rs.next()) {
+					total += rs.getInt("unit_price") * rs.getInt("sale_number");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					DBUtils.close(rs);
+					DBUtils.close(ps);
+					DBUtils.close(con);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return total;
+		}
+
+	// C0020用	全体の前月売上合計
+	public static int getTotalOfLastMonthForAll(LocalDate first, LocalDate last) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
 		ResultSet rs = null;
 
-		int beforeTotal = 0;
+		int total = 0;
 
 		try {
 			con = DBUtils.getConnection();
 
 			sql = "SELECT unit_price, sale_number  FROM sales " +
-					"WHERE sale_date BETWEEN ? AND ? AND account_id = ? " +
+					"WHERE sale_date BETWEEN ? AND ? " +
 					"ORDER BY sale_date";
 
 			ps = con.prepareStatement(sql);
 			ps.setString(1, first.withDayOfMonth(1).minusMonths(1).toString());
 			ps.setString(2, last.withDayOfMonth(1).minusDays(1).toString());
-			ps.setInt(3, loginId);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				beforeTotal += rs.getInt("unit_price") * rs.getInt("sale_number");
+				total += rs.getInt("unit_price") * rs.getInt("sale_number");
 			}
 
 		} catch (Exception e) {
@@ -219,7 +257,7 @@ public class ServletUtils {
 				e.printStackTrace();
 			}
 		}
-		return beforeTotal;
+		return total;
 	}
 
 	// アカウントテーブルのバリデーションチェック用、== falseならエラー表示

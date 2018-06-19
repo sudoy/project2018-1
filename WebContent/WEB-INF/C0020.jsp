@@ -120,7 +120,7 @@
 					<tr>
 						<td colspan="5"></td>
 						<th>合計</th>
-						<td><fmt:formatNumber value="${thisMonth}" /></td>
+						<td><fmt:formatNumber value="${myTotal}" /></td>
 					</tr>
 				</table>
 			</div>

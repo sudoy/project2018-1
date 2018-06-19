@@ -93,6 +93,7 @@ public class C0020Servlet extends HttpServlet {
 		// 今月売上合計と前月売上合計,初期値0
 		int thisMonth = 0;
 		int lastMonth = 0;
+		int myTotal = 0;
 
 		try {
 			con = DBUtils.getConnection();
@@ -128,17 +129,19 @@ public class C0020Servlet extends HttpServlet {
 						rs.getInt("sale_number"));
 				list.add(a);
 				// 今月売上合計の計算
-				thisMonth += rs.getInt("unit_price") * rs.getInt("sale_number");
+				myTotal += rs.getInt("unit_price") * rs.getInt("sale_number");
 			}
 
-			// 前月売上合計の計算
-			lastMonth = ServletUtils.getTotalOfLastMonth(first, last, accountId.getAccountId());
+			// 全体の売上合計の計算
+			thisMonth = ServletUtils.getTotalOfThisMonthForAll(first, last);
+			lastMonth = ServletUtils.getTotalOfLastMonthForAll(first, last);
 
 			// JavaBeansをJSPに渡す
 			req.setAttribute("date", date);
 			req.setAttribute("lastday", lastday);
 			req.setAttribute("thisMonth", thisMonth);
 			req.setAttribute("lastMonth", lastMonth);
+			req.setAttribute("myTotal", myTotal);
 			req.setAttribute("list", list);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/C0020.jsp").forward(req, resp);

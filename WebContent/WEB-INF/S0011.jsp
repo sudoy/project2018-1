@@ -89,7 +89,7 @@
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="total"
 							placeholder="小計"
-							value="<fmt:formatNumber value="${HTMLUtils.sumCalc(sales.unitPrice, sales.saleNumber)}" />"
+							value="<fmt:formatNumber value="${HTMLUtils.calcSum(sales.unitPrice, sales.saleNumber)}" />"
 							readonly>
 					</div>
 				</div>
