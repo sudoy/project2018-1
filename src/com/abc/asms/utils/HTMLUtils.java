@@ -91,4 +91,17 @@ public class HTMLUtils {
 		return s;
 	}
 
+	public static String escapeHTML(String val) {
+		if (val == null) {
+			return "";
+		}
+		val = val.replaceAll("&", "&amp;");
+		val = val.replaceAll("<", "&lt;");
+		val = val.replaceAll(">", "&gt;");
+		val = val.replaceAll("\"", "&quot;");
+		val = val.replaceAll("'", "&apos;");
+		return val;
+	}
+
+
 }
