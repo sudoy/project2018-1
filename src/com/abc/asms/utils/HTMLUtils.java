@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class HTMLUtils {
 
-	public static String parseDate(LocalDate date) {
+	public static String formatDate(LocalDate date) {
 		String s = "";
 		if(date == null) {
 			return "";
@@ -36,11 +36,11 @@ public class HTMLUtils {
 		}
 	}
 
-	public static int sumCalc(int unitPrice, int saleNumber) {
+	public static int calcSum(int unitPrice, int saleNumber) {
 		return unitPrice * saleNumber;
 	}
 
-	public static double ratioCalc(double toMonth, double lastMonth) {
+	public static double calcRatio(double toMonth, double lastMonth) {
 		double ratio = toMonth / lastMonth;
 		if(Double.isInfinite(ratio) || Double.isNaN(ratio)) {
 			ratio = 0;
@@ -50,7 +50,7 @@ public class HTMLUtils {
 		}
 	}
 
-	public static String parseMonth(String today) {
+	public static String formatMonth(String today) {
 		String s = today.substring(5);
 		if(s.indexOf("0") == 0) {
 			return s.substring(1);
@@ -62,7 +62,7 @@ public class HTMLUtils {
 	      return Numbers.replaceAll(",","");
 	}
 
-	public static String parseAuthority(int authority) {
+	public static String formatAuthority(int authority) {
 		if(authority == 0) {
 			return "権限なし";
 		}
@@ -78,6 +78,15 @@ public class HTMLUtils {
 		return "error";
 	}
 
+	public static String replaceSaleDate(String saleDate) {
+
+		String s = "";
+		if(saleDate == null) {
+			return "";
+		}
+		s = saleDate.replace("/", "-");
+		return s;
+	}
 
 
 }

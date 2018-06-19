@@ -20,20 +20,20 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li ${fn:contains(pageContext.request.servletPath,"C002") ? 'class = active' : ''}>
+				<li ${fn:contains(pageContext.request.servletPath,"C002") ? 'class=active' : ''}>
 				<a href="C0020.html">ダッシュボード</a></li>
-				<li ${fn:contains(pageContext.request.servletPath,"S001") ? 'class = active' : ''}>
+				<li ${fn:contains(pageContext.request.servletPath,"S001") ? 'class=active' : ''}>
 				<a href="S0010.html">売上登録</a></li>
-				<li ${fn:contains(pageContext.request.servletPath,"S002") ? 'class = active' : ''}>
+				<li ${fn:contains(pageContext.request.servletPath,"S002") ? 'class=active' : ''}>
 				<a href="S0020.html">売上検索</a></li>
-				<li ${fn:contains(pageContext.request.servletPath,"S003") ? 'class = active' : ''}>
+				<li ${fn:contains(pageContext.request.servletPath,"S003") ? 'class=active' : ''}>
 				<a href="S0030.html">アカウント登録</a></li>
-				<li ${fn:contains(pageContext.request.servletPath,"S004") ? 'class = active' : ''}>
+				<li ${fn:contains(pageContext.request.servletPath,"S004") ? 'class=active' : ''}>
 				<a href="S0040.html">アカウント検索</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="C0010.html?logout=1">ログアウト</a></li>
+				<li><a href="C0030.html?logout=1">ログアウト</a></li>
 
 			</ul>
 		</div>
