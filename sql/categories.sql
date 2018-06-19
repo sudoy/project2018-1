@@ -4,12 +4,25 @@ CREATE TABLE categories(
 	active_flg INT NOT NULL DEFAULT '1'
 );
 
-INSERT INTO categories VALUES (1, '食料品', 1);
-INSERT INTO categories VALUES (2, '飲料', 1);
-INSERT INTO categories VALUES (3, '本・雑誌', 1);
-INSERT INTO categories VALUES (4, '酒類', 1);
-INSERT INTO categories VALUES (5, '冷凍食品', 1);
-INSERT INTO categories VALUES (6, 'たばこ', 1);
-INSERT INTO categories VALUES (7, 'その他', 1);
-INSERT INTO categories(category_name, active_flg) VALUES ('嗜好品', 0);
-INSERT INTO categories(category_name, active_flg) VALUES ('新聞', 0);
+INSERT INTO categories(category_name, active_flg) VALUES ('水産・畜産・農産加工品', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('生鮮・チルド・冷凍食品', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('乳油製品・調味料・調味食品', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('麺類', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('スープ類', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('菓子類', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('嗜好飲料', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('飲料', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('酒類', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('氷・アイスクリーム類', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('デザート類', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('健康サポート', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('化粧品', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('トイレタリー', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('文具・仏具・雑貨', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('たばこ', 1);
+INSERT INTO categories(category_name, active_flg) VALUES ('水産', 0);
+INSERT INTO categories(category_name, active_flg) VALUES ('畜産', 0);
+INSERT INTO categories(category_name, active_flg) VALUES ('農産加工品', 0);
+INSERT INTO categories(category_name, active_flg) VALUES ('生鮮', 0);
+INSERT INTO categories(category_name, active_flg) VALUES ('チルド', 0);
+INSERT INTO categories(category_name, active_flg) VALUES ('冷凍食品', 0);

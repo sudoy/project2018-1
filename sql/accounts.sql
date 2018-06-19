@@ -7,25 +7,19 @@ CREATE TABLE accounts(
 );
 
 INSERT INTO accounts
-VALUES (1, 'イチロー', 'ichiro@sak.com', MD5('0123456'), 10);
+VALUES (1, 'Admin', 'yuichi.sudo@ssie.jp', MD5('0000'), 10);
 INSERT INTO accounts
-VALUES (2, 'ダルビッシュ 有', 'yu.darvish@sak.com', MD5('012345678'), 11);
+VALUES (2, '土樋奎太', 'tsuchitoi.keita@mail.tokyosystem.co.jp', MD5('0000'), 1);
 INSERT INTO accounts
-VALUES (3, '田中 将大', 'masahiro.tanaka@sak.com', MD5('awertyuio'), 11);
+VALUES (3, '笹原颯', 'sasahara.hayate@mail.tokyosystem.co.jp', MD5('0000'), 1);
 INSERT INTO accounts
-VALUES (4, '松阪 大輔', 'daisuke.matsuzaka@sak.com', MD5('daisuke'), 0);
+VALUES (4, '中村楓佳', 'nakamura.fuka@mail.tokyosystem.co.jp', MD5('0000'), 1);
 INSERT INTO accounts
-VALUES (5, '本田 圭介', 'keisuke.honda@sak.com', MD5('a12s34d5f6'), 10);
+VALUES (5, '阪本真由', 'sakamoto.mayu@mail.tokyosystem.co.jp', MD5('0000'), 1);
 INSERT INTO accounts
-VALUES (6, '香川 真司', 'shinji.kagawa@sak.com', MD5('nikunikusii'), 1);
+VALUES (6, '叶内森', 'kanauchi.shin@mail.tokyosystem.co.jp', MD5('0000'), 1);
 INSERT INTO accounts
-VALUES (7, '内田 篤人', 'atsuto.uchida@sak.com', MD5('nyannyan'), 1);
+VALUES (7, '野島紳司', 'nojima.shinji@mail.tokyosystem.co.jp', MD5('0000'), 1);
 INSERT INTO accounts
-VALUES (8, '錦織 圭', 'kei.nishikori@sak.com', MD5('ujiko6789'), 10);
-INSERT INTO accounts
-VALUES (9, '池田 勇太', 'yuta.ikeda@sak.com', MD5('1234qwert'), 10);
-INSERT INTO accounts
-VALUES (10, '石川 遼', 'ryo.ishikawa@sak.com', MD5('@;:oijookk'), 1);
-INSERT INTO accounts
-VALUES (11, '上田 桃子', 'momoko.ueda@sak.com', MD5('MAXmomoko'), 1);
+VALUES (8, '木村有理人', 'kimura.arito@mail.tokyosystem.co.jp', MD5('0000'), 1);
 

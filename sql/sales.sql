@@ -9,66 +9,66 @@ CREATE TABLE sales(
 	note TEXT DEFAULT NULL
 );
 
-INSERT INTO sales VALUES (
-	1, '2015/1/15', 1, 1, 'からあげ弁当', 450, 3, '今日からの新商品'
-);
-INSERT INTO sales VALUES (
-	2, '2015/1/15', 1, 1, 'あんぱん', 120, 10, NULL
-);
-INSERT INTO sales VALUES (
-	3, '2015/1/15', 1, 2, 'コカコーラ 500ml', 130, 5, NULL
-);
-INSERT INTO sales VALUES (
-	4, '2015/1/15', 5, 7, 'Yシャツ白 M', 1200, 1, NULL
-);
-INSERT INTO sales VALUES (
-	5, '2015/1/14', 8, 1, 'とろっと玉子のオムライスドリア', 380, 8, NULL
-);
-INSERT INTO sales VALUES (
-	6, '2015/1/14', 8, 3, '週刊少年マガジン2015年7号', 250, 15, NULL
-);
-INSERT INTO sales VALUES (
-	7, '2015/1/14', 9, 3, 'NHKラジオ ラジオ英会話2015年02月号', 780, 1, NULL
-);
-INSERT INTO sales VALUES (
-	8, '2015/1/14', 5, 1, 'チーズケーキ', 220, 4, '電子レンジで温めないこと'
-);
-INSERT INTO sales VALUES (
-	9, '2015/1/14', 5, 1, '麻婆&海老チリ炒飯', 520, 9, '団体客'
-);
-INSERT INTO sales VALUES (
-	10, '2015/1/14', 5, 2, 'アクエリアス 2L', 260, 2, NULL
-);
-INSERT INTO sales VALUES (
-	11, '2015/1/14', 8, 7, '靴下黒 28cm', 800, 1, '午後から雨が降ってきた'
-);
-INSERT INTO sales VALUES (
-	12, '2015/1/13', 10, 4, 'アサヒビール', 250, 6, NULL
-);
-INSERT INTO sales VALUES (
-	13, '2014/12/31', 7, 1, '洋風おせち二段重', 12000, 1, NULL
-);
-INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number,note)
-VALUES ('2018/05/01', 3, 6, 'マルボロゴールド', 470, 2, '毎週買って行くお客さん');
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
-VALUES ('2018/05/08', 4, 6, 'マルボロゴールド', 470, 2);
-INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number,note)
-VALUES ('2018/05/12', 1, 2, '富士の天然水2L', 100, 12, '2ケース購入');
+VALUES ('2018/6/1', 1, 22, 'あけぼの『新中華街 あおり炒めの焼豚炒飯』 450gX12袋', 4500, 10);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
-VALUES ('2018/05/15', 5, 6, 'マルボロゴールド', 470, 2);
+VALUES ('2018/6/1', 1, 22, '業務用 ニッスイ えび フリッター大 1kg 冷凍食品 エビ の フリッター', 3417, 15);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
-VALUES ('2018/05/21', 4, 1, '豆大福', 120, 3);
+VALUES ('2018/6/1', 1, 22, '天ぷら 冷凍食品【オクラ肉詰め天 50個入り】業務用 惣菜', 2700, 1000);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
-VALUES ('2018/05/22', 2, 6, 'マルボロゴールド', 470, 2);
+VALUES ('2018/6/1', 2, 7, '明治屋 純粋蜂蜜 使いきりタイプ (15g×5本)×48個', 10143, 5);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
-VALUES ('2018/05/29', 5, 6, 'マルボロゴールド', 470, 2);
-INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number,note)
-VALUES ('2018/05/31', 2, 7, 'ビニール傘', 500, 20, 'ゲリラ豪雨で一気に売れた');
+VALUES ('2018/6/1', 2, 7, '株式会社ダイショー　ダイショー　のみやすい大麦若葉入青汁4週間84g　×10個', 8684, 1);
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
-VALUES ('2018/06/01', 4, 5, '冷凍マンゴー', 350, 1);
-INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number,note)
-VALUES ('2018/06/05', 4, 6, 'アイコスレギュラー', 470, 2, '今月からIQOSに変更');
-INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number,note)
-VALUES ('2018/06/30', 4, 7, '虫除けスプレー', 520, 1, '明日から夏向け商品を展開');
-
+VALUES ('2018/6/1', 2, 7, '国太楼 SIPマテ茶三角TB 20P×12個', 3159, 10);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/1', 2, 7, '森永 甘酒<しょうが> 190g×30本', 3137, 2);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/1', 3, 3, '日清 カップヌードル シーフードヌードル 75g×20個', 2664, 150);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/1', 3, 3, 'そばの実（北海道産）/1kg TOMIZ/cuoca(富澤商店)', 2200, 4);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/3', 3, 3, 'ココアパウダー（オランダ産有名ブランド使用） / 500g TOMIZ/cuoca(富澤商店)', 1361, 105);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/3', 3, 3, '春よ恋 / 3kg TOMIZ/cuoca(富澤商店)', 1318, 105);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/3', 4, 9, 'サントリー角瓶５Ｌ業務用４本入り１ケース', 31980, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/3', 4, 9, '麦焼酎 一番札 25度 1800ml', 1820, 14);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/3', 4, 9, 'The Essence シングルモルトウイスキー　山崎蒸溜所　ピーテッドモルト　500ml', 75000, 3);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/4', 4, 9, '古式有機原酒 なゝこ 本格芋焼酎 37度 専用木箱付き 1800ml×4本', 95740, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 5, 10, '中日本氷糖 白マーク ロックA 1kg', 409, 500);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 5, 10, '中日本氷糖 国産原料 ロック 1kg', 537, 21);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 5, 10, 'アウリーノ　アイスクリーム　バニラ 8個入り', 3129, 10);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 5, 10, 'コエンザイムQ10配合ノンシュガー低カロリーアイス「キュート」8個セット', 3860, 10);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 6, 10, '大人のひとときレディーボーデンチョコナッツバー 80ml', 96, 1200);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 6, 10, '大人のひとときレディーボーデンストロベリーバー 80ml', 496, 900, '今月からIQOSに変更');
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 6, 10, 'ソフ バニラ 赤城乳業', 520, 1, '明日から夏向け商品を展開');
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 6, 10, '江崎グリコ 【糖質50% オフ※】 スナオ SUNAO チョコクランチ', 91, 1250);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 7, 1, 'かに風味かまぼこ 15本×3箱セット', 4290, 42);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 7, 1, '浜浦水産 ほたるいか素干 45尾×2袋', 2160, 21);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 7, 1, '【小針水産】特大無頭 開き縞ホッケ 5枚', 2750, 582);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/5', 7, 1, '川口水産　特大国産 うなぎ の蒲焼き（170g）5尾セット（タレ、山椒付き)', 16600, 231);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/8', 8, 1, '【特選　能登名産】丸干しいか 丸干しイカ　300ｇ 入り', 2575, 61);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/8', 8, 1, '浜野水産 味付けもずくバラエティセット140g×10個入', 1881, 219);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/8', 8, 1, 'くさやチーズ（60ｇ×3個） 藍ヶ江水産', 2057, 150);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/6/8', 8, 1, '活サザエ　中サイズ　1ｋｇ（１０個～１２個）', 1720, 12);
 
