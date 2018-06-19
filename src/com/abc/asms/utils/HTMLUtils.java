@@ -42,22 +42,12 @@ public class HTMLUtils {
 
 	public static double ratioCalc(double toMonth, double lastMonth) {
 		double ratio = toMonth / lastMonth;
-		if(true == Double.isInfinite(ratio)) {
+		if(Double.isInfinite(ratio) || Double.isNaN(ratio)) {
 			ratio = 0;
 			return ratio;
 		} else {
 			return ratio;
 		}
-	}
-
-	public static String dateFormat(String saleDate) {
-
-		String s = "";
-		if(saleDate == null) {
-			return "";
-		}
-		s = saleDate.replace("/", "-");
-		return s;
 	}
 
 	public static String parseMonth(String today) {
