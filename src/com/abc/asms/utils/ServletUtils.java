@@ -47,9 +47,9 @@ public class ServletUtils {
 			e.printStackTrace();
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -84,9 +84,9 @@ public class ServletUtils {
 			e.printStackTrace();
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -94,7 +94,7 @@ public class ServletUtils {
 		return accountMap;
 	}
 
-	public static String parseAccountName(int accountId) {
+	public static String getAccountName(int accountId) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -121,9 +121,9 @@ public class ServletUtils {
 			e.printStackTrace();
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -131,7 +131,7 @@ public class ServletUtils {
 		return name;
 	}
 
-	public static String parseCategoryName(int categoryId) {
+	public static String getCategoryName(int categoryId) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -158,9 +158,9 @@ public class ServletUtils {
 			e.printStackTrace();
 		} finally {
 			try {
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

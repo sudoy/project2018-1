@@ -120,8 +120,8 @@ public class S0021Servlet extends HttpServlet {
 			while(rs.next()) {
 				Sales s = new Sales(rs.getInt("sale_id"),
 						LocalDate.parse(rs.getString("sale_date")),
-						ServletUtils.parseAccountName(rs.getInt("account_id")),
-						ServletUtils.parseCategoryName(rs.getInt("category_id")),
+						ServletUtils.getAccountName(rs.getInt("account_id")),
+						ServletUtils.getCategoryName(rs.getInt("category_id")),
 						rs.getString("trade_name"), rs.getInt("unit_price"),
 						rs.getInt("sale_number"), rs.getString("note"));
 

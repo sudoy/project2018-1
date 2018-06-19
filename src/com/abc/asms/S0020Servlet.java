@@ -79,7 +79,7 @@ public class S0020Servlet extends HttpServlet {
 
 		//入力結果を検索結果のページに送る。
 		SearchSaleForm ssf = new SearchSaleForm(escapeHTML(req.getParameter("start")), escapeHTML(req.getParameter("end")),
-				escapeHTML(req.getParameter("account")), req.getParameterValues("category"),
+				escapeHTML(req.getParameter("account")), escapeHTML(req.getParameterValues("category")),
 				escapeHTML(req.getParameter("tradeName")), escapeHTML(req.getParameter("note")));
 
 		//入力内容のチェック
@@ -149,6 +149,16 @@ public class S0020Servlet extends HttpServlet {
 		val = val.replaceAll("\"", "&quot;");
 		val = val.replaceAll("'", "&apos;");
 		return val;
+	}
+	public static String[] escapeHTML(String[] vals) {
+		for(String val : vals) {
+			val = val.replaceAll("&", "&amp;");
+			val = val.replaceAll("<", "&lt;");
+			val = val.replaceAll(">", "&gt;");
+			val = val.replaceAll("\"", "&quot;");
+			val = val.replaceAll("'", "&apos;");
+		}
+		return vals;
 	}
 
 
