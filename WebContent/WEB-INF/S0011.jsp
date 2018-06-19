@@ -109,8 +109,7 @@
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> O
 							K
 						</button>
-						<button type="submit" name="NG" class="btn btn-default"
-							value="キャンセル">キャンセル</button>
+						<a href="S0010.html" class="btn btn-default">キャンセル</a>
 					</div>
 				</div>
 

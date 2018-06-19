@@ -44,7 +44,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="password" class="form-control" id="password1"
-							placeholder="パスワード" value="${param.password1 != null ? param.password1 : entry.password1}" name="password1">
+							placeholder="パスワード" value="" name="password1">
 					</div>
 				</div>
 
@@ -54,7 +54,7 @@
 					</label>
 					<div class="col-sm-5">
 						<input type="password" class="form-control" id="password2"
-							placeholder="パスワード(確認)" value="${param.password2 != null ? param.password2 : entry.password2}" name="password2">
+							placeholder="パスワード(確認)" value="" name="password2">
 					</div>
 				</div>
 
@@ -77,7 +77,7 @@
 						<label class="radio-inline"> <input type="radio"
 							name="authority2" value="0" ${param.authority2 == 0 ? 'checked' : entry.authority == 0 || entry.authority == 1 ? 'checked' : ''}> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
-							name="authority2" value="1" ${param.authority2 == 1 ? 'checked' : entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}> 権限あり
+							name="authority2" value="10" ${param.authority2 == 1 ? 'checked' : entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}> 権限あり
 						</label>
 					</div>
 				</div>

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.abc.asms.beans.Accounts;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
 
@@ -25,7 +24,6 @@ public class S0031Servlet extends HttpServlet {
 		if(!ServletUtils.checkLogin(req, resp)) {
 			return;
 		}
-
 		if(!ServletUtils.checkAccounts(req, resp)) {
 			return;
 		}
@@ -39,7 +37,6 @@ public class S0031Servlet extends HttpServlet {
 		if(!ServletUtils.checkLogin(req, resp)) {
 			return;
 		}
-
 		if(!ServletUtils.checkAccounts(req, resp)) {
 			return;
 		}
@@ -51,33 +48,8 @@ public class S0031Servlet extends HttpServlet {
 		String name = req.getParameter("name");
 		String mail = req.getParameter("mail");
 		String password1 = req.getParameter("password1");
-		int authority = 0;
-		if(req.getParameter("authority1").equals("1") && req.getParameter("authority2").equals("1")) {
-			// 全権限あり
-			authority = 11;
-		} else if(req.getParameter("authority1").equals("0") && req.getParameter("authority2").equals("1")) {
-			// アカウントのみ
-			authority = 10;
-		} else if(req.getParameter("authority1").equals("1") && req.getParameter("authority2").equals("0")) {
-			// 売上のみ
-			authority = 1;
-		} else {
-			// 権限なし
-			authority = 0;
-		}
-
-		if(req.getParameter("NG") != null) {
-
-			Accounts entry = new Accounts(0,
-					req.getParameter("name"),
-					req.getParameter("mail"),
-					req.getParameter("password1"),
-					authority);
-
-			session.setAttribute("entry", entry);
-			resp.sendRedirect("S0030.html");
-			return;
-		}
+		int authority = Integer.parseInt(req.getParameter("authority1")) +
+				Integer.parseInt(req.getParameter("authority2"));
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -99,15 +71,15 @@ public class S0031Servlet extends HttpServlet {
 			List<String> successes = new ArrayList<>();
 			successes.add("No" + ServletUtils.registerAId() + "のアカウントを登録しました。");
 			session.setAttribute("successes", successes);
-
+			session.setAttribute("entry", null);
 			resp.sendRedirect("S0030.html");
 
 		} catch (Exception e) {
 			throw new ServletException(e);
 		} finally {
 			try {
-				DBUtils.close(con);
 				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (Exception e) {
 			}
 		}

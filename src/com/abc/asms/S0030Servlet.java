@@ -46,25 +46,13 @@ public class S0030Servlet extends HttpServlet {
 		//バリデーションチェック
 		List<String> errors = validate(req);
 		if (errors.size() != 0) {
-			req.setAttribute("errors", errors);
+			session.setAttribute("errors", errors);
 			getServletContext().getRequestDispatcher("/WEB-INF/S0030.jsp").forward(req, resp);
 			return;
 		}
 
-		int authority = 0;
-		if(req.getParameter("authority1").equals("1") && req.getParameter("authority2").equals("1")) {
-			// 全権限あり
-			authority = 11;
-		} else if(req.getParameter("authority1").equals("0") && req.getParameter("authority2").equals("1")) {
-			// アカウントのみ
-			authority = 10;
-		} else if(req.getParameter("authority1").equals("1") && req.getParameter("authority2").equals("0")) {
-			// 売上のみ
-			authority = 1;
-		} else {
-			// 権限なし
-			authority = 0;
-		}
+		int authority = Integer.parseInt(req.getParameter("authority1")) +
+				Integer.parseInt(req.getParameter("authority2"));
 
 		Accounts entry = new Accounts(0,
 				req.getParameter("name"),
@@ -111,19 +99,19 @@ public class S0030Servlet extends HttpServlet {
 		// アカウント登録権限の必須入力
 		if(req.getParameter("authority2") == null) {
 			errors.add("アカウント登録権限を入力して下さい。");
-		} else if(!req.getParameter("authority2").equals("0") && !req.getParameter("authority2").equals("1")) {
+		} else if(!req.getParameter("authority2").equals("0") && !req.getParameter("authority2").equals("10")) {
 			errors.add("アカウント登録権限に正しい値を入力して下さい。");
 		}
 
 		// メールの必須入力
 		if(req.getParameter("mail").equals("") || req.getParameter("mail") == null) {
-			errors.add("メールアドレスを入力してください。");
+			errors.add("メールアドレスを入力して下さい。");
 			return errors;
 		} else if(req.getParameter("mail").length() > 100) {
 			errors.add("メールアドレスが長すぎます。");
 			return errors;
 		} else if(!req.getParameter("mail").contains("@")) {
-			errors.add("メールアドレスを正しく入力してください。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 			return errors;
 		}
 
@@ -131,13 +119,13 @@ public class S0030Servlet extends HttpServlet {
 		String mailInitial = req.getParameter("mail").substring(0, 1);
 
 		if(!mailInitial.matches("^[a-zA-Z0-9]*$")) {
-			errors.add("メールアドレスを正しく入力してください。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}else if(!mailCheck[0].matches("^[a-zA-Z-0-9\\._\\-]*$")) {
-			errors.add("メールアドレスを正しく入力してください。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}else if(!mailCheck[1].matches("^[a-zA-Z0-9\\._\\-]*$")
 				|| mailCheck[1].length() == 0
 				|| !mailCheck[1].contains(".")) {
-			errors.add("メールアドレスを正しく入力してください。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}
 
 		// メール重複チェック

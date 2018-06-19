@@ -48,7 +48,7 @@ public class C0020Servlet extends HttpServlet {
 		if(check != null) {
 			ld = LocalDate.parse(check + "01日", DateTimeFormatter.ofPattern("yyyy年MM月dd日"));
 		} else {
-			ld = LocalDate.now();
+			ld = LocalDate.now().withDayOfMonth(1);
 		};
 
 		// 表示月とその月初末の変数宣言
@@ -58,41 +58,40 @@ public class C0020Servlet extends HttpServlet {
 		LocalDate last = null;
 
 		// 前月と翌月のパラメータ取得
-
-		if(req.getParameter("back") != null) {
+		if(req.getParameter("b") != null) {
 			// 前月
 			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(2));
 			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
-			first = ld.withDayOfMonth(1).minusMonths(1);
-			last = ld.withDayOfMonth(1).minusDays(1);
-		} else if(req.getParameter("next") != null) {
+			first = ld.minusMonths(1);
+			last = ld.minusDays(1);
+		} else if(req.getParameter("n") != null) {
 			// 翌月
 			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
 			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusMonths(1));
-			first = ld.withDayOfMonth(1).plusMonths(1);
-			last = ld.withDayOfMonth(1).plusMonths(2).minusDays(1);
-		} else if(req.getParameter("before") != null) {
+			first = ld.plusMonths(1);
+			last = ld.plusMonths(2).minusDays(1);
+		} else if(req.getParameter("by") != null) {
 			// 前年
-			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
+			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusYears(1).minusMonths(1));
 			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusYears(1));
-			first = ld.withDayOfMonth(1).minusYears(1);
-			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1).minusYears(1);
-		} else if(req.getParameter("after") != null) {
+			first = ld.minusYears(1);
+			last = ld.plusMonths(1).minusDays(1).minusYears(1);
+		} else if(req.getParameter("ny") != null) {
 			// 翌年
-			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
+			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusYears(1).minusMonths(1));
 			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.plusYears(1));
-			first = ld.withDayOfMonth(1).plusYears(1);
-			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1).plusYears(1);
+			first = ld.plusYears(1);
+			last = ld.plusMonths(1).minusDays(1).plusYears(1);
 		} else {
 			// 今月
 			lastday = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld.minusMonths(1));
 			date = DateTimeFormatter.ofPattern("yyyy年MM月").format(ld);
-			first = ld.withDayOfMonth(1);
-			last = ld.withDayOfMonth(1).plusMonths(1).minusDays(1);
+			first = ld;
+			last = ld.plusMonths(1).minusDays(1);
 		};
 
 		// 今月売上合計と前月売上合計,初期値0
-		int toMonth = 0;
+		int thisMonth = 0;
 		int lastMonth = 0;
 
 		try {
@@ -129,7 +128,7 @@ public class C0020Servlet extends HttpServlet {
 						rs.getInt("sale_number"));
 				list.add(a);
 				// 今月売上合計の計算
-				toMonth += rs.getInt("unit_price") * rs.getInt("sale_number");
+				thisMonth += rs.getInt("unit_price") * rs.getInt("sale_number");
 			}
 
 			// 前月売上合計の計算
@@ -138,7 +137,7 @@ public class C0020Servlet extends HttpServlet {
 			// JavaBeansをJSPに渡す
 			req.setAttribute("date", date);
 			req.setAttribute("lastday", lastday);
-			req.setAttribute("toMonth", toMonth);
+			req.setAttribute("thisMonth", thisMonth);
 			req.setAttribute("lastMonth", lastMonth);
 			req.setAttribute("list", list);
 
@@ -148,9 +147,9 @@ public class C0020Servlet extends HttpServlet {
 			throw new ServletException(e);
 		} finally {
 			try {
-				DBUtils.close(con);
 				DBUtils.close(rs);
 				DBUtils.close(ps);
+				DBUtils.close(con);
 			} catch (Exception e) {
 
 			}
