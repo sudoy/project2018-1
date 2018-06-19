@@ -78,8 +78,9 @@ public class S0020Servlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		//入力結果を検索結果のページに送る。
-		SearchSaleForm ssf = new SearchSaleForm(req.getParameter("start"), req.getParameter("end"),
-				req.getParameter("account"), req.getParameterValues("category"), req.getParameter("tradeName"), req.getParameter("note"));
+		SearchSaleForm ssf = new SearchSaleForm(escapeHTML(req.getParameter("start")), escapeHTML(req.getParameter("end")),
+				escapeHTML(req.getParameter("account")), req.getParameterValues("category"),
+				escapeHTML(req.getParameter("tradeName")), escapeHTML(req.getParameter("note")));
 
 		//入力内容のチェック
 		List<String> errors = validate(req);
@@ -103,8 +104,8 @@ public class S0020Servlet extends HttpServlet {
 
 		List<String> errors = new ArrayList<>();
 
-		String start = req.getParameter("start");
-		String end = req.getParameter("end");
+		String start = escapeHTML(req.getParameter("start"));
+		String end = escapeHTML(req.getParameter("end"));
 		LocalDate dateS = null;
 		LocalDate dateE = null;
 
@@ -137,5 +138,18 @@ public class S0020Servlet extends HttpServlet {
 
 
 	}
+
+	public static String escapeHTML(String val) {
+		if (val == null) {
+			return "";
+		}
+		val = val.replaceAll("&", "&amp;");
+		val = val.replaceAll("<", "&lt;");
+		val = val.replaceAll(">", "&gt;");
+		val = val.replaceAll("\"", "&quot;");
+		val = val.replaceAll("'", "&apos;");
+		return val;
+	}
+
 
 }

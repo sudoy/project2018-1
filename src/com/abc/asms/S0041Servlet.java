@@ -134,9 +134,9 @@ public class S0041Servlet extends HttpServlet {
 			e.printStackTrace();
 		}finally{
 			try{
-				DBUtils.close(con);
-				DBUtils.close(ps);
 				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
 			}catch(Exception e){}
 		}
 

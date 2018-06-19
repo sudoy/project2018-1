@@ -88,21 +88,6 @@ public class HTMLUtils {
 		return "error";
 	}
 
-	public static String checkAuthority(String authority) {
-		if(authority.equals("0,1")) {
-
-			return "checked";
-		}
-		if(authority.equals("0")) {
-
-			return "checked";
-		}
-		if(authority.equals("1")) {
-
-			return "checked";
-		}
-		return "";
-	}
 
 
 }
