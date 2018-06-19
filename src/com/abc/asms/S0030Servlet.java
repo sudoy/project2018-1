@@ -22,7 +22,6 @@ public class S0030Servlet extends HttpServlet {
 		if(!ServletUtils.checkLogin(req, resp)) {
 			return;
 		}
-
 		if(!ServletUtils.checkAccounts(req, resp)) {
 			return;
 		}
@@ -35,7 +34,6 @@ public class S0030Servlet extends HttpServlet {
 		if(!ServletUtils.checkLogin(req, resp)) {
 			return;
 		}
-
 		if(!ServletUtils.checkAccounts(req, resp)) {
 			return;
 		}
@@ -51,13 +49,13 @@ public class S0030Servlet extends HttpServlet {
 			return;
 		}
 
-		int authority = Integer.parseInt(req.getParameter("authority1")) +
-				Integer.parseInt(req.getParameter("authority2"));
+		int authority = Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("authority1"))) +
+				Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("authority2")));
 
 		Accounts entry = new Accounts(0,
-				req.getParameter("name"),
-				req.getParameter("mail"),
-				req.getParameter("password1"),
+				ServletUtils.escapeHTML(req.getParameter("name")),
+				ServletUtils.escapeHTML(req.getParameter("mail")),
+				ServletUtils.escapeHTML(req.getParameter("password1")),
 				authority);
 
 		session.setAttribute("entry", entry);
@@ -72,14 +70,14 @@ public class S0030Servlet extends HttpServlet {
 		// 氏名の必須入力
 		if (req.getParameter("name").equals("") || req.getParameter("name") == null) {
 			errors.add("氏名を入力して下さい。");
-		} else if(req.getParameter("name").length() > 20) {
+		} else if(ServletUtils.escapeHTML(req.getParameter("name")).length() > 20) {
 			errors.add("氏名が長すぎます。");
 		}
 
 		// パスワードの必須入力
 		if(req.getParameter("password1").equals("") || req.getParameter("password1") == null) {
 			errors.add("パスワードを入力して下さい。");
-		} else if(req.getParameter("password1").length() > 30) {
+		} else if(ServletUtils.escapeHTML(req.getParameter("password1")).length() > 30) {
 			errors.add("パスワードが長すぎます。");
 		}
 		// パスワード（確認）の必須入力
@@ -107,7 +105,7 @@ public class S0030Servlet extends HttpServlet {
 		if(req.getParameter("mail").equals("") || req.getParameter("mail") == null) {
 			errors.add("メールアドレスを入力して下さい。");
 			return errors;
-		} else if(req.getParameter("mail").length() > 100) {
+		} else if(ServletUtils.escapeHTML(req.getParameter("mail")).length() > 100) {
 			errors.add("メールアドレスが長すぎます。");
 			return errors;
 		} else if(!req.getParameter("mail").contains("@")) {

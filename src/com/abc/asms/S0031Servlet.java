@@ -45,11 +45,11 @@ public class S0031Servlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 
-		String name = req.getParameter("name");
-		String mail = req.getParameter("mail");
-		String password1 = req.getParameter("password1");
-		int authority = Integer.parseInt(req.getParameter("authority1")) +
-				Integer.parseInt(req.getParameter("authority2"));
+		String name = ServletUtils.escapeHTML(req.getParameter("name"));
+		String mail = ServletUtils.escapeHTML(req.getParameter("mail"));
+		String password1 = ServletUtils.escapeHTML(req.getParameter("password1"));
+		int authority = Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("authority1"))) +
+				Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("authority2")));
 
 		Connection con = null;
 		PreparedStatement ps = null;

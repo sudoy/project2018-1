@@ -27,7 +27,6 @@ public class S0011Servlet extends HttpServlet {
 		if (!ServletUtils.checkLogin(req, resp)) {
 			return;
 		}
-
 		if (!ServletUtils.checkSales(req, resp)) {
 			return;
 		}
@@ -46,7 +45,6 @@ public class S0011Servlet extends HttpServlet {
 		if (!ServletUtils.checkLogin(req, resp)) {
 			return;
 		}
-
 		if (!ServletUtils.checkSales(req, resp)) {
 			return;
 		}
@@ -59,13 +57,13 @@ public class S0011Servlet extends HttpServlet {
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
 		req.setAttribute("accountMap", accountMap);
 
-		String saleDate = req.getParameter("saleDate");
-		String account = req.getParameter("account");
-		String category = req.getParameter("category");
-		String tradeName = req.getParameter("tradeName");
-		String unitPrice = req.getParameter("unitPrice");
-		String saleNumber = req.getParameter("saleNumber");
-		String note = req.getParameter("note");
+		String saleDate = ServletUtils.escapeHTML(req.getParameter("saleDate"));
+		String account = ServletUtils.escapeHTML(req.getParameter("account"));
+		String category = ServletUtils.escapeHTML(req.getParameter("category"));
+		String tradeName = ServletUtils.escapeHTML(req.getParameter("tradeName"));
+		String unitPrice = ServletUtils.escapeHTML(req.getParameter("unitPrice"));
+		String saleNumber = ServletUtils.escapeHTML(req.getParameter("saleNumber"));
+		String note = ServletUtils.escapeHTML(req.getParameter("note"));
 
 		Connection con = null;
 		PreparedStatement ps = null;
