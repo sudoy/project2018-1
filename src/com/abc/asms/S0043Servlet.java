@@ -76,10 +76,10 @@ public class S0043Servlet extends HttpServlet {
 				ps = con.prepareStatement(sql);
 
 				//データをセット
-				ps.setString(1, req.getParameter("name"));
-				ps.setString(2, req.getParameter("mail"));
+				ps.setString(1, ServletUtils.escapeHTML(req.getParameter("name")));
+				ps.setString(2, ServletUtils.escapeHTML(req.getParameter("mail")));
 				ps.setLong(3, authority);
-				ps.setString(4, req.getParameter("accountId"));
+				ps.setString(4, ServletUtils.escapeHTML(req.getParameter("accountId")));
 
 			}else {
 
@@ -90,11 +90,11 @@ public class S0043Servlet extends HttpServlet {
 				ps = con.prepareStatement(sql);
 
 				//データをセット
-				ps.setString(1, req.getParameter("name"));
-				ps.setString(2, req.getParameter("mail"));
-				ps.setString(3, req.getParameter("password1"));
+				ps.setString(1, ServletUtils.escapeHTML(req.getParameter("name")));
+				ps.setString(2, ServletUtils.escapeHTML(req.getParameter("mail")));
+				ps.setString(3, ServletUtils.escapeHTML(req.getParameter("password1")));
 				ps.setLong(4, authority);
-				ps.setString(5, req.getParameter("accountId"));
+				ps.setString(5, ServletUtils.escapeHTML(req.getParameter("accountId")));
 
 
 			}
@@ -103,7 +103,7 @@ public class S0043Servlet extends HttpServlet {
 			ps.executeUpdate();
 
 			List<String> successes = new ArrayList<>();
-			String success = "No" +  req.getParameter("accountId") + "のアカウントを更新しました。";
+			String success = "No" +  ServletUtils.escapeHTML(req.getParameter("accountId")) + "のアカウントを更新しました。";
 
 			successes.add(success);
 			session.setAttribute("successes", successes);
