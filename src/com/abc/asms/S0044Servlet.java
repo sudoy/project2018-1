@@ -137,7 +137,7 @@ public class S0044Servlet extends HttpServlet {
 			ps.executeUpdate();
 
 			List<String> successes = new ArrayList<>();
-			String success = "No" +  req.getParameter("accoundId") + "のアカウントを削除しました。";
+			String success = "No" +  id + "のアカウントを削除しました。";
 
 			successes.add(success);
 			session.setAttribute("successes", successes);

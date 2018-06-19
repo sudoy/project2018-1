@@ -43,7 +43,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="category" class="col-sm-2 control-label">商品カテゴリー</label>
+						<label class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
 
 							<c:forEach var="category" items="${categoryMap}">
