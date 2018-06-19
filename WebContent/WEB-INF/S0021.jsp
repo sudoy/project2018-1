@@ -41,13 +41,13 @@
 					<tr>
 						<td><a href="S0022.html?saleId=${sale.saleId}" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 詳 細</a></td>
 						<td class="text-right">${sale.saleId}</td>
-						<td>${HTMLUtils.parseDate(sale.saleDate)}</td>
+						<td>${HTMLUtils.formatDate(sale.saleDate)}</td>
 						<td>${sale.account}</td>
 						<td>${sale.category}</td>
 						<td>${sale.tradeName}</td>
 						<td class="text-right"><fmt:formatNumber value="${sale.unitPrice}" /></td>
 						<td class="text-right"><fmt:formatNumber value="${sale.saleNumber}" /></td>
-						<td class="text-right"><fmt:formatNumber value="${HTMLUtils.sumCalc(sale.unitPrice, sale.saleNumber)}" /></td>
+						<td class="text-right"><fmt:formatNumber value="${HTMLUtils.calcSum(sale.unitPrice, sale.saleNumber)}" /></td>
 					</tr>
 					</c:forEach>
 				</table>

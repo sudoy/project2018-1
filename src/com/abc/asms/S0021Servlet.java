@@ -56,28 +56,28 @@ public class S0021Servlet extends HttpServlet {
 		SearchSaleForm ssf = (SearchSaleForm) session.getAttribute("ssf");
 
 		//sql文の作成
-		String sql = "select sale_id, sale_date, account_id, category_id, trade_name, unit_price, sale_number, note "
-				+ "from sales where 0=0";
+		String sql = "select s.sale_id, s.sale_date, a.name, c.category_name, s.trade_name, s.unit_price, s.sale_number, s.note "
+				+ "from sales s join accounts a on s.account_id = a.account_id join categories c on s.category_id = c.category_id where 0=0";
 
 		if(!ssf.getStart().equals("")) {
-			sql = sql.concat(" and sale_date >= ?");
+			sql = sql.concat(" and s.sale_date >= ?");
 			sqlParameter.add(ssf.getStart());
 		}
 
 		if(!ssf.getEnd().equals("")) {
-			sql = sql.concat(" and sale_date <= ?");
+			sql = sql.concat(" and s.sale_date <= ?");
 			sqlParameter.add(ssf.getEnd());
 		}
 
 		if(!ssf.getAccount().equals("")) {
-			sql = sql.concat(" and account_id = ?");
+			sql = sql.concat(" and a.account_id = ?");
 			sqlParameter.add(ssf.getAccount());
 		}
 
 
 		String[] categories = ssf.getCategory();
 		if(categories != null) {
-			sql = sql.concat(" and category_id in(");
+			sql = sql.concat(" and c.category_id in(");
 
 			for(int i = 0; i < categories.length; i++) {
 				if(i == 0) {
@@ -93,16 +93,16 @@ public class S0021Servlet extends HttpServlet {
 		}
 
 		if(!ssf.getTradeName().equals("")) {
-			sql = sql.concat(" and trade_name like ?");
+			sql = sql.concat(" and s.trade_name like ?");
 			sqlParameter.add("%" + ssf.getTradeName() + "%");
 		}
 
 		if(!ssf.getNote().equals("")) {
-			sql = sql.concat(" and note like ?");
+			sql = sql.concat(" and s.note like ?");
 			sqlParameter.add("%" + ssf.getNote() + "%");
 		}
 
-		sql = sql.concat(" order by sale_id desc");
+		sql = sql.concat(" order by s.sale_id desc");
 
 		try{
 			//データベースからデータを取得
@@ -118,12 +118,12 @@ public class S0021Servlet extends HttpServlet {
 
 			//データベースから取得したデータをbeansに格納
 			while(rs.next()) {
-				Sales s = new Sales(rs.getInt("sale_id"),
-						LocalDate.parse(rs.getString("sale_date")),
-						ServletUtils.getAccountName(rs.getInt("account_id")),
-						ServletUtils.getCategoryName(rs.getInt("category_id")),
-						rs.getString("trade_name"), rs.getInt("unit_price"),
-						rs.getInt("sale_number"), rs.getString("note"));
+				Sales s = new Sales(rs.getInt("s.sale_id"),
+						LocalDate.parse(rs.getString("s.sale_date")),
+						rs.getString("a.name"),
+						rs.getString("c.category_name"),
+						rs.getString("s.trade_name"), rs.getInt("s.unit_price"),
+						rs.getInt("s.sale_number"), rs.getString("s.note"));
 
 				salesList.add(s);
 			}

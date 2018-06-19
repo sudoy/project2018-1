@@ -47,7 +47,7 @@
 								<td class="text-right">${account.accountId}</td>
 								<td>${account.name}</td>
 								<td>${account.mail}</td>
-								<td>${HTMLUtils.parseAuthority(account.authority)}</td>
+								<td>${HTMLUtils.formatAuthority(account.authority)}</td>
 							</tr>
 						</c:forEach>
 					</table>
