@@ -67,12 +67,12 @@ public class S0022Servlet extends HttpServlet {
 			Sales s = new Sales(
 					rs.getInt("sale_id"),
 					saleDate,
-					rs.getString("account_id"),
-					rs.getString("category_id"),
-					rs.getString("trade_name"),
+					ServletUtils.escapeHTML(rs.getString("account_id")),
+					ServletUtils.escapeHTML(rs.getString("category_id")),
+					ServletUtils.escapeHTML(rs.getString("trade_name")),
 					rs.getInt("unit_price"),
 					rs.getInt("sale_number"),
-					rs.getString("note")
+					ServletUtils.escapeHTML(rs.getString("note"))
 					);
 
 			session.setAttribute("saleList", s);

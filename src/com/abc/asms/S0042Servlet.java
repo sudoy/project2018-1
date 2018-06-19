@@ -124,14 +124,14 @@ public class S0042Servlet extends HttpServlet {
 			return;
 		}
 
-		int authority = Integer.parseInt(req.getParameter("authority1")) +
-				Integer.parseInt(req.getParameter("authority2"));
+		int authority = Integer.parseInt(escapeHTML(req.getParameter("authority1"))) +
+				Integer.parseInt(escapeHTML(req.getParameter("authority2")));
 
 		Accounts a = new Accounts(
-				Integer.parseInt(req.getParameter("accountId")),
-				req.getParameter("name"),
-				req.getParameter("mail"),
-				req.getParameter("password1"),
+				Integer.parseInt(escapeHTML(req.getParameter("accountId"))),
+				escapeHTML(req.getParameter("name")),
+				escapeHTML(req.getParameter("mail")),
+				escapeHTML(req.getParameter("password1")),
 				authority
 				);
 
@@ -206,9 +206,29 @@ public class S0042Servlet extends HttpServlet {
 			errors.add("アカウント登録権限に正しい値を入力して下さい。");
 		}
 
-
 		return errors;
 
 	}
 
+	public static String escapeHTML(String val) {
+		if (val == null) {
+			return "";
+		}
+		val = val.replaceAll("&", "&amp;");
+		val = val.replaceAll("<", "&lt;");
+		val = val.replaceAll(">", "&gt;");
+		val = val.replaceAll("\"", "&quot;");
+		val = val.replaceAll("'", "&apos;");
+		return val;
+	}
+	public static String[] escapeHTML(String[] vals) {
+		for(String val : vals) {
+			val = val.replaceAll("&", "&amp;");
+			val = val.replaceAll("<", "&lt;");
+			val = val.replaceAll(">", "&gt;");
+			val = val.replaceAll("\"", "&quot;");
+			val = val.replaceAll("'", "&apos;");
+		}
+		return vals;
+	}
 }

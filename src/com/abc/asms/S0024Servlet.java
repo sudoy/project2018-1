@@ -92,14 +92,12 @@ public class S0024Servlet extends HttpServlet {
 
 			//データをセット
 			ps.setString(1, req.getParameter("saleDate"));
-
-			ps.setString(2, req.getParameter("account"));
-			ps.setString(3, req.getParameter("category"));
-
-			ps.setString(4, req.getParameter("tradeName"));
+			ps.setString(2, ServletUtils.escapeHTML(req.getParameter("account")));
+			ps.setString(3, ServletUtils.escapeHTML(req.getParameter("category")));
+			ps.setString(4, ServletUtils.escapeHTML(req.getParameter("tradeName")));
 			ps.setString(5, HTMLUtils.deleteComma(req.getParameter("unitPrice")));
 			ps.setString(6, HTMLUtils.deleteComma(req.getParameter("saleNumber")));
-			ps.setString(7, req.getParameter("note"));
+			ps.setString(7, ServletUtils.escapeHTML(req.getParameter("note")));
 			ps.setString(8, req.getParameter("saleId"));
 
 			//実行
@@ -131,7 +129,5 @@ public class S0024Servlet extends HttpServlet {
 		}
 
 	}
-
-
 
 }
