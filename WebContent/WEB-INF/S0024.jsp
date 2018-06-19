@@ -38,8 +38,8 @@
 						<div class="col-sm-5">
 							<select class="form-control" name="account" id="person" readonly>
 								<c:forEach var="account" items="${accountMap}">
-									<c:if test="${saleList.account == account.value }">
-										<option value="${account.key }" selected>${saleList.account}</option>
+									<c:if test="${saleList.account == account.key }">
+										<option value="${account.key}" selected>${account.value}</option>
 									</c:if>
 								</c:forEach>
 							</select>
@@ -52,8 +52,8 @@
 
 							<c:forEach var="category" items="${categoryMap}">
 								<label class="radio-inline">
-									<input type="radio" name="category" value="${category.key }"
-									${saleList.category == category.value ? 'checked' : '' }
+									<input type="radio" name="category" value="${category.key}"
+									${saleList.category == category.key ? 'checked' : '' }
 									readonly onclick="return false">
 									${category.value}
 								</label>

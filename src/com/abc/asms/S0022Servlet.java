@@ -67,8 +67,8 @@ public class S0022Servlet extends HttpServlet {
 			Sales s = new Sales(
 					rs.getInt("sale_id"),
 					saleDate,
-					ServletUtils.getAccountName(rs.getInt("account_id")),
-					ServletUtils.getCategoryName(rs.getInt("category_id")),
+					rs.getString("account_id"),
+					rs.getString("category_id"),
 					rs.getString("trade_name"),
 					rs.getInt("unit_price"),
 					rs.getInt("sale_number"),

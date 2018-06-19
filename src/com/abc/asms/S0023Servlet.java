@@ -96,8 +96,8 @@ public class S0023Servlet extends HttpServlet {
 		Sales s = new Sales(
 				Integer.parseInt(req.getParameter("saleId")),
 				saleDate,
-				ServletUtils.getAccountName(Integer.parseInt(req.getParameter("account"))),
-				ServletUtils.getCategoryName(Integer.parseInt(req.getParameter("category"))),
+				req.getParameter("account"),
+				req.getParameter("category"),
 				req.getParameter("tradeName"),
 				Integer.parseInt(req.getParameter("unitPrice")),
 				Integer.parseInt(req.getParameter("saleNumber")),
