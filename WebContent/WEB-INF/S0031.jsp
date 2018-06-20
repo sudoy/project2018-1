@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.abc.asms.utils.*"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +24,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name" placeholder="氏名"
-							value="${entry.name}" name="name" readonly>
+							value="${HTMLUtils.escapeHTML(entry.name)}" name="name" readonly>
 					</div>
 				</div>
 
@@ -32,7 +33,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="mail"
-							placeholder="メールアドレス" value="${entry.mail}" name="mail" readonly>
+							placeholder="メールアドレス" value="${HTMLUtils.escapeHTML(entry.mail)}" name="mail" readonly>
 					</div>
 				</div>
 
@@ -42,7 +43,7 @@
 					</label>
 					<div class="col-sm-5">
 						<input type="password" class="form-control" id="password1"
-							placeholder="パスワード" value="${entry.password}" name="password1"
+							placeholder="パスワード" value="${HTMLUtils.escapeHTML(entry.password)}" name="password1"
 							readonly>
 					</div>
 				</div>
@@ -53,7 +54,7 @@
 					</label>
 					<div class="col-sm-5">
 						<input type="password" class="form-control" id="password2"
-							placeholder="パスワード(確認)" value="${entry.password}" readonly>
+							placeholder="パスワード(確認)" value="${HTMLUtils.escapeHTML(entry.password)}" readonly>
 					</div>
 				</div>
 

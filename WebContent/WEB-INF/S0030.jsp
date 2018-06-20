@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.abc.asms.utils.*"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -26,7 +27,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name" placeholder="氏名"
-							value="${param.name != null ? param.name : entry.name}" name="name">
+							value="${param.name != null ? HTMLUtils.escapeHTML(param.name) : HTMLUtils.escapeHTML(entry.name)}" name="name">
 					</div>
 				</div>
 
@@ -35,7 +36,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="mail"
-							placeholder="メールアドレス" value="${param.mail != null ? param.mail : entry.mail}"name="mail">
+							placeholder="メールアドレス" value="${param.mail != null ? HTMLUtils.escapeHTML(param.mail) : HTMLUtils.escapeHTML(entry.mail)}"name="mail">
 					</div>
 				</div>
 

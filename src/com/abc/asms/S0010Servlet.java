@@ -76,13 +76,13 @@ public class S0010Servlet extends HttpServlet {
 		}
 
 		Sales sales = new Sales(0,
-				LocalDate.parse(ServletUtils.escapeHTML(req.getParameter("saleDate")), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
-				ServletUtils.escapeHTML(req.getParameter("account")),
-				ServletUtils.escapeHTML(req.getParameter("category")),
-				ServletUtils.escapeHTML(req.getParameter("tradeName")),
-				Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("unitPrice"))),
-				Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("saleNumber"))),
-				ServletUtils.escapeHTML(req.getParameter("note")));
+				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
+				req.getParameter("account"),
+				req.getParameter("category"),
+				req.getParameter("tradeName"),
+				Integer.parseInt(req.getParameter("unitPrice")),
+				Integer.parseInt(req.getParameter("saleNumber")),
+				req.getParameter("note"));
 
 		session.setAttribute("sales", sales);
 		resp.sendRedirect("S0011.html");
@@ -122,7 +122,7 @@ public class S0010Servlet extends HttpServlet {
 		//商品名の必須入力
 		if (req.getParameter("tradeName").equals("") || req.getParameter("tradeName") == null) {
 			errors.add("商品名を入力して下さい。");
-		} else if(ServletUtils.escapeHTML(req.getParameter("tradeName")).length() > 100) {
+		} else if(req.getParameter("tradeName").length() > 100) {
 			errors.add("商品名が長すぎます。");
 		}
 
@@ -130,7 +130,7 @@ public class S0010Servlet extends HttpServlet {
 		if (req.getParameter("unitPrice").equals("") || req.getParameter("unitPrice") == null) {
 			errors.add("単価を入力して下さい。");
 		}
-		else if(ServletUtils.escapeHTML(req.getParameter("unitPrice")).length() > 9) {
+		else if(req.getParameter("unitPrice").length() > 9) {
 			errors.add("単価が長すぎます。");
 		} else {
 			// 単価形式のチェック
@@ -148,7 +148,7 @@ public class S0010Servlet extends HttpServlet {
 		//個数の必須入力
 		if (req.getParameter("saleNumber").equals("") || req.getParameter("saleNumber") == null) {
 			errors.add("個数を入力して下さい。");
-		}else if(ServletUtils.escapeHTML(req.getParameter("saleNumber")).length() > 9) {
+		}else if(req.getParameter("saleNumber").length() > 9) {
 			errors.add("個数が長すぎます。");
 		} else {
 			// 個数形式のチェック
@@ -164,7 +164,7 @@ public class S0010Servlet extends HttpServlet {
 		}
 
 		// 備考の長さチェック
-		if(ServletUtils.escapeHTML(req.getParameter("note")).length() > 400) {
+		if(req.getParameter("note").length() > 400) {
 			errors.add("備考が長すぎます。");
 		}
 

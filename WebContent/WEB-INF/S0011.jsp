@@ -23,7 +23,7 @@
 					<label for="saleDate" class="col-sm-2 control-label">販売日 </label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="saleDate"
-							value="${HTMLUtils.formatLocalDate(sales.saleDate)}" name="saleDate"
+							value="${HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(sales.saleDate))}" name="saleDate"
 							readonly>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 						<select class="form-control" id="person" name="account" readonly>
 							<c:forEach var="account" items="${accountMap}">
 								<c:if test="${sales.account == account.key}">
-									<option value="${account.key}" selected>${account.value}</option>
+									<option value="${account.key}" selected>${HTMLUtils.escapeHTML(account.value)}</option>
 								</c:if>
 							</c:forEach>
 						</select>
@@ -49,7 +49,7 @@
 							<label class="radio-inline"> <input type="radio"
 								name="category" value="${category.key}"
 								${sales.category == category.key ? 'checked' : ''} readonly
-								onclick="return false">${category.value}
+								onclick="return false">${HTMLUtils.escapeHTML(category.value)}
 							</label>
 						</c:forEach>
 					</div>
@@ -59,7 +59,7 @@
 					<label for="name" class="col-sm-2 control-label">商品名 </label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="name"
-							placeholder="商品名" value="${sales.tradeName}" name="tradeName"
+							placeholder="商品名" value="${HTMLUtils.escapeHTML(sales.tradeName)}" name="tradeName"
 							readonly>
 					</div>
 				</div>
@@ -69,7 +69,7 @@
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="price"
 							placeholder="単価"
-							value="<fmt:formatNumber value="${sales.unitPrice}" />"
+							value="<fmt:formatNumber value="${HTMLUtils.escapeHTML(sales.unitPrice)}" />"
 							name="unitPrice" readonly>
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="count"
 							placeholder="個数"
-							value="<fmt:formatNumber value="${sales.saleNumber}" />"
+							value="<fmt:formatNumber value="${HTMLUtils.escapeHTML(sales.saleNumber)}" />"
 							name="saleNumber" readonly>
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 					<div class="col-sm-2">
 						<input type="text" class="form-control text-right" id="total"
 							placeholder="小計"
-							value="<fmt:formatNumber value="${HTMLUtils.calcSum(sales.unitPrice, sales.saleNumber)}" />"
+							value="<fmt:formatNumber value="${HTMLUtils.escapeHTML(HTMLUtils.calcSum(sales.unitPrice, sales.saleNumber))}" />"
 							readonly>
 					</div>
 				</div>
@@ -98,7 +98,7 @@
 					<label for="note" class="col-sm-2 control-label">備考 </label>
 					<div class="col-sm-5">
 						<textarea class="form-control" id="note" placeholder="備考" rows="5"
-							name="note" readonly>${sales.note}</textarea>
+							name="note" readonly>${HTMLUtils.escapeHTML(sales.note)}</textarea>
 					</div>
 				</div>
 
