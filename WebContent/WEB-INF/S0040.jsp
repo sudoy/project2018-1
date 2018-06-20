@@ -25,14 +25,14 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">氏名 <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="name" name="name" placeholder="氏名" value="${saf.name}">
+							<input type="text" class="form-control" id="name" name="name" placeholder="氏名" value="${HTMLUtils.escapeHTML(saf.name)}">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="mail" class="col-sm-2 control-label">メールアドレス</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="mail" name="mail" placeholder="メールアドレス" value="${saf.mail}">
+							<input type="text" class="form-control" id="mail" name="mail" placeholder="メールアドレス" value="${HTMLUtils.escapeHTML(saf.mail)}">
 						</div>
 					</div>
 

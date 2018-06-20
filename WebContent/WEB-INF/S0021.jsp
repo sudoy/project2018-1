@@ -39,14 +39,14 @@
 
 					<c:forEach var="sale" items="${salesList}">
 					<tr>
-						<td><a href="S0022.html?saleId=${sale.saleId}" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 詳 細</a></td>
-						<td class="text-right">${sale.saleId}</td>
-						<td>${HTMLUtils.formatLocalDate(sale.saleDate)}</td>
-						<td>${sale.account}</td>
-						<td>${sale.category}</td>
-						<td>${sale.tradeName}</td>
-						<td class="text-right"><fmt:formatNumber value="${sale.unitPrice}" /></td>
-						<td class="text-right"><fmt:formatNumber value="${sale.saleNumber}" /></td>
+						<td><a href="S0022.html?saleId=${HTMLUtils.escapeHTML(sale.saleId)}" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 詳 細</a></td>
+						<td class="text-right">${HTMLUtils.escapeHTML(sale.saleId)}</td>
+						<td>${HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(sale.saleDate))}</td>
+						<td>${HTMLUtils.escapeHTML(sale.account)}</td>
+						<td>${HTMLUtils.escapeHTML(sale.category)}</td>
+						<td>${HTMLUtils.escapeHTML(sale.tradeName)}</td>
+						<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(sale.unitPrice)}" /></td>
+						<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(sale.saleNumber)}" /></td>
 						<td class="text-right"><fmt:formatNumber value="${HTMLUtils.calcSum(sale.unitPrice, sale.saleNumber)}" /></td>
 					</tr>
 					</c:forEach>

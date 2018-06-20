@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.abc.asms.utils.HTMLUtils" %>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,7 +20,7 @@
 			<h2 class="form-signin-heading">物品売上管理システム</h2>
 
 			<label for="inputEmail" class="sr-only">Email address</label>
-			<input type="text" name="mail" id="inputEmail" class="form-control" placeholder="メールアドレス" value="${param.mail}">
+			<input type="text" name="mail" id="inputEmail" class="form-control" placeholder="メールアドレス" value="${HTMLUtils.escapeHTML(param.mail)}">
 			<label for="inputPassword" class="sr-only">Password</label>
 			<input type="password" id="inputPassword" name="password" class="form-control" placeholder="パスワード" value="">
 

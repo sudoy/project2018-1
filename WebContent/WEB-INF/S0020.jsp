@@ -26,13 +26,13 @@
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" id="salesDate" name="start" placeholder="販売日(検索開始日)" value="${ssf.start == null ? stringToday : ssf.start}">
+							<input type="text" class="form-control" id="salesDate" name="start" placeholder="販売日(検索開始日)" value="${ssf.start == null ? HTMLUtils.escapeHTML(stringToday) : HTMLUtils.escapeHTML(ssf.start)}">
 						</div>
 
 						<div class="form-control-static col-sm-1 text-center">～</div>
 
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="end" placeholder="販売日(検索終了日)" value="${ssf.end == null ? stringToday : ssf.end}">
+							<input type="text" class="form-control" name="end" placeholder="販売日(検索終了日)" value="${ssf.end == null ? HTMLUtils.escapeHTML(stringToday) : HTMLUtils.escapeHTML(ssf.end)}">
 						</div>
 					</div>
 
@@ -42,7 +42,7 @@
 							<select class="form-control" name="account" id="person">
 								<option value="">選択してください</option>
 								<c:forEach var="account" items="${accountMap}">
-									<option value="${account.key}" ${ssf.account == account.key ? 'selected' : ''}>${account.value}</option>
+									<option value="${HTMLUtils.escapeHTML(account.key)}" ${ssf.account == account.key ? 'selected' : ''}>${HTMLUtils.escapeHTML(account.value)}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -53,7 +53,7 @@
 						<div class="col-sm-5">
 							<c:forEach var="category" items="${categoryMap}" varStatus="s">
 								<label class="checkbox-inline">
-									<input type="checkbox" name="category" value="${category.key}" ${HTMLUtils.judgeCheckbox(ssf.category, category.key) ? 'checked' : ''}>${category.value}
+									<input type="checkbox" name="category" value="${HTMLUtils.escapeHTML(category.key)}" ${HTMLUtils.judgeCheckbox(ssf.category, category.key) ? 'checked' : ''}>${HTMLUtils.escapeHTML(category.value)}
 								</label>
 							</c:forEach>
 						</div>
@@ -62,14 +62,14 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名 <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="name" name="tradeName" placeholder="商品名" value="${ssf.tradeName}">
+							<input type="text" class="form-control" id="name" name="tradeName" placeholder="商品名" value="${HTMLUtils.escapeHTML(ssf.tradeName)}">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考 <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="note" name="note" placeholder="備考" value="${ssf.note}">
+							<input type="text" class="form-control" id="note" name="note" placeholder="備考" value="${HTMLUtils.escapeHTML(ssf.note)}">
 						</div>
 					</div>
 

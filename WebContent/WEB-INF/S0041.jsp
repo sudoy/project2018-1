@@ -45,8 +45,8 @@
 									</td>
 								</c:if>
 								<td class="text-right">${account.accountId}</td>
-								<td>${account.name}</td>
-								<td>${account.mail}</td>
+								<td>${HTMLUtils.escapeHTML(account.name)}</td>
+								<td>${HTMLUtils.escapeHTML(account.mail)}</td>
 								<td>${HTMLUtils.formatAuthority(account.authority)}</td>
 							</tr>
 						</c:forEach>
