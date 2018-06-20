@@ -94,12 +94,12 @@ public class S0023Servlet extends HttpServlet {
 		Sales s = new Sales(
 				Integer.parseInt(req.getParameter("saleId")),
 				saleDate,
-				ServletUtils.escapeHTML(req.getParameter("account")),
-				ServletUtils.escapeHTML(req.getParameter("category")),
-				ServletUtils.escapeHTML(req.getParameter("tradeName")),
+				req.getParameter("account"),
+				req.getParameter("category"),
+				req.getParameter("tradeName"),
 				Integer.parseInt(req.getParameter("unitPrice")),
 				Integer.parseInt(req.getParameter("saleNumber")),
-				ServletUtils.escapeHTML(req.getParameter("note"))
+				req.getParameter("note")
 				);
 
 
@@ -158,7 +158,7 @@ public class S0023Servlet extends HttpServlet {
 		if (req.getParameter("tradeName").equals("")) {
 			errors.add("商品名を入力して下さい。");
 		}
-		else if(ServletUtils.escapeHTML(req.getParameter("tradeName")).length() > 100) {
+		else if(req.getParameter("tradeName").length() > 100) {
 			//商品名の長さチェック
 			errors.add("商品名が長すぎます。");
 		}
@@ -166,7 +166,7 @@ public class S0023Servlet extends HttpServlet {
 		//単価の必須入力
 		if (req.getParameter("unitPrice").equals("")) {
 			errors.add("単価を入力して下さい。");
-		}else if(ServletUtils.escapeHTML(req.getParameter("unitPrice")).length() > 9) {
+		}else if(req.getParameter("unitPrice").length() > 9) {
 			//単価の長さチェック
 			errors.add("単価が長すぎます。");
 		}
@@ -185,7 +185,7 @@ public class S0023Servlet extends HttpServlet {
 		if (req.getParameter("saleNumber").equals("")) {
 			errors.add("個数を入力して下さい。");
 		}
-		if(ServletUtils.escapeHTML(req.getParameter("saleNumber")).length() > 9) {
+		if(req.getParameter("saleNumber").length() > 9) {
 			//長さチェック
 			errors.add("個数が長すぎます。");
 		}
@@ -201,9 +201,8 @@ public class S0023Servlet extends HttpServlet {
 			errors.add("個数を正しく入力して下さい。");
 		}
 
-
 		// 備考の長さチェック
-		if(ServletUtils.escapeHTML(req.getParameter("note")).length() > 400) {
+		if(req.getParameter("note").length() > 400) {
 			errors.add("備考が長すぎます。");
 		}
 

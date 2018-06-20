@@ -120,9 +120,9 @@ public class S0021Servlet extends HttpServlet {
 			while(rs.next()) {
 				Sales s = new Sales(rs.getInt("s.sale_id"),
 						LocalDate.parse(rs.getString("s.sale_date")),
-						ServletUtils.escapeHTML(rs.getString("a.name")),
-						ServletUtils.escapeHTML(rs.getString("c.category_name")),
-						ServletUtils.escapeHTML(rs.getString("s.trade_name")), rs.getInt("s.unit_price"),
+						rs.getString("a.name"),
+						rs.getString("c.category_name"),
+						rs.getString("s.trade_name"), rs.getInt("s.unit_price"),
 						rs.getInt("s.sale_number"), rs.getString("s.note"));
 
 				salesList.add(s);

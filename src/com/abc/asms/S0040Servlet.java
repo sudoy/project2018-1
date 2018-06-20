@@ -53,8 +53,8 @@ public class S0040Servlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		//入力結果を検索結果のページに送る。
-		SearchAccountForm saf = new SearchAccountForm(escapeHTML(req.getParameter("name")), escapeHTML(req.getParameter("mail")),
-				escapeHTML(req.getParameter("saleAuthority")), escapeHTML(req.getParameter("accountAuthority")));
+		SearchAccountForm saf = new SearchAccountForm(req.getParameter("name"), req.getParameter("mail"),
+				req.getParameter("saleAuthority"), req.getParameter("accountAuthority"));
 
 		//入力内容のチェック
 		List<String> errors = validate(req);
@@ -79,16 +79,16 @@ public class S0040Servlet extends HttpServlet {
 
 		List<String> errors = new ArrayList<>();
 
-		if(escapeHTML(req.getParameter("name")).length() > 20) {
+		if(req.getParameter("name").length() > 20) {
 			errors.add("氏名の指定が長すぎます。");
 		}
-		if(escapeHTML(req.getParameter("mail")).length() > 100) {
+		if(req.getParameter("mail").length() > 100) {
 			errors.add("メールアドレスの指定が長すぎます。");
 		}
 
-		if(!escapeHTML(req.getParameter("mail")).equals("")) {
+		if(!req.getParameter("mail").equals("")) {
 
-			if(!escapeHTML(req.getParameter("mail")).contains("@")) {
+			if(!req.getParameter("mail").contains("@")) {
 				errors.add("メールアドレスの形式が誤っています。");
 				return errors;
 			}
@@ -111,17 +111,6 @@ public class S0040Servlet extends HttpServlet {
 		return errors;
 	}
 
-	public static String escapeHTML(String val) {
-		if (val == null) {
-			return "";
-		}
-		val = val.replaceAll("&", "&amp;");
-		val = val.replaceAll("<", "&lt;");
-		val = val.replaceAll(">", "&gt;");
-		val = val.replaceAll("\"", "&quot;");
-		val = val.replaceAll("'", "&apos;");
-		return val;
-	}
 
 
 }
