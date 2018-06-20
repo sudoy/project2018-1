@@ -30,6 +30,10 @@ public class S0011Servlet extends HttpServlet {
 		if (!ServletUtils.checkSales(req, resp)) {
 			return;
 		}
+		req.setCharacterEncoding("utf-8");
+
+		HttpSession session = req.getSession();
+		session.setAttribute("saleRemain", "on");
 
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);

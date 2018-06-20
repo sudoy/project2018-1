@@ -31,12 +31,20 @@ public class S0010Servlet extends HttpServlet {
 		if(!ServletUtils.checkSales(req, resp)) {
 			return;
 		}
-
+		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
 		LocalDate ld = LocalDate.now();
 
 		// 本日表示用
 		String today = DateTimeFormatter.ofPattern("yyyy/MM/dd").format(ld);
 		req.setAttribute("today", today);
+
+		if(session.getAttribute("sales") != null && session.getAttribute("saleRemain") != null) {
+			Sales sales = (Sales) session.getAttribute("sales");
+			req.setAttribute("sales", sales);
+			session.setAttribute("saleRemain", null);
+		}
+		session.setAttribute("sales", null);
 
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);

@@ -28,6 +28,11 @@ public class S0031Servlet extends HttpServlet {
 			return;
 		}
 
+		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
+
+		session.setAttribute("accountRemain", "on");
+
 		getServletContext().getRequestDispatcher("/WEB-INF/S0031.jsp").forward(req, resp);
 	}
 

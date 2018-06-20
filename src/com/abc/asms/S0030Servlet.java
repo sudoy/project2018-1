@@ -25,6 +25,17 @@ public class S0030Servlet extends HttpServlet {
 		if(!ServletUtils.checkAccounts(req, resp)) {
 			return;
 		}
+
+		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
+
+		if(session.getAttribute("entry") != null && session.getAttribute("accountRemain") != null) {
+			Accounts entry = (Accounts) session.getAttribute("entry");
+			req.setAttribute("entry", entry);
+			session.setAttribute("accountRemain", null);
+		}
+		session.setAttribute("entry", null);
+
 		getServletContext().getRequestDispatcher("/WEB-INF/S0030.jsp").forward(req, resp);
 	}
 
