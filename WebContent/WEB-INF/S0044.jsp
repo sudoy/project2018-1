@@ -22,12 +22,12 @@
 			</div>
 
 			<div class="row col-md-offset-1">
-				<form class="form-horizontal" action="S0044.html?accountId=${deleteAccount.accountId }" method="post">
+				<form class="form-horizontal" action="S0044.html?accountId=${HTMLUtils.escapeHTML(deleteAccount.accountId) }" method="post">
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">氏名</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="name" id="name" placeholder="氏名"
-							value="${deleteAccount.name }" readonly>
+							value="${HTMLUtils.escapeHTML(deleteAccount.name) }" readonly>
 						</div>
 					</div>
 
@@ -35,7 +35,7 @@
 						<label for="mail" class="col-sm-2 control-label">メールアドレス</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="mail" id="mail" placeholder="メールアドレス"
-							value="${deleteAccount.mail }" readonly>
+							value="${HTMLUtils.escapeHTML(deleteAccount.mail) }" readonly>
 						</div>
 					</div>
 

@@ -24,12 +24,12 @@
 			</div>
 
 			<div class="row col-md-offset-1">
-				<form class="form-horizontal" action="S0043.html?accountId=${editAccount.accountId }" method="POST">
+				<form class="form-horizontal" action="S0043.html?accountId=${HTMLUtils.escapeHTML(editAccount.accountId) }" method="POST">
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">氏名</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="name" id="name" placeholder="氏名"
-							value="${editAccount.name }" readonly>
+							value="${HTMLUtils.escapeHTML(editAccount.name) }" readonly>
 						</div>
 					</div>
 
@@ -37,7 +37,7 @@
 						<label for="mail" class="col-sm-2 control-label">メールアドレス</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="mail" id="mail" placeholder="メールアドレス"
-							 value="${editAccount.mail }" readonly>
+							 value="${HTMLUtils.escapeHTML(editAccount.mail) }" readonly>
 						</div>
 					</div>
 
@@ -45,7 +45,7 @@
 						<label for="pass" class="col-sm-2 control-label">パスワード</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="password1" id="pass" placeholder="パスワード"
-							 value="${editAccount.password }" readonly>
+							 value="${HTMLUtils.escapeHTML(editAccount.password) }" readonly>
 						</div>
 					</div>
 
@@ -53,7 +53,7 @@
 						<label for="pass2" class="col-sm-2 control-label">パスワード(確認)</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="password2" id="pass2" placeholder="パスワード(確認)"
-							 value="${editAccount.password }" readonly>
+							 value="${HTMLUtils.escapeHTML(editAccount.password) }" readonly>
 						</div>
 					</div>
 
@@ -97,7 +97,7 @@
 						<div class="col-sm-offset-3">
 							<button type="submit" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</button>
-							<a href="S0042.html?accountId=${editAccount.accountId }" class="btn btn-default"> キャンセル</a>
+							<a href="S0042.html?accountId=${HTMLUtils.escapeHTML(editAccount.accountId) }" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 

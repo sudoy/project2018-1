@@ -12,9 +12,11 @@
 	</head>
 	<body>
 
-		<div class="container">
 		<%-- navbarのinclude --%>
 		<jsp:include page="_navbar.jsp" />
+
+		<div class="container">
+
 
 		<%-- errorのinclude --%>
 		<jsp:include page="_errors.jsp" />
@@ -24,12 +26,12 @@
 			</div>
 
 			<div class="row col-md-offset-1">
-				<form class="form-horizontal" action="S0042.html?accountId=${editAccount.accountId }" method="post">
+				<form class="form-horizontal" action="S0042.html?accountId=${HTMLUtils.escapeHTML(editAccount.accountId) }" method="post">
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">氏名 <span class="badge">必須</span></label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="name" id="name" placeholder="氏名"
-							 value="${param.name != null ? param.name : editAccount.name }">
+							 value="${param.name != null ? HTMLUtils.escapeHTML(param.name) : HTMLUtils.escapeHTML(editAccount.name) }">
 						</div>
 					</div>
 
@@ -40,7 +42,7 @@
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="mail" id="mail"
 							placeholder="メールアドレス"
-							value="${param.mail != null ? param.mail : editAccount.mail }">
+							value="${param.mail != null ? HTMLUtils.escapeHTML(param.mail) : HTMLUtils.escapeHTML(editAccount.mail) }">
 						</div>
 					</div>
 

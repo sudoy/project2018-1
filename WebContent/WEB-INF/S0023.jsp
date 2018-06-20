@@ -26,14 +26,15 @@
 			</div>
 
 			<div class="row col-md-offset-1">
-				<form class="form-horizontal" action="S0023.html?saleId=${saleList.saleId}" method="POST">
+				<form class="form-horizontal" action="S0023.html?saleId=${HTMLUtils.escapeHTML(saleList.saleId)}" method="POST">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日
 							<span class="badge">必須</span>
 						</label>
 						<div class="col-sm-2">
 							<input type="text" class="form-control" name="saleDate" id="saleDate" placeholder="販売日"
-							 value="${param.saleDate != null ? param.saleDate : HTMLUtils.formatLocalDate(saleList.saleDate)}">
+							 value="${param.saleDate != null ? HTMLUtils.escapeHTML(param.saleDate)
+							 : HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(saleList.saleDate))}">
 						</div>
 					</div>
 
@@ -45,14 +46,16 @@
 								<c:if test="${param.account != null}">
 									<c:forEach var="account" items="${accountMap}">
 										<option value="${account.key}"
-										${param.account == account.key ? 'selected' :'' }>${account.value}</option>
+										${param.account == account.key ? 'selected' :'' }>
+										${HTMLUtils.escapeHTML(account.value)}</option>
 									</c:forEach>
 								</c:if>
 
 								<c:if test="${param.account == null }">
 									<c:forEach var="account" items="${accountMap}">
 										<option value="${account.key}"
-										${saleList.account == account.key ? 'selected' :  '' }>${account.value}</option>
+										${saleList.account == account.key ? 'selected' :  '' }>
+										${HTMLUtils.escapeHTML(account.value)}</option>
 									</c:forEach>
 								</c:if>
 							</select>
@@ -69,7 +72,8 @@
 								<c:forEach var="category" items="${categoryMap}">
 									<label class="radio-inline">
 										<input type="radio" name="category" value="${category.key}"
-										${param.category == category.key ? 'checked' :  '' }>${category.value}
+										${param.category == category.key ? 'checked' :  '' }>
+										${HTMLUtils.escapeHTML(category.value)}
 									</label>
 								</c:forEach>
 							</c:if>
@@ -78,7 +82,8 @@
 								<c:forEach var="category" items="${categoryMap}">
 									<label class="radio-inline">
 										<input type="radio" name="category" value="${category.key}"
-										${saleList.category == category.key ? 'checked' :  '' }>${category.value}
+										${saleList.category == category.key ? 'checked' :  '' }>
+										${HTMLUtils.escapeHTML(category.value)}
 									</label>
 								</c:forEach>
 							</c:if>
@@ -90,7 +95,8 @@
 						<label for="name" class="col-sm-2 control-label">商品名 <span class="badge">必須</span></label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="tradeName" id="name" placeholder="商品名"
-							value="${param.tradeName != null ? param.tradeName : saleList.tradeName }">
+							value="${param.tradeName != null ? HTMLUtils.escapeHTML(param.tradeName)
+							: HTMLUtils.escapeHTML(saleList.tradeName) }">
 						</div>
 					</div>
 
@@ -99,7 +105,8 @@
 						<div class="col-sm-2">
 							<input type="text" class="form-control  text-right" name="unitPrice"
 							id="price" placeholder="単価"
-							value="${param.unitPrice != null ? param.unitPrice : saleList.unitPrice }">
+							value="${param.unitPrice != null ? HTMLUtils.escapeHTML(param.unitPrice)
+							: HTMLUtils.escapeHTML(saleList.unitPrice) }">
 						</div>
 					</div>
 
@@ -108,7 +115,8 @@
 						<div class="col-sm-2">
 							<input type="text" class="form-control  text-right" name="saleNumber"
 							id="count" placeholder="個数"
-							value="${param.saleNumber != null ? param.saleNumber : saleList.saleNumber }">
+							value="${param.saleNumber != null ? HTMLUtils.escapeHTML(param.saleNumber)
+							: HTMLUtils.escapeHTML(saleList.saleNumber) }">
 						</div>
 					</div>
 
@@ -116,7 +124,8 @@
 						<label for="note" class="col-sm-2 control-label">備考 </label>
 						<div class="col-sm-5">
 							<textarea class="form-control" name="note" id="note"
-							placeholder="備考" rows="5">${param.note != null ? param.note : saleList.note }</textarea>
+							placeholder="備考" rows="5">${param.note != null ? HTMLUtils.escapeHTML(param.note)
+							 : HTMLUtils.escapeHTML(saleList.note) }</textarea>
 						</div>
 					</div>
 
@@ -124,7 +133,7 @@
 						<div class="col-sm-offset-3">
 							<button type="submit" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>更 新</button>
-							<a href="S0022.html?saleId=${saleList.saleId}" class="btn btn-default"> キャンセル</a>
+							<a href="S0022.html?saleId=${HTMLUtils.escapeHTML(saleList.saleId)}" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 

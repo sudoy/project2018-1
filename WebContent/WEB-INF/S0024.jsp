@@ -24,7 +24,7 @@
 			</div>
 
 			<div class="row col-md-offset-1">
-				<form class="form-horizontal" action="S0024.html?saleId=${saleList.saleId}" method="post">
+				<form class="form-horizontal" action="S0024.html?saleId=${HTMLUtils.escapeHTML(saleList.saleId)}" method="post">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
 						<div class="col-sm-2">
@@ -39,7 +39,7 @@
 							<select class="form-control" name="account" id="person" readonly>
 								<c:forEach var="account" items="${accountMap}">
 									<c:if test="${saleList.account == account.key }">
-										<option value="${account.key}" selected>${account.value}</option>
+										<option value="${account.key}" selected>${HTMLUtils.escapeHTML(account.value)}</option>
 									</c:if>
 								</c:forEach>
 							</select>
@@ -55,10 +55,9 @@
 									<input type="radio" name="category" value="${category.key}"
 									${saleList.category == category.key ? 'checked' : '' }
 									readonly onclick="return false">
-									${category.value}
+									${HTMLUtils.escapeHTML(category.value)}
 								</label>
 							</c:forEach>
-
 						</div>
 					</div>
 
@@ -66,7 +65,7 @@
 						<label for="name" class="col-sm-2 control-label">商品名</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="tradeName" id="name" placeholder="商品名"
-							 value="${saleList.tradeName}" readonly>
+							 value="${HTMLUtils.escapeHTML(saleList.tradeName)}" readonly>
 						</div>
 					</div>
 
@@ -75,7 +74,7 @@
 						<div class="col-sm-2">
 							<input type="text" class="form-control text-right"name="unitPrice" id="price"
 							 placeholder="単価"
-							 value="<fmt:formatNumber value="${saleList.unitPrice}" />" readonly>
+							 value="<fmt:formatNumber value="${HTMLUtils.escapeHTML(saleList.unitPrice)}" />" readonly>
 						</div>
 					</div>
 
@@ -84,7 +83,7 @@
 						<div class="col-sm-2">
 							<input type="text" class="form-control text-right" name="saleNumber" id="count"
 							 placeholder="個数"
-							 value="<fmt:formatNumber value="${saleList.saleNumber}" />" readonly>
+							 value="<fmt:formatNumber value="${HTMLUtils.escapeHTML(saleList.saleNumber)}" />" readonly>
 						</div>
 					</div>
 
@@ -93,7 +92,7 @@
 						<div class="col-sm-2">
 							<input type="text" class="form-control text-right" name="total" id="total"
 							placeholder="小計"
-							value="<fmt:formatNumber value="${HTMLUtils.calcSum(saleList.unitPrice,saleList.saleNumber)}" />"
+							value="<fmt:formatNumber value="${HTMLUtils.escapeHTML(HTMLUtils.calcSum(saleList.unitPrice,saleList.saleNumber))}" />"
 							readonly>
 						</div>
 					</div>
@@ -102,7 +101,7 @@
 						<label for="note" class="col-sm-2 control-label">備考</label>
 						<div class="col-sm-5">
 							<textarea class="form-control" name="note" id="note" placeholder="備考"
-							rows="5" readonly>${saleList.note}</textarea>
+							rows="5" readonly>${HTMLUtils.escapeHTML(saleList.note)}</textarea>
 						</div>
 					</div>
 
@@ -110,7 +109,7 @@
 						<div class="col-sm-offset-3">
 							<button type="submit" class="btn btn-primary">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK</button>
-							<a href="S0023.html?saleId=${saleList.saleId}" class="btn btn-default"> キャンセル</a>
+							<a href="S0023.html?saleId=${HTMLUtils.escapeHTML(saleList.saleId)}" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 
