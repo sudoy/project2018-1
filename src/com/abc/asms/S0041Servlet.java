@@ -115,8 +115,8 @@ public class S0041Servlet extends HttpServlet {
 
 			//データベースから取得したデータをbeansに格納
 			while(rs.next()) {
-				Accounts a = new Accounts(rs.getInt("account_id"), escapeHTML(rs.getString("name")),
-						escapeHTML(rs.getString("mail")), escapeHTML(rs.getString("password")),
+				Accounts a = new Accounts(rs.getInt("account_id"), rs.getString("name"),
+						rs.getString("mail"), rs.getString("password"),
 						rs.getInt("authority"));
 				accountList.add(a);
 			}
@@ -142,18 +142,6 @@ public class S0041Servlet extends HttpServlet {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0041.jsp")
 			.forward(req, resp);
-	}
-
-	public static String escapeHTML(String val) {
-		if (val == null) {
-			return "";
-		}
-		val = val.replaceAll("&", "&amp;");
-		val = val.replaceAll("<", "&lt;");
-		val = val.replaceAll(">", "&gt;");
-		val = val.replaceAll("\"", "&quot;");
-		val = val.replaceAll("'", "&apos;");
-		return val;
 	}
 
 }
