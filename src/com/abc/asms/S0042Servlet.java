@@ -70,9 +70,9 @@ public class S0042Servlet extends HttpServlet {
 
 			Accounts a = new Accounts(
 					rs.getInt("account_id"),
-					ServletUtils.escapeHTML(rs.getString("name")),
-					ServletUtils.escapeHTML(rs.getString("mail")),
-					ServletUtils.escapeHTML(rs.getString("password")),
+					rs.getString("name"),
+					rs.getString("mail"),
+					rs.getString("password"),
 					rs.getInt("authority")
 					);
 
@@ -124,14 +124,14 @@ public class S0042Servlet extends HttpServlet {
 			return;
 		}
 
-		int authority = Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("authority1"))) +
-				Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("authority2")));
+		int authority = Integer.parseInt(req.getParameter("authority1")) +
+				Integer.parseInt(req.getParameter("authority2"));
 
 		Accounts a = new Accounts(
-				Integer.parseInt(ServletUtils.escapeHTML(req.getParameter("accountId"))),
-				ServletUtils.escapeHTML(req.getParameter("name")),
-				ServletUtils.escapeHTML(req.getParameter("mail")),
-				ServletUtils.escapeHTML(req.getParameter("password1")),
+				Integer.parseInt(req.getParameter("accountId")),
+				req.getParameter("name"),
+				req.getParameter("mail"),
+				req.getParameter("password1"),
 				authority
 				);
 
@@ -149,7 +149,7 @@ public class S0042Servlet extends HttpServlet {
 			errors.add("氏名を入力して下さい。");
 		}
 		//氏名の長さチェック
-		if(ServletUtils.escapeHTML(req.getParameter("name")).length() > 20) {
+		if(req.getParameter("name").length() > 20) {
 			errors.add("氏名が長すぎます。");
 		}
 
@@ -178,7 +178,7 @@ public class S0042Servlet extends HttpServlet {
 		}
 
 		//パスワード長さチェック
-		if(ServletUtils.escapeHTML(req.getParameter("password1")).length() > 30) {
+		if(req.getParameter("password1").length() > 30) {
 			errors.add("パスワードが長すぎます。");
 		}
 
