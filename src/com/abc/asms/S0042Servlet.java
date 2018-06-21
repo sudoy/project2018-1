@@ -141,6 +141,7 @@ public class S0042Servlet extends HttpServlet {
 	}
 
 	private List<String> validate(HttpServletRequest req){
+		HttpSession session = req.getSession();
 
 		List<String> errors = new ArrayList<>();
 
@@ -177,6 +178,14 @@ public class S0042Servlet extends HttpServlet {
 			}
 		}
 
+		//メールアドレスの重複チェック
+		Accounts editAccount = (Accounts) session.getAttribute("editAccount");
+		if(!editAccount.getMail().equals(req.getParameter("mail"))){
+			if(ServletUtils.overlapMail(req.getParameter("mail"))) {
+				errors.add("メールアドレスがすでに登録されています。");
+			}
+		}
+
 		//パスワード長さチェック
 		if(req.getParameter("password1").length() > 30) {
 			errors.add("パスワードが長すぎます。");
@@ -189,20 +198,20 @@ public class S0042Servlet extends HttpServlet {
 			}
 		}
 		//売上登録権限必須チェック
-		if(req.getParameter("authority1").equals("")) {
+		if(req.getParameter("authority1") == null || req.getParameter("authority1").equals("")) {
 			errors.add("売上登録権限を入力して下さい。");
 		}
 		//売上登録権限値チェック
-		if(!req.getParameter("authority1").equals("0") && !req.getParameter("authority1").equals("1")) {
+		else if(!req.getParameter("authority1").equals("0") && !req.getParameter("authority1").equals("1")) {
 			errors.add("売上登録権限に正しい値を入力して下さい。");
 		}
 
 		//アカウント登録権限必須チェック
-		if(req.getParameter("authority2").equals("")) {
+		if(req.getParameter("authority2") == null || req.getParameter("authority2").equals("")) {
 			errors.add("アカウント登録権限を入力して下さい。");
 		}
 		//アカウント登録権限値チェック
-		if(!req.getParameter("authority2").equals("0") && !req.getParameter("authority2").equals("10")) {
+		else if(!req.getParameter("authority2").equals("0") && !req.getParameter("authority2").equals("10")) {
 			errors.add("アカウント登録権限に正しい値を入力して下さい。");
 		}
 

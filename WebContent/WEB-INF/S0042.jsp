@@ -49,7 +49,7 @@
 					<div class="form-group">
 						<label for="pass" class="col-sm-2 control-label">パスワード</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="password1" id="pass"
+							<input type="password" class="form-control" name="password1" id="pass"
 							placeholder="パスワード" value="">
 						</div>
 					</div>
@@ -57,7 +57,7 @@
 					<div class="form-group">
 						<label for="pass2" class="col-sm-2 control-label">パスワード(確認)</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="password2"  id="pass2"
+							<input type="password" class="form-control" name="password2"  id="pass2"
 							placeholder="パスワード(確認)" value="">
 						</div>
 					</div>
