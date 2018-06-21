@@ -31,6 +31,14 @@ public class S0031Servlet extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		HttpSession session = req.getSession();
 
+		if(session.getAttribute("entry") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("S0030.html");
+			return;
+		}
+
 		session.setAttribute("accountRemain", "on");
 
 		getServletContext().getRequestDispatcher("/WEB-INF/S0031.jsp").forward(req, resp);

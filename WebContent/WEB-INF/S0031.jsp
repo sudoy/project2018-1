@@ -65,11 +65,11 @@
 						<label class="radio-inline"> <input type="radio"
 							name="authority1" value="0"
 							${entry.authority == 0 || entry.authority == 10 ? 'checked' : ''}
-							readonly onclick="return false"> 権限なし
+							onclick="return false"> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
 							name="authority1" value="1"
 							${entry.authority == 1 || entry.authority == 11 ? 'checked' : ''}
-							readonly onclick="return false"> 権限あり
+							onclick="return false"> 権限あり
 						</label>
 					</div>
 				</div>
@@ -81,11 +81,11 @@
 						<label class="radio-inline"> <input type="radio"
 							name="authority2" value="0"
 							${entry.authority == 0 || entry.authority == 1 ? 'checked' : ''}
-							readonly onclick="return false"> 権限なし
+							onclick="return false"> 権限なし
 						</label> <label class="radio-inline"> <input type="radio"
 							name="authority2" value="10"
 							${entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}
-							readonly onclick="return false"> 権限あり
+							onclick="return false"> 権限あり
 						</label>
 					</div>
 				</div>
