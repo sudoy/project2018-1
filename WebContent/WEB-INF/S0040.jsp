@@ -17,7 +17,7 @@
 		<jsp:include page="_errors.jsp" />
 
 			<div class="row col-md-offset-1">
-				<h1>アカウント検索</h1>
+				<h1>アカウント検索条件入力</h1>
 			</div>
 
 			<div class="row col-md-offset-1">

@@ -83,13 +83,13 @@ public class S0040Servlet extends HttpServlet {
 			errors.add("氏名の指定が長すぎます。");
 		}
 		if(req.getParameter("mail").length() > 100) {
-			errors.add("メールアドレスの指定が長すぎます。");
+			errors.add("メールアドレスが長すぎます。");
 		}
 
 		if(!req.getParameter("mail").equals("")) {
 
 			if(!req.getParameter("mail").contains("@")) {
-				errors.add("メールアドレスの形式が誤っています。");
+				errors.add("メールアドレスを正しく入力して下さい。");
 				return errors;
 			}
 
@@ -97,13 +97,13 @@ public class S0040Servlet extends HttpServlet {
 			String mailInitial = req.getParameter("mail").substring(0, 1);
 
 			if(!mailInitial.matches("^[a-zA-Z0-9]*$")) {
-				errors.add("メールアドレスの形式が誤っています。");
+				errors.add("メールアドレスを正しく入力して下さい。");
 			}else if(!mailCheck[0].matches("^[a-zA-Z-0-9\\._\\-]*$")) {
-				errors.add("メールアドレスの形式が誤っています。");
+				errors.add("メールアドレスを正しく入力して下さい。");
 			}else if(!mailCheck[1].matches("^[a-zA-Z0-9\\._\\-]*$")
 					|| mailCheck[1].length() == 0
 					|| !mailCheck[1].contains(".")) {
-				errors.add("メールアドレスの形式が誤っています。");
+				errors.add("メールアドレスを正しく入力して下さい。");
 			}
 		}
 

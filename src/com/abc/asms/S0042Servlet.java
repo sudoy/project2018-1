@@ -168,9 +168,9 @@ public class S0042Servlet extends HttpServlet {
 		//メールアドレスの形式チェック
 		String mail = req.getParameter("mail");
 		if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
-			errors.add("メールアドレスの形式が誤っています。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
-			errors.add("メールアドレスの形式が誤っています。");
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}
 
 		//メールアドレスの重複チェック
