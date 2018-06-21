@@ -43,7 +43,7 @@
 					<div class="form-group">
 						<label for="pass" class="col-sm-2 control-label">パスワード</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="password1" id="pass" placeholder="パスワード"
+							<input type="password" class="form-control" name="password1" id="pass" placeholder="パスワード"
 							value="" readonly>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 					<div class="form-group">
 						<label for="pass2" class="col-sm-2 control-label">パスワード(確認)</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="password2" id="pass2"
+							<input type="password" class="form-control" name="password2" id="pass2"
 							placeholder="パスワード(確認)"
 							value="" readonly>
 						</div>
@@ -64,13 +64,13 @@
 								<input type="radio" name="authority1" value="0"
 								${deleteAccount.authority == 0 ? 'checked'
 								: deleteAccount.authority == 10 ? 'checked' : ''}
-								readonly onclick="return false"> 権限なし
+								onclick="return false"> 権限なし
 							</label>
 							<label class="radio-inline">
 								<input type="radio" name="authority1" value="1"
 								${deleteAccount.authority == 1 ? 'checked'
 								: deleteAccount.authority == 11 ? 'checked' : ''}
-								readonly onclick="return false"> 権限あり
+								onclick="return false"> 権限あり
 							</label>
 						</div>
 					</div>
@@ -82,13 +82,13 @@
 								<input type="radio" name="authority2" value="0"
 								${deleteAccount.authority == 0 ? 'checked'
 								: deleteAccount.authority == 1 ? 'checked' : ''}
-								readonly onclick="return false"> 権限なし
+								onclick="return false"> 権限なし
 							</label>
 							<label class="radio-inline">
 								<input type="radio" name="authority2" value="10"
 								${deleteAccount.authority == 10 ? 'checked'
 								: deleteAccount.authority == 11 ? 'checked' : ''}
-								readonly onclick="return false"> 権限あり
+								onclick="return false"> 権限あり
 							</label>
 						</div>
 					</div>

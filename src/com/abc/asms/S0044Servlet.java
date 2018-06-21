@@ -26,6 +26,7 @@ public class S0044Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
 
 		//ログインチェック
 		if(!ServletUtils.checkLogin(req, resp)) {
@@ -34,6 +35,15 @@ public class S0044Servlet extends HttpServlet {
 
 		//アカウント権限チェック
 		if(!ServletUtils.checkAccounts(req, resp)) {
+			return;
+		}
+
+		//直接アドレスを入力してきた際の対応
+		if(req.getParameter("accountId") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("S0040.html");
 			return;
 		}
 
@@ -141,6 +151,9 @@ public class S0044Servlet extends HttpServlet {
 
 			successes.add(success);
 			session.setAttribute("successes", successes);
+
+			//検索条件削除
+			session.setAttribute("saf", null);
 
 			//アカウント検索結果に遷移
 			resp.sendRedirect("S0041.html");
