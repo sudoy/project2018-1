@@ -47,7 +47,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="category" class="col-sm-2 control-label">商品カテゴリー
+				<label class="col-sm-2 control-label">商品カテゴリー
 					<span class="badge">必須</span>
 				</label>
 				<div class="col-sm-5">
@@ -61,7 +61,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="name" class="col-sm-2 control-label">商品名 <span
+				<label class="col-sm-2 control-label">商品名 <span
 					class="badge">必須</span></label>
 				<div class="col-sm-5">
 					<input type="text" class="form-control" id="name"

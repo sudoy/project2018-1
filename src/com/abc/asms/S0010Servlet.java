@@ -84,7 +84,7 @@ public class S0010Servlet extends HttpServlet {
 		}
 
 		Sales sales = new Sales(0,
-				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/MM/dd")),
+				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/M/d")),
 				req.getParameter("account"),
 				req.getParameter("category"),
 				req.getParameter("tradeName"),
