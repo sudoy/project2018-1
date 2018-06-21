@@ -24,6 +24,16 @@ public class S0043Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
+
+		//直接アドレスを入力してきた場合の対応
+		if(session.getAttribute("editAccount") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("S0040.html");
+			return;
+		}
 
 		//ログインチェック
 		if(!ServletUtils.checkLogin(req, resp)) {
@@ -46,6 +56,16 @@ public class S0043Servlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		req.setCharacterEncoding("utf-8");
+
+		//直接アドレスを入力してきた場合の対応
+		if(session.getAttribute("editAccount") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("S0040.html");
+			return;
+		}
+
 
 		//ログインチェック
 		if(!ServletUtils.checkLogin(req, resp)) {
@@ -109,6 +129,7 @@ public class S0043Servlet extends HttpServlet {
 			session.setAttribute("successes", successes);
 
 			session.setAttribute("editAccount", null);
+			session.setAttribute("saf", null);
 
 			//アカウント検索結果に遷移
 			resp.sendRedirect("S0041.html");
