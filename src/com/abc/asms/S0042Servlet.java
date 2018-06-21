@@ -162,13 +162,23 @@ public class S0042Servlet extends HttpServlet {
 			if(req.getParameter("mail").length() > 100) {
 				errors.add("メールアドレスが長すぎます。");
 			}
+
 		}
 
+		//メールアドレスの形式チェック
 		String mail = req.getParameter("mail");
 		if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
 			errors.add("メールアドレスの形式が誤っています。");
 		}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
 			errors.add("メールアドレスの形式が誤っています。");
+		}
+
+		//メールアドレスの重複チェック
+		Accounts editAccount = (Accounts) session.getAttribute("editAccount");
+		if(!editAccount.getMail().equals(req.getParameter("mail"))){
+			if(ServletUtils.overlapMail(req.getParameter("mail"))) {
+				errors.add("メールアドレスがすでに登録されています。");
+			}
 		}
 
 
