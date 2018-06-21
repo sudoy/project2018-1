@@ -36,7 +36,7 @@ public class HTMLUtils {
 		}
 	}
 
-	public static int calcSum(int unitPrice, int saleNumber) {
+	public static long calcSum(int unitPrice, int saleNumber) {
 		return unitPrice * saleNumber;
 	}
 
@@ -63,6 +63,10 @@ public class HTMLUtils {
 
 	public static String deleteComma(String Numbers) {
 		return Numbers.replaceAll(",","");
+	}
+
+	public static String addNewLine(String Numbers) {
+		return Numbers.replaceAll("\n", "<br/>").replaceAll(" ", "&nbsp;");
 	}
 
 	public static String formatAuthority(int authority) {

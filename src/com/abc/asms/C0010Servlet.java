@@ -23,6 +23,13 @@ public class C0010Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		//No.5修正
+		HttpSession session = req.getSession();
+		if(session.getAttribute("accounts") != null) {
+			resp.sendRedirect("C0020.html");
+			return;
+		}
+
 		getServletContext().getRequestDispatcher("/WEB-INF/C0010.jsp")
 			.forward(req, resp);
 	}
@@ -63,7 +70,7 @@ public class C0010Servlet extends HttpServlet {
 			rs = ps.executeQuery();
 
 			if(!rs.next()) {
-				errors.add("メールアドレス、またはパスワードが間違っています。");
+				errors.add("メールアドレス、パスワードを正しく入力して下さい。");
 				session.setAttribute("errors", errors);
 				getServletContext().getRequestDispatcher("/WEB-INF/C0010.jsp")
 				.forward(req, resp);
