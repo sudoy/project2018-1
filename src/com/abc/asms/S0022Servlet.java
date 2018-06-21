@@ -74,7 +74,6 @@ public class S0022Servlet extends HttpServlet {
 					rs.getInt("sale_number"),
 					rs.getString("note")
 					);
-
 			session.setAttribute("saleList", s);
 
 			//フォワード

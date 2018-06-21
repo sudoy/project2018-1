@@ -32,7 +32,7 @@
 							<span class="badge">必須</span>
 						</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" name="saleDate" id="saleDate" placeholder="販売日"
+							<input type="text" class="form-control" name="saleDate" id="salesDate" placeholder="販売日"
 							 value="${param.saleDate != null ? HTMLUtils.escapeHTML(param.saleDate)
 							 : HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(saleList.saleDate))}">
 						</div>
@@ -70,7 +70,7 @@
 
 							<c:if test="${param.category != null}">
 								<c:forEach var="category" items="${categoryMap}">
-									<label class="radio-inline">
+									<label>
 										<input type="radio" name="category" value="${category.key}"
 										${param.category == category.key ? 'checked' :  '' }>
 										${HTMLUtils.escapeHTML(category.value)}
@@ -80,7 +80,7 @@
 
 							<c:if test="${param.category == null }">
 								<c:forEach var="category" items="${categoryMap}">
-									<label class="radio-inline">
+									<label>
 										<input type="radio" name="category" value="${category.key}"
 										${saleList.category == category.key ? 'checked' :  '' }>
 										${HTMLUtils.escapeHTML(category.value)}

@@ -1,10 +1,9 @@
 package com.abc.asms;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Sales;
-import com.abc.asms.utils.HTMLUtils;
 import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/S0023.html")
@@ -28,6 +26,7 @@ public class S0023Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
 
 		//ログインチェック
 		if(!ServletUtils.checkLogin(req, resp)) {
@@ -38,11 +37,15 @@ public class S0023Servlet extends HttpServlet {
 		if(!ServletUtils.checkSales(req, resp)) {
 			return;
 		}
+		if(session.getAttribute("saleList") == null) {
+			session.setAttribute("errors", "不正なアクセスです。");
+			resp.sendRedirect("S0020.html");
+			return;
+		}
 
 		//担当リスト
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
 		req.setAttribute("accountMap", accountMap);
-
 		//カテゴリーリスト
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
@@ -89,11 +92,9 @@ public class S0023Servlet extends HttpServlet {
 			return;
 		}
 
-		LocalDate saleDate = LocalDate.parse(HTMLUtils.replaceSaleDate(req.getParameter("saleDate")));
-
 		Sales s = new Sales(
 				Integer.parseInt(req.getParameter("saleId")),
-				saleDate,
+				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/M/d")),
 				req.getParameter("account"),
 				req.getParameter("category"),
 				req.getParameter("tradeName"),
@@ -117,19 +118,10 @@ public class S0023Servlet extends HttpServlet {
 		if(!req.getParameter("saleDate").equals("")) {
 			//形式の判定
 			try {
-				DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-				df.setLenient(false);
-			    String s1 = req.getParameter("saleDate");
-			    String s2 = df.format(df.parse(s1));
-
-			    if(s1.equals(s2)) {
-
-			    }else {
-			    	errors.add("販売日を正しく入力してください。");
-			    }
-
-			}catch(ParseException p) {
-				errors.add("販売日を正しく入力してください。");
+				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("uuuu/M/d")
+						.withResolverStyle(ResolverStyle.STRICT));
+			} catch (Exception p) {
+				errors.add("販売日を正しく入力して下さい。");
 			}
 		}else {
 			//必須入力
@@ -146,7 +138,7 @@ public class S0023Servlet extends HttpServlet {
 		}
 
 		//カテゴリーの必須入力
-		if (req.getParameter("category").equals("")) {
+		if (req.getParameter("category") == null) {
 			errors.add("商品カテゴリーが未選択です。");
 		}
 		else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
@@ -169,38 +161,38 @@ public class S0023Servlet extends HttpServlet {
 		}else if(req.getParameter("unitPrice").length() > 9) {
 			//単価の長さチェック
 			errors.add("単価が長すぎます。");
-		}
-		// 単価形式のチェック
-		try {
-			int a = Integer.parseInt(req.getParameter("unitPrice"));
-			if (!req.getParameter("unitPrice").equals("") && a < 1) {
+		} else {
+			// 単価形式のチェック
+			try {
+				int a = Integer.parseInt(req.getParameter("unitPrice"));
+				if (!req.getParameter("unitPrice").equals("") && a < 1) {
+					errors.add("単価を正しく入力して下さい。");
+				}
+
+			}catch(Exception e) {
 				errors.add("単価を正しく入力して下さい。");
 			}
-
-		}catch(Exception e) {
-			errors.add("単価を正しく入力して下さい。");
 		}
 
 		//個数の必須入力
 		if (req.getParameter("saleNumber").equals("")) {
 			errors.add("個数を入力して下さい。");
-		}
-		if(req.getParameter("saleNumber").length() > 9) {
+		}else if(req.getParameter("saleNumber").length() > 9) {
 			//長さチェック
 			errors.add("個数が長すぎます。");
-		}
+		} else {
 
-		// 個数形式のチェック
-		try {
-			int a = Integer.parseInt(req.getParameter("saleNumber"));
-			if (!req.getParameter("saleNumber").equals("") && a < 1) {
+			// 個数形式のチェック
+			try {
+				int a = Integer.parseInt(req.getParameter("saleNumber"));
+				if (!req.getParameter("saleNumber").equals("") && a < 1) {
+					errors.add("個数を正しく入力して下さい。");
+				}
+
+			}catch(Exception e) {
 				errors.add("個数を正しく入力して下さい。");
 			}
-
-		}catch(Exception e) {
-			errors.add("個数を正しく入力して下さい。");
 		}
-
 		// 備考の長さチェック
 		if(req.getParameter("note").length() > 400) {
 			errors.add("備考が長すぎます。");

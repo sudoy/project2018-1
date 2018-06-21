@@ -19,7 +19,6 @@
 		<jsp:include page="_navbar.jsp" />
 
 		<div class="container">
-
 			<div class="row col-md-offset-1">
 				<h1>売上詳細表示</h1>
 			</div>
@@ -71,7 +70,7 @@
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">備考 </label>
-						<div class="col-sm-5 form-control-static">${HTMLUtils.escapeHTML(saleList.note)}</div>
+						<div class="col-sm-5 form-control-static">${HTMLUtils.addNewLine(HTMLUtils.escapeHTML(saleList.note))}</div>
 					</div>
 
 					<div class="form-group">

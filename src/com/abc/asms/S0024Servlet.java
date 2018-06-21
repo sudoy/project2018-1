@@ -26,6 +26,7 @@ public class S0024Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
 
 		//ログインチェック
 		if(!ServletUtils.checkLogin(req, resp)) {
@@ -34,6 +35,11 @@ public class S0024Servlet extends HttpServlet {
 
 		//売上権限チェック
 		if(!ServletUtils.checkSales(req, resp)) {
+			return;
+		}
+		if(session.getAttribute("saleList") == null) {
+			session.setAttribute("errors", "不正なアクセスです。");
+			resp.sendRedirect("S0020.html");
 			return;
 		}
 
@@ -110,6 +116,7 @@ public class S0024Servlet extends HttpServlet {
 			session.setAttribute("successes", successes);
 
 			session.setAttribute("saleList", null);
+			session.setAttribute("ssf", null);
 
 			resp.sendRedirect("S0021.html");
 

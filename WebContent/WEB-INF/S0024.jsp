@@ -36,7 +36,7 @@
 					<div class="form-group">
 						<label for="person" class="col-sm-2 control-label">担当</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="account" id="person" readonly>
+							<select class="form-control" name="account" id="person">
 								<c:forEach var="account" items="${accountMap}">
 									<c:if test="${saleList.account == account.key }">
 										<option value="${account.key}" selected>${HTMLUtils.escapeHTML(account.value)}</option>
@@ -51,10 +51,10 @@
 						<div class="col-sm-5">
 
 							<c:forEach var="category" items="${categoryMap}">
-								<label class="radio-inline">
+								<label>
 									<input type="radio" name="category" value="${category.key}"
 									${saleList.category == category.key ? 'checked' : '' }
-									readonly onclick="return false">
+									onclick="return false">
 									${HTMLUtils.escapeHTML(category.value)}
 								</label>
 							</c:forEach>
