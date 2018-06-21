@@ -36,7 +36,7 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="mail"
-							placeholder="メールアドレス" value="${param.mail != null ? HTMLUtils.escapeHTML(param.mail) : HTMLUtils.escapeHTML(entry.mail)}"name="mail">
+							placeholder="メールアドレス" value="${param.mail != null ? HTMLUtils.escapeHTML(param.mail) : HTMLUtils.escapeHTML(entry.mail)}" name="mail">
 					</div>
 				</div>
 
