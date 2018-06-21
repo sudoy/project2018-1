@@ -34,71 +34,71 @@ public class S0041Servlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
-		if(session.getAttribute("saf") == null) {
-			getServletContext().getRequestDispatcher("/WEB-INF/S0041.jsp")
-				.forward(req, resp);
-			return;
-		}
-
-
-		Accounts accounts = (Accounts)session.getAttribute("accounts");
-
-		req.setAttribute("check", accounts.getAuthority());
-
 		Connection con = null;
+		String sql = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<String> errors = new ArrayList<>();
 
 		List<Accounts> accountList = new ArrayList<>();
-
-		//検索条件の情報を取得
-		SearchAccountForm saf = (SearchAccountForm) session.getAttribute("saf");
-
 		List<String> sqlParameter = new ArrayList<>();
 
-		//sql文の作成
-		String sql = "select account_id, name, mail, password, authority from accounts where 0=0";
+		//アカウント権限のチェックをセット
+		Accounts accounts = (Accounts)session.getAttribute("accounts");
+		req.setAttribute("check", accounts.getAuthority());
 
-		if(!saf.getName().equals("")) {
-			sql = sql.concat(" and name like ?");
-			sqlParameter.add("%" + saf.getName() + "%");
-		}
-		if(!saf.getMail().equals("")) {
-			sql = sql.concat(" and mail = ?");
-			sqlParameter.add(saf.getMail());
-		}
+		//safに何も入っていない場合は全件表示
+		if(session.getAttribute("saf") == null) {
+			sql = "select account_id, name, mail, password, authority from accounts order by account_id";
+		}else {
+
+			//検索条件の情報を取得
+			SearchAccountForm saf = (SearchAccountForm) session.getAttribute("saf");
 
 
-		String[] saleAuthority = saf.getSaleAuthority().split(",", 2);
-		String[] accountAuthority = saf.getAccountAuthority().split(",", 2);
-		List<String> authorities = new ArrayList<>();
+			//sql文の作成
+			sql = "select account_id, name, mail, password, authority from accounts where 0=0";
 
-		//
-		for(String s : saleAuthority) {
-			for(String a : accountAuthority) {
-				String authority = a + s;
-				authorities.add(authority);
+			if(!saf.getName().equals("")) {
+				sql = sql.concat(" and name like ?");
+				sqlParameter.add("%" + saf.getName() + "%");
 			}
-		}
+			if(!saf.getMail().equals("")) {
+				sql = sql.concat(" and mail = ?");
+				sqlParameter.add(saf.getMail());
+			}
 
 
-		if(authorities != null) {
-			sql = sql.concat(" and authority in(");
-			for(int i = 0; i < authorities.size(); i++) {
-				if(i == 0) {
-					sql = sql.concat("?");
-					sqlParameter.add(authorities.get(i));
-				}else {
-					sql = sql.concat(",?");
-					sqlParameter.add(authorities.get(i));
+			String[] saleAuthority = saf.getSaleAuthority().split(",", 2);
+			String[] accountAuthority = saf.getAccountAuthority().split(",", 2);
+			List<String> authorities = new ArrayList<>();
+
+			//
+			for(String s : saleAuthority) {
+				for(String a : accountAuthority) {
+					String authority = a + s;
+					authorities.add(authority);
 				}
 			}
 
-			sql = sql.concat(")");
+
+			if(authorities != null) {
+				sql = sql.concat(" and authority in(");
+				for(int i = 0; i < authorities.size(); i++) {
+					if(i == 0) {
+						sql = sql.concat("?");
+						sqlParameter.add(authorities.get(i));
+					}else {
+						sql = sql.concat(",?");
+						sqlParameter.add(authorities.get(i));
+					}
+				}
+
+				sql = sql.concat(")");
+			}
+
+			sql = sql.concat(" order by account_id");
 		}
-
-
 
 		try {
 			//データベースからデータを取得
