@@ -108,19 +108,19 @@
 					</tr>
 					<c:forEach var="sales" items="${list}">
 						<tr>
-							<th>${HTMLUtils.escapeHTML(sales.saleId)}</th>
+							<th class="text-right">${HTMLUtils.escapeHTML(sales.saleId)}</th>
 							<td>${HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(sales.saleDate))}</td>
 							<td>${HTMLUtils.escapeHTML(sales.category)}</td>
 							<td>${HTMLUtils.escapeHTML(sales.tradeName)}</td>
-							<td><fmt:formatNumber value="${HTMLUtils.escapeHTML(sales.unitPrice)}" /></td>
-							<td><fmt:formatNumber value="${HTMLUtils.escapeHTML(sales.saleNumber)}" /></td>
-							<td><fmt:formatNumber value="${HTMLUtils.escapeHTML(HTMLUtils.calcSum(sales.unitPrice, sales.saleNumber))}" /></td>
+							<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(sales.unitPrice)}" /></td>
+							<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(sales.saleNumber)}" /></td>
+							<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(HTMLUtils.calcSum(sales.unitPrice, sales.saleNumber))}" /></td>
 						</tr>
 					</c:forEach>
 					<tr>
 						<td colspan="5"></td>
 						<th>合計</th>
-						<td><fmt:formatNumber value="${HTMLUtils.escapeHTML(myTotal)}" /></td>
+						<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(myTotal)}" /></td>
 					</tr>
 				</table>
 			</div>
