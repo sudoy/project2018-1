@@ -56,6 +56,42 @@ public class ServletUtils {
 		}
 		return categoryMap;
 	}
+	public static Map<Integer, String> getAllCategoryMap(HttpServletRequest req) {
+
+		Map<Integer, String> categoryMap = new HashMap<Integer, String>();
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "select category_id, category_name "
+					+ "from categories "
+					+ "order by category_id";
+
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				categoryMap.put(rs.getInt("category_id"), rs.getString("category_name"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return categoryMap;
+	}
 
 	public static Map<Integer, String> getAccountMap(HttpServletRequest req) {
 
