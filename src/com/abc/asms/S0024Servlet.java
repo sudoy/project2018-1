@@ -118,7 +118,7 @@ public class S0024Servlet extends HttpServlet {
 			session.setAttribute("saleList", null);
 			session.setAttribute("ssf", null);
 
-			resp.sendRedirect("S0021.html");
+			resp.sendRedirect("S0020.html");
 
 
 		}catch(Exception e){

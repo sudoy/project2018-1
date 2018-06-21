@@ -16,8 +16,10 @@
 		<div class="container">
 
 		<jsp:include page="_errors.jsp" />
+		<jsp:include page="_successes.jsp" />
 
 			<div class="row col-md-offset-1">
+
 				<h1>売上検索条件入力</h1>
 			</div>
 
@@ -52,7 +54,7 @@
 						<label class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
 							<c:forEach var="category" items="${categoryMap}" varStatus="s">
-								<label class="checkbox-inline">
+								<label>
 									<input type="checkbox" name="category" value="${HTMLUtils.escapeHTML(category.key)}" ${HTMLUtils.judgeCheckbox(ssf.category, category.key) ? 'checked' : ''}>${HTMLUtils.escapeHTML(category.value)}
 								</label>
 							</c:forEach>
