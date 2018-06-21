@@ -41,7 +41,7 @@ public class S0020Servlet extends HttpServlet {
 		session.setAttribute("ssf", null);
 
 		//商品カテゴリーと担当をデータベースからとってくる。
-		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		Map<Integer, String> categoryMap = ServletUtils.getAllCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
 
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);

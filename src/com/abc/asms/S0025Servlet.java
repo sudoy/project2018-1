@@ -25,6 +25,7 @@ public class S0025Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		req.setCharacterEncoding("utf-8");
+		HttpSession session = req.getSession();
 
 		//ログインチェック
 		if(!ServletUtils.checkLogin(req, resp)) {
@@ -36,8 +37,18 @@ public class S0025Servlet extends HttpServlet {
 			return;
 		}
 
+		//直接アドレスを入力してきた際の対応(結合テスト修正箇所)
+		if(session.getAttribute("saleList") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("S0020.html");
+			return;
+		}
+
+
 		//カテゴリーリスト
-		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		Map<Integer, String> categoryMap = ServletUtils.getAllCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
 
 		//担当リスト
@@ -64,6 +75,15 @@ public class S0025Servlet extends HttpServlet {
 
 		//売上権限チェック
 		if(!ServletUtils.checkSales(req, resp)) {
+			return;
+		}
+
+		//直接アドレスを入力してきた際の対応(結合テスト修正箇所)
+		if(session.getAttribute("saleList") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("S0020.html");
 			return;
 		}
 
@@ -94,6 +114,9 @@ public class S0025Servlet extends HttpServlet {
 			session.setAttribute("successes", successes);
 
 			session.setAttribute("saleList", null);
+
+			//検索条件削除(結合テスト修正箇所)
+			session.setAttribute("ssf", null);
 
 			resp.sendRedirect("S0021.html");
 

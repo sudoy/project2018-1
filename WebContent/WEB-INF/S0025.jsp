@@ -52,10 +52,10 @@
 						<div class="col-sm-5">
 
 							<c:forEach var="category" items="${categoryMap}">
-								<label class="radio-inline">
+								<label style="font-weight: 300;">
 								<input type="radio" name="category" value="${category.key }"
 								${saleList.category == category.key ? 'checked' : '' }
-								readonly onclick="return false">
+								onclick="return false">
 								${HTMLUtils.escapeHTML(category.value)}
 								</label>
 							</c:forEach>
@@ -108,7 +108,7 @@
 						<div class="col-sm-offset-3">
 							<button type="submit"  class="btn btn-danger">
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> OK</button>
-							<a href="S0022.html?saleId=${HTMLUtils.escapeHTML(saleList.saleId)}" class="btn btn-default"> キャンセル</a>
+							<a href="S0021.html" class="btn btn-default"> キャンセル</a>
 						</div>
 					</div>
 
