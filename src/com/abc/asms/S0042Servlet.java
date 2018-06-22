@@ -175,7 +175,7 @@ public class S0042Servlet extends HttpServlet {
 			Accounts editAccount = (Accounts) session.getAttribute("editAccount");
 			if(!editAccount.getMail().equals(req.getParameter("mail"))){
 				if(ServletUtils.overlapMail(req.getParameter("mail"))) {
-					errors.add("メールアドレスがすでに登録されています。");
+					errors.add("メールアドレスが既に登録されています。");
 				}
 			}
 
