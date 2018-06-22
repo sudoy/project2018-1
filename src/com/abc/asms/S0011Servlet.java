@@ -34,6 +34,11 @@ public class S0011Servlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		session.setAttribute("saleRemain", "on");
+		if(session.getAttribute("sales") == null) {
+			session.setAttribute("errors", "不正なアクセスです。");
+			resp.sendRedirect("S0010.html");
+			return;
+		}
 
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
