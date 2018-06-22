@@ -163,10 +163,11 @@ public class S0023Servlet extends HttpServlet {
 		//単価の必須入力
 		if (req.getParameter("unitPrice").equals("")) {
 			errors.add("単価を入力して下さい。");
-		}else if(req.getParameter("unitPrice").length() > 9) {
-			//単価の長さチェック
-			errors.add("単価が長すぎます。");
-		} else {
+		}else {
+			if(req.getParameter("unitPrice").length() > 9) {
+				//単価の長さチェック
+				errors.add("単価が長すぎます。");
+			}
 			// 単価形式のチェック
 			try {
 				int a = Integer.parseInt(req.getParameter("unitPrice"));
@@ -179,13 +180,16 @@ public class S0023Servlet extends HttpServlet {
 			}
 		}
 
+
 		//個数の必須入力
 		if (req.getParameter("saleNumber").equals("")) {
 			errors.add("個数を入力して下さい。");
-		}else if(req.getParameter("saleNumber").length() > 9) {
-			//長さチェック
-			errors.add("個数が長すぎます。");
-		} else {
+		}else {
+
+			if(req.getParameter("saleNumber").length() > 9) {
+				//長さチェック
+				errors.add("個数が長すぎます。");
+			}
 
 			// 個数形式のチェック
 			try {
@@ -198,6 +202,7 @@ public class S0023Servlet extends HttpServlet {
 				errors.add("個数を正しく入力して下さい。");
 			}
 		}
+
 		// 備考の長さチェック
 		if(req.getParameter("note").length() > 400) {
 			errors.add("備考が長すぎます。");
