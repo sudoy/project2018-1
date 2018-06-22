@@ -88,25 +88,14 @@ public class S0040Servlet extends HttpServlet {
 
 		if(!req.getParameter("mail").equals("")) {
 
-			if(!req.getParameter("mail").contains("@")) {
+			//メールアドレスの形式チェック
+			String mail = req.getParameter("mail");
+			if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
 				errors.add("メールアドレスを正しく入力して下さい。");
-				return errors;
-			}
-
-			String[] mailCheck = req.getParameter("mail").split("@", 0);
-			String mailInitial = req.getParameter("mail").substring(0, 1);
-
-			if(!mailInitial.matches("^[a-zA-Z0-9]*$")) {
-				errors.add("メールアドレスを正しく入力して下さい。");
-			}else if(!mailCheck[0].matches("^[a-zA-Z-0-9\\._\\-]*$")) {
-				errors.add("メールアドレスを正しく入力して下さい。");
-			}else if(!mailCheck[1].matches("^[a-zA-Z0-9\\._\\-]*$")
-					|| mailCheck[1].length() == 0
-					|| !mailCheck[1].contains(".")) {
+			}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
 				errors.add("メールアドレスを正しく入力して下さい。");
 			}
 		}
-
 
 		return errors;
 	}
