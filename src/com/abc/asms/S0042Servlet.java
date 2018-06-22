@@ -163,24 +163,23 @@ public class S0042Servlet extends HttpServlet {
 				errors.add("メールアドレスが長すぎます。");
 			}
 
-		}
-
-		//メールアドレスの形式チェック
-		String mail = req.getParameter("mail");
-		if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
-			errors.add("メールアドレスを正しく入力して下さい。");
-		}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
-			errors.add("メールアドレスを正しく入力して下さい。");
-		}
-
-		//メールアドレスの重複チェック
-		Accounts editAccount = (Accounts) session.getAttribute("editAccount");
-		if(!editAccount.getMail().equals(req.getParameter("mail"))){
-			if(ServletUtils.overlapMail(req.getParameter("mail"))) {
-				errors.add("メールアドレスがすでに登録されています。");
+			//メールアドレスの形式チェック
+			String mail = req.getParameter("mail");
+			if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
+				errors.add("メールアドレスを正しく入力して下さい。");
+			}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
+				errors.add("メールアドレスを正しく入力して下さい。");
 			}
-		}
 
+			//メールアドレスの重複チェック
+			Accounts editAccount = (Accounts) session.getAttribute("editAccount");
+			if(!editAccount.getMail().equals(req.getParameter("mail"))){
+				if(ServletUtils.overlapMail(req.getParameter("mail"))) {
+					errors.add("メールアドレスがすでに登録されています。");
+				}
+			}
+
+		}
 
 		//パスワード長さチェック
 		if(req.getParameter("password1").length() > 30) {
