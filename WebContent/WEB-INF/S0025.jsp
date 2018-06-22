@@ -52,7 +52,7 @@
 						<div class="col-sm-5">
 
 							<c:forEach var="category" items="${categoryMap}">
-								<label style="font-weight: 300;">
+								<label>
 								<input type="radio" name="category" value="${category.key }"
 								${saleList.category == category.key ? 'checked' : '' }
 								onclick="return false">
@@ -60,7 +60,7 @@
 								</label>
 							</c:forEach>
 							<c:forEach var="pickCategory" items="${pickCategoryMap}">
-								<label style="font-weight: 300;">
+								<label>
 									<input type="radio" name="category" value="${pickCategory.key}"
 									${saleList.category == pickCategory.key ? 'checked' : '' }
 									onclick="return false">

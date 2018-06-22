@@ -1,0 +1,7 @@
+label{
+	font-weight: normal;
+}
+
+label[class="col-sm-2 control-label"] {
+	font-weight: bold;
+}
