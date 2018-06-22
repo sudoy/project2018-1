@@ -119,21 +119,13 @@ public class S0030Servlet extends HttpServlet {
 		} else if(req.getParameter("mail").length() > 100) {
 			errors.add("メールアドレスが長すぎます。");
 			return errors;
-		} else if(!req.getParameter("mail").contains("@")) {
-			errors.add("メールアドレスを正しく入力して下さい。");
-			return errors;
 		}
 
-		String[] mailCheck = req.getParameter("mail").split("@", 0);
-		String mailInitial = req.getParameter("mail").substring(0, 1);
-
-		if(!mailInitial.matches("^[a-zA-Z0-9]*$")) {
+		//メールアドレスの形式チェック
+		String mail = req.getParameter("mail");
+		if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
 			errors.add("メールアドレスを正しく入力して下さい。");
-		}else if(!mailCheck[0].matches("^[a-zA-Z-0-9\\._\\-]*$")) {
-			errors.add("メールアドレスを正しく入力して下さい。");
-		}else if(!mailCheck[1].matches("^[a-zA-Z0-9\\._\\-]*$")
-				|| mailCheck[1].length() == 0
-				|| !mailCheck[1].contains(".")) {
+		}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
 			errors.add("メールアドレスを正しく入力して下さい。");
 		}
 
