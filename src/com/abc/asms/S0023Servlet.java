@@ -49,6 +49,8 @@ public class S0023Servlet extends HttpServlet {
 		//カテゴリーリスト
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> pickCategoryMap = ServletUtils.getPickCategoryMap(req);
+		req.setAttribute("pickCategoryMap", pickCategoryMap);
 
 		//フォワード
 		getServletContext().getRequestDispatcher("/WEB-INF/S0023.jsp").forward(req, resp);
@@ -77,6 +79,8 @@ public class S0023Servlet extends HttpServlet {
 		//カテゴリーリスト
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> pickCategoryMap = ServletUtils.getPickCategoryMap(req);
+		req.setAttribute("pickCategoryMap", pickCategoryMap);
 
 		//担当リスト
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
@@ -132,7 +136,7 @@ public class S0023Servlet extends HttpServlet {
 		if (req.getParameter("account").equals("")) {
 			errors.add("担当が未選択です。");
 		}
-		else if (ServletUtils.matchAccount(req.getParameter("account")) == false) {
+		else if (!ServletUtils.matchAccount(req.getParameter("account"))) {
 			//アカウントテーブルのチェック
 			errors.add("アカウントテーブルに存在しません。");
 		}
@@ -140,8 +144,9 @@ public class S0023Servlet extends HttpServlet {
 		//カテゴリーの必須入力
 		if (req.getParameter("category") == null) {
 			errors.add("商品カテゴリーが未選択です。");
-		}
-		else if (ServletUtils.matchCategory(req.getParameter("category")) == false) {
+		}else if (ServletUtils.matchPickCategory(req.getParameter("category"))) {
+			// 一致したらスルー
+		}else if (!ServletUtils.matchCategory(req.getParameter("category"))) {
 			//カテゴリーテーブルのチェック
 			errors.add("商品カテゴリーテーブルに存在しません。");
 		}

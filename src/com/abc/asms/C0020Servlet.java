@@ -81,9 +81,9 @@ public class C0020Servlet extends HttpServlet {
 		String lastDate = DateTimeFormatter.ofPattern("yyyy年MM月").format(lastDate1); // 表示用に書き換え（その前月
 
 		// 今月売上合計と前月売上合計,初期値0
-		int thisMonth = 0;
-		int lastMonth = 0;
-		int myTotal = 0;
+		long thisMonth = 0;
+		long lastMonth = 0;
+		long myTotal = 0;
 
 		try {
 			con = DBUtils.getConnection();
@@ -118,7 +118,7 @@ public class C0020Servlet extends HttpServlet {
 						rs.getInt("sale_number"));
 				list.add(a);
 				// 今月売上合計の計算
-				myTotal += rs.getInt("unit_price") * rs.getInt("sale_number");
+				myTotal += rs.getLong("unit_price") * rs.getLong("sale_number");
 			}
 
 			// 全体の売上合計の計算

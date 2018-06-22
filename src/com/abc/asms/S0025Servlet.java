@@ -48,8 +48,10 @@ public class S0025Servlet extends HttpServlet {
 
 
 		//カテゴリーリスト
-		Map<Integer, String> categoryMap = ServletUtils.getAllCategoryMap(req);
+		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> pickCategoryMap = ServletUtils.getPickCategoryMap(req);
+		req.setAttribute("pickCategoryMap", pickCategoryMap);
 
 		//担当リスト
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
@@ -118,7 +120,7 @@ public class S0025Servlet extends HttpServlet {
 			//検索条件削除(結合テスト修正箇所)
 			session.setAttribute("ssf", null);
 
-			resp.sendRedirect("S0021.html");
+			resp.sendRedirect("S0020.html");
 
 		}catch(Exception e){
 			throw new ServletException(e);

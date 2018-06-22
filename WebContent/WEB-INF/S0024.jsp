@@ -58,6 +58,14 @@
 									${HTMLUtils.escapeHTML(category.value)}
 								</label>
 							</c:forEach>
+							<c:forEach var="pickCategory" items="${pickCategoryMap}">
+								<label>
+									<input type="radio" name="category" value="${pickCategory.key}"
+									${saleList.category == pickCategory.key ? 'checked' : '' }
+									onclick="return false">
+									${HTMLUtils.escapeHTML(pickCategory.value)}
+								</label>
+							</c:forEach>
 						</div>
 					</div>
 

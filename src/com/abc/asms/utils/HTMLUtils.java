@@ -36,7 +36,7 @@ public class HTMLUtils {
 		}
 	}
 
-	public static long calcSum(int unitPrice, int saleNumber) {
+	public static long calcSum(long unitPrice, long saleNumber) {
 		return unitPrice * saleNumber;
 	}
 

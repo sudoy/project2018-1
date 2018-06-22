@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Accounts;
+import com.abc.asms.beans.Sales;
 
 public class ServletUtils {
 
@@ -56,6 +57,7 @@ public class ServletUtils {
 		}
 		return categoryMap;
 	}
+
 	public static Map<Integer, String> getAllCategoryMap(HttpServletRequest req) {
 
 		Map<Integer, String> categoryMap = new HashMap<Integer, String>();
@@ -91,6 +93,44 @@ public class ServletUtils {
 			}
 		}
 		return categoryMap;
+	}
+
+	public static Map<Integer, String> getPickCategoryMap(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Map<Integer, String> pickCategoryMap = new HashMap<Integer, String>();
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "select category_id, category_name "
+					+ "from categories "
+					+ "where category_id = ? AND active_flg = 0";
+
+			ps = con.prepareStatement(sql);
+			Sales categoryId = (Sales)session.getAttribute("saleList");
+			ps.setString(1, categoryId.getCategory());
+			rs = ps.executeQuery();
+
+			rs.next();
+			pickCategoryMap.put(rs.getInt("category_id"), rs.getString("category_name"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return pickCategoryMap;
 	}
 
 	public static Map<Integer, String> getAccountMap(HttpServletRequest req) {
@@ -219,13 +259,13 @@ public class ServletUtils {
 	}
 
 	// C0020用	全体の今月売上合計
-		public static int getTotalOfThisMonthForAll(LocalDate first, LocalDate last) {
+		public static long getTotalOfThisMonthForAll(LocalDate first, LocalDate last) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			String sql = null;
 			ResultSet rs = null;
 
-			int total = 0;
+			long total = 0;
 
 			try {
 				con = DBUtils.getConnection();
@@ -240,7 +280,7 @@ public class ServletUtils {
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
-					total += rs.getInt("unit_price") * rs.getInt("sale_number");
+					total += rs.getLong("unit_price") * rs.getLong("sale_number");
 				}
 
 			} catch (Exception e) {
@@ -258,13 +298,13 @@ public class ServletUtils {
 		}
 
 	// C0020用	全体の前月売上合計
-	public static int getTotalOfLastMonthForAll(LocalDate first, LocalDate last) {
+	public static long getTotalOfLastMonthForAll(LocalDate first, LocalDate last) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
 		ResultSet rs = null;
 
-		int total = 0;
+		long total = 0;
 
 		try {
 			con = DBUtils.getConnection();
@@ -279,7 +319,7 @@ public class ServletUtils {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				total += rs.getInt("unit_price") * rs.getInt("sale_number");
+				total += rs.getLong("unit_price") * rs.getLong("sale_number");
 			}
 
 		} catch (Exception e) {
@@ -358,6 +398,38 @@ public class ServletUtils {
 		}
 		return false;
 	}
+
+	// カテゴリーテーブルのバリデーションチェック用、特殊確認
+		public static boolean matchPickCategory(String category) {
+			Connection con = null;
+			PreparedStatement ps = null;
+			String sql = null;
+			ResultSet rs = null;
+
+			try {
+				con = DBUtils.getConnection();
+
+				sql = "SELECT category_name FROM categories WHERE active_flg = 0 AND category_id = ? ORDER BY category_id";
+
+				ps = con.prepareStatement(sql);
+				ps.setString(1, category);
+				rs = ps.executeQuery();
+
+				return rs.next();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					DBUtils.close(rs);
+					DBUtils.close(ps);
+					DBUtils.close(con);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return false;
+		}
 
 	// メールアドレス重複チェック == trueで弾く
 	public static boolean overlapMail(String mail) {

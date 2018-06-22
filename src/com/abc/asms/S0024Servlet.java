@@ -46,6 +46,8 @@ public class S0024Servlet extends HttpServlet {
 		//カテゴリーリスト
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> pickCategoryMap = ServletUtils.getPickCategoryMap(req);
+		req.setAttribute("pickCategoryMap", pickCategoryMap);
 
 		//担当リスト
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
@@ -77,6 +79,8 @@ public class S0024Servlet extends HttpServlet {
 		//カテゴリーリスト
 		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
+		Map<Integer, String> pickCategoryMap = ServletUtils.getPickCategoryMap(req);
+		req.setAttribute("pickCategoryMap", pickCategoryMap);
 
 		//担当リスト
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);

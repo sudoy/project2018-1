@@ -88,6 +88,25 @@
 								</c:forEach>
 							</c:if>
 
+							<c:if test="${param.category != null }">
+								<c:forEach var="pickCategory" items="${pickCategoryMap}">
+									<label>
+										<input type="radio" name="category" value="${pickCategory.key}"
+										${saleList.category == pickCategory.key ? 'checked' :  '' }>
+										${HTMLUtils.escapeHTML(pickCategory.value)}
+									</label>
+								</c:forEach>
+							</c:if>
+							<c:if test="${param.category == null }">
+								<c:forEach var="pickCategory" items="${pickCategoryMap}">
+									<label>
+										<input type="radio" name="category" value="${pickCategory.key}"
+										${saleList.category == pickCategory.key ? 'checked' :  '' }>
+										${HTMLUtils.escapeHTML(pickCategory.value)}
+									</label>
+								</c:forEach>
+							</c:if>
+
 						</div>
 					</div>
 
