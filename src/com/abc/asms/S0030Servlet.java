@@ -118,7 +118,6 @@ public class S0030Servlet extends HttpServlet {
 			return errors;
 		} else if(req.getParameter("mail").length() > 100) {
 			errors.add("メールアドレスが長すぎます。");
-			return errors;
 		}
 
 		//メールアドレスの形式チェック
