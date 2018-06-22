@@ -80,7 +80,7 @@
 					<div class="form-group">
 						<label for="price" class="col-sm-2 control-label">単価</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control text-right"name="unitPrice" id="price"
+							<input type="text" class="form-control text-right" name="unitPrice" id="price"
 							 placeholder="単価"
 							 value="<fmt:formatNumber value="${HTMLUtils.escapeHTML(saleList.unitPrice)}" />" readonly>
 						</div>
