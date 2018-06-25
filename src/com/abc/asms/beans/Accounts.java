@@ -4,9 +4,20 @@ public class Accounts {
 
 	private int accountId;
 	private String name;
+	private String kana;
 	private String mail;
 	private String password;
 	private int authority;
+
+	public Accounts(int accountId, String name, String kana, String mail, String password, int authority) {
+		super();
+		this.accountId = accountId;
+		this.name = name;
+		this.kana = kana;
+		this.mail = mail;
+		this.password = password;
+		this.authority = authority;
+	}
 
 	public Accounts(int accountId, String name, String mail, String password, int authority) {
 		super();
@@ -28,6 +39,12 @@ public class Accounts {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getKana() {
+		return kana;
+	}
+	public void setKana(String kana) {
+		this.kana = kana;
 	}
 	public String getMail() {
 		return mail;

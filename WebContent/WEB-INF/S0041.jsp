@@ -23,6 +23,7 @@
 			</div>
 
 			<div class="row">
+				<div class="col-sm-10 col-sm-offset-1">
 				<form class="form-horizontal" action="#" method="post">
 
 					<table class="table">
@@ -30,10 +31,10 @@
 							<c:if test="${check == 10 || check == 11}">
 								<th class="col-sm-2">操作</th>
 							</c:if>
-							<th class="col-sm-1">No</th>
-							<th class="col-sm-2">氏名</th>
-							<th class="col-sm-4">メールアドレス</th>
-							<th class="col-sm-4">権限</th>
+							<th class="text-right">No</th>
+							<th>氏名</th>
+							<th>メールアドレス</th>
+							<th>権限</th>
 						</tr>
 
 						<c:forEach var="account" items="${accountList}">
@@ -53,6 +54,7 @@
 					</table>
 
 				</form>
+				</div>
 			</div>
 
 		</div><!-- /container -->

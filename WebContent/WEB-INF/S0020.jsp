@@ -18,6 +18,12 @@
 		<jsp:include page="_errors.jsp" />
 		<jsp:include page="_successes.jsp" />
 
+		<style type="text/css">
+			<!-- checked{
+				background-color: yellow;
+			} -->
+		</style>
+
 			<div class="row col-md-offset-1">
 
 				<h1>売上検索条件入力</h1>
@@ -89,6 +95,7 @@
 
 
 		<jsp:include page="_footer.jsp" />
+
 
 
 	</body>

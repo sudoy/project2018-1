@@ -69,18 +69,25 @@ public class S0020Servlet extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 
 		//商品カテゴリーと担当をデータベースからとってくる。
-		Map<Integer, String> categoryMap = ServletUtils.getCategoryMap(req);
+		Map<Integer, String> categoryMap = ServletUtils.getAllCategoryMap(req);
 		req.setAttribute("categoryMap", categoryMap);
 
 		Map<Integer, String> accountMap = ServletUtils.getAccountMap(req);
 		req.setAttribute("accountMap", accountMap);
 
 		HttpSession session = req.getSession();
+		String start = req.getParameter("start");
+		String end = req.getParameter("end");
+		String account = req.getParameter("account");
+		String[] category = {"a"};
+		if(req.getParameter("category") != null) {
+			category = req.getParameterValues("category");
+		}
+		String tradeName = req.getParameter("tradeName");
+		String note = req.getParameter("note");
 
 		//入力結果を検索結果のページに送る。
-		SearchSaleForm ssf = new SearchSaleForm(req.getParameter("start"), req.getParameter("end"),
-				req.getParameter("account"), req.getParameterValues("category"),
-				req.getParameter("tradeName"), req.getParameter("note"));
+		SearchSaleForm ssf = new SearchSaleForm(start, end, account, category, tradeName, note);
 
 		//入力内容のチェック
 		List<String> errors = validate(req);
