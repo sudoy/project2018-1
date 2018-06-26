@@ -31,13 +31,14 @@
 				<div class="form-group">
 					<label for="person" class="col-sm-2 control-label">担当 </label>
 					<div class="col-sm-5">
-						<select class="form-control" id="person" name="account" >
+
 							<c:forEach var="account" items="${accountMap}">
 								<c:if test="${sales.account == account.key}">
-									<option value="${account.key}" selected>${HTMLUtils.escapeHTML(account.value)}</option>
+									<input type="text" class="form-control" value="${HTMLUtils.escapeHTML(account.value)}" readonly>
+									<input type="hidden" name="account" value="${account.key}" >
 								</c:if>
 							</c:forEach>
-						</select>
+
 					</div>
 				</div>
 

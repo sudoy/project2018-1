@@ -36,13 +36,13 @@
 					<div class="form-group">
 						<label for="person" class="col-sm-2 control-label">担当</label>
 						<div class="col-sm-5">
-							<select class="form-control" name="account" id="person">
-								<c:forEach var="account" items="${accountMap}">
-									<c:if test="${saleList.account == account.key }">
-										<option value="${account.key}" selected>${HTMLUtils.escapeHTML(account.value)}</option>
-									</c:if>
-								</c:forEach>
-							</select>
+							<c:forEach var="account" items="${accountMap}">
+								<c:if test="${saleList.account == account.key }">
+									<input type="text" class="form-control" value="${HTMLUtils.escapeHTML(account.value)}" readonly>
+									<input type="hidden" name="account" value="${account.key}" >
+								</c:if>
+							</c:forEach>
+
 						</div>
 					</div>
 

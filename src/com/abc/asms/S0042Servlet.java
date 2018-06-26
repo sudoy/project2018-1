@@ -39,6 +39,15 @@ public class S0042Servlet extends HttpServlet {
 			return;
 		}
 
+		//No97 アカウントIDなしでURL入力した場合
+		if(req.getParameter("accountId") == null) {
+			List<String> errors = new ArrayList<>();
+			errors.add("不正なアクセスです。");
+			session.setAttribute("errors", errors);
+			resp.sendRedirect("C0020.html");
+			return;
+		}
+
 
 		Connection con = null;
 		PreparedStatement ps = null;
