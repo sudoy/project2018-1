@@ -92,7 +92,7 @@ public class C0020Servlet extends HttpServlet {
 					"LEFT JOIN categories c ON s.category_id = c.category_id " +
 					"LEFT JOIN accounts a ON s.account_id = a.account_id " +
 					"WHERE s.sale_date BETWEEN ? AND ? AND s.account_id = ? " +
-					"ORDER BY s.sale_date DESC, s.unit_price * s.sale_number";
+					"ORDER BY s.sale_date DESC, s.unit_price * s.sale_number, s.sale_id";
 
 			// SELECT命令の準備
 			ps = con.prepareStatement(sql);

@@ -53,6 +53,19 @@ public class HTMLUtils {
 		}
 	}
 
+	public static double calcFluctuationRatio(double thisMonth, double lastMonth) {
+		double ratio = thisMonth / lastMonth;
+		if(thisMonth >=1 && lastMonth == 0) {
+			ratio = 999.9999;
+			return ratio - 1;
+		} else if(Double.isInfinite(ratio) || Double.isNaN(ratio)) {
+			ratio = 0;
+			return ratio;
+		} else {
+			return ratio - 1;
+		}
+	}
+
 	public static String formatMonth(String today) {
 		String s = today.substring(5);
 		if(s.indexOf("0") == 0) {

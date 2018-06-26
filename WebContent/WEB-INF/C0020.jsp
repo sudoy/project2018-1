@@ -54,45 +54,49 @@
 			<div class="col-sm-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">前月(${HTMLUtils.escapeHTML(HTMLUtils.formatMonth(lastDate))})の売上合計</div>
-					<div class="panel-body">
-						<span class="h4"><fmt:formatNumber value="${HTMLUtils.escapeHTML(lastMonth)}" />
-						円</span>
+					<div class="panel-body text-center">
+						<span class="h4"><fmt:formatNumber
+								value="${HTMLUtils.escapeHTML(lastMonth)}" /> 円</span>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">今月(${HTMLUtils.escapeHTML(HTMLUtils.formatMonth(date))})の売上合計</div>
-					<div class="panel-body">
-						<span class="h4"><fmt:formatNumber value="${HTMLUtils.escapeHTML(thisMonth)}" />
-						円</span>
+					<div class="panel-body text-center">
+						<span class="h4"><fmt:formatNumber
+								value="${HTMLUtils.escapeHTML(thisMonth)}" /> 円</span>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">前月比</div>
-					<div class="panel-body">
-					<c:if test="${lastMonth != 0 && HTMLUtils.calcRatio(thisMonth, lastMonth) < 1000}">
-					<span class="h4">
-					<fmt:formatNumber
-								value="${HTMLUtils.calcRatio(thisMonth, lastMonth)}"
-								pattern="#0.00%" /></span>
-						<span class="${HTMLUtils.judgeRatio(thisMonth, lastMonth) ? 'text-success' : 'text-danger'}">
+					<div class="panel-body text-center">
+						<c:if
+							test="${lastMonth != 0 && HTMLUtils.calcRatio(thisMonth, lastMonth) <= 5}">
+							<span class="h4"> <fmt:formatNumber
+									value="${HTMLUtils.calcRatio(thisMonth, lastMonth)}"
+									pattern="#0.00%" /></span>
 							( <c:if test="${HTMLUtils.judgeRatio(thisMonth, lastMonth)}">
-									+ <fmt:formatNumber
-								value="${HTMLUtils.calcRatio(thisMonth, lastMonth) - 1}"
-								pattern="#0.00%" />
-								</c:if>
-								<c:if test="${HTMLUtils.judgeRatio(thisMonth, lastMonth) == false}">
-									<fmt:formatNumber
-								value="${HTMLUtils.calcRatio(thisMonth, lastMonth) - 1}"
-								pattern="#0.00%" />
-								</c:if> )
-						</span>
+								<span class="text-success">+ <fmt:formatNumber
+										value="${HTMLUtils.calcFluctuationRatio(thisMonth, lastMonth)}"
+										pattern="#0.00%" /></span>
+							</c:if>
+							<c:if
+								test="${HTMLUtils.judgeRatio(thisMonth, lastMonth) == false}">
+								<span class="text-danger"><fmt:formatNumber
+										value="${HTMLUtils.calcFluctuationRatio(thisMonth, lastMonth)}"
+										pattern="#0.00%" /></span>
+							</c:if> )
 						</c:if>
-						<c:if test="${lastMonth == 0}"><span class="h4"> - </span></c:if>
-						<c:if test="${HTMLUtils.calcRatio(thisMonth, lastMonth) >= 1000}"><span class="h4"> ∞ </span></c:if>
+						<c:if test="${lastMonth == 0}">
+							<span class="h4"> ‐ </span>
+						</c:if>
+						<c:if
+							test="${lastMonth != 0 && HTMLUtils.calcRatio(thisMonth, lastMonth) > 5}">
+							<span class="h4"> ∞ </span>
+						</c:if>
 					</div>
 				</div>
 			</div>
