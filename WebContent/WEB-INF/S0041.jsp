@@ -19,11 +19,11 @@
 		<jsp:include page="_successes.jsp" />
 
 			<div class="row">
-				<h1>アカウント検索結果一覧</h1>
+				<h1 class="col-sm-12">アカウント検索結果一覧</h1>
 			</div>
 
 			<div class="row">
-				<div class="col-sm-10 col-sm-offset-1">
+				<div class="col-sm-12">
 				<form class="form-horizontal" action="#" method="post">
 
 					<table class="table">
@@ -31,10 +31,10 @@
 							<c:if test="${check == 10 || check == 11}">
 								<th class="col-sm-2">操作</th>
 							</c:if>
-							<th class="text-right">No</th>
-							<th>氏名</th>
+							<th class="col-sm-3">氏名</th>
+							<th class="col-sm-2">No(ここｶﾅに変えてね)</th>
 							<th>メールアドレス</th>
-							<th>権限</th>
+							<th class="col-sm-2">権限</th>
 						</tr>
 
 						<c:forEach var="account" items="${accountList}">
@@ -45,8 +45,8 @@
 										<a href="S0044.html?accountId=${account.accountId}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 削 除</a>
 									</td>
 								</c:if>
-								<td class="text-right">${account.accountId}</td>
 								<td>${HTMLUtils.escapeHTML(account.name)}</td>
+								<td class="text-right">${account.accountId}</td>
 								<td>${HTMLUtils.escapeHTML(account.mail)}</td>
 								<td>${HTMLUtils.formatAuthority(account.authority)}</td>
 							</tr>
