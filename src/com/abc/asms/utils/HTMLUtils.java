@@ -61,6 +61,13 @@ public class HTMLUtils {
 		return s;
 	}
 
+	public static String formatCenterMonth(String today) {
+		if(today.lastIndexOf("0") == 5) {
+			return today.replace("年0", "年");
+		}
+		return today;
+	}
+
 	public static String deleteComma(String Numbers) {
 		return Numbers.replaceAll(",","");
 	}

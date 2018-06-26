@@ -10,18 +10,15 @@
 </head>
 <body>
 	<jsp:include page="_navbar.jsp" />
-	<jsp:include page="_successes.jsp" />
-	<jsp:include page="_errors.jsp" />
-
 	<div class="container">
-
-<div class="container col-sm-offset-1">
+		<jsp:include page="_successes.jsp" />
+		<jsp:include page="_errors.jsp" />
 		<div class="row">
-			<h1 class="col-sm-6 col-sm-offset-3">ダッシュボード</h1>
+			<h1 class="col-sm-12 text-center">ダッシュボード</h1>
 		</div>
 
-	<div class="row">
-		<div class="col-sm-3">
+		<div class="row">
+			<div class="col-sm-4">
 
 				<ul class="pagination">
 					<li class="page-item"><a class="page-link"
@@ -33,100 +30,113 @@
 							class="glyphicon glyphicon-chevron-left"></span> 前月</a></li>
 				</ul>
 
-		</div>
+			</div>
 
-		<div class="col-sm-4">
-			<h2 class="font-weight-bold">${HTMLUtils.escapeHTML(date)}</h2>
-		</div>
+			<div class="col-sm-4 text-center">
+				<h2 class="font-weight-bold">
+					<strong>${HTMLUtils.escapeHTML(HTMLUtils.formatCenterMonth(date))}</strong>
+				</h2>
+			</div>
 
-		<div class="col-sm-3">
+			<div class="col-sm-4 text-right">
+				<ul class="pagination">
+					<li class="page-item"><a class="page-link"
+						href="C0020.html?n=${HTMLUtils.escapeHTML(date)}">翌月 <span
+							class="glyphicon glyphicon-chevron-right"></span></a></li>
+					<li class="page-item"><a class="page-link"
+						href="C0020.html?ny=${HTMLUtils.escapeHTML(date)}">翌年 <span
+							class="glyphicon glyphicon-chevron-right"></span><span
+							class="glyphicon glyphicon-chevron-right"></span></a></li>
+				</ul>
 
-			<ul class="pagination">
-				<li class="page-item"><a class="page-link"
-					href="C0020.html?n=${HTMLUtils.escapeHTML(date)}">翌月 <span
-						class="glyphicon glyphicon-chevron-right"></span></a></li>
-				<li class="page-item"><a class="page-link"
-					href="C0020.html?ny=${HTMLUtils.escapeHTML(date)}">翌年 <span
-						class="glyphicon glyphicon-chevron-right"></span><span
-						class="glyphicon glyphicon-chevron-right"></span></a></li>
-			</ul>
+			</div>
 
-		</div>
-
-		<div class="col-sm-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">前月(${HTMLUtils.escapeHTML(HTMLUtils.formatMonth(lastDate))})の売上合計</div>
-				<div class="panel-body">
-					<fmt:formatNumber value="${HTMLUtils.escapeHTML(lastMonth)}" />
-					円
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">前月(${HTMLUtils.escapeHTML(HTMLUtils.formatMonth(lastDate))})の売上合計</div>
+					<div class="panel-body">
+						<span class="h4"><fmt:formatNumber value="${HTMLUtils.escapeHTML(lastMonth)}" />
+						円</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">今月(${HTMLUtils.escapeHTML(HTMLUtils.formatMonth(date))})の売上合計</div>
-				<div class="panel-body">
-					<fmt:formatNumber value="${HTMLUtils.escapeHTML(thisMonth)}" />
-					円
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">今月(${HTMLUtils.escapeHTML(HTMLUtils.formatMonth(date))})の売上合計</div>
+					<div class="panel-body">
+						<span class="h4"><fmt:formatNumber value="${HTMLUtils.escapeHTML(thisMonth)}" />
+						円</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">前月比</div>
-				<div class="panel-body">
-					<span
-						class="${HTMLUtils.judgeRatio(thisMonth, lastMonth) ? 'text-success' : 'text-danger'}">
-						<c:choose>
-							<c:when test="${HTMLUtils.judgeRatio(thisMonth, lastMonth)}">
-								<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-							</c:when>
-							<c:otherwise>
-								<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-							</c:otherwise>
-						</c:choose> <fmt:formatNumber
-							value="${HTMLUtils.calcRatio(thisMonth, lastMonth)}"
-							pattern="##0.00%" />
-					</span>
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">前月比</div>
+					<div class="panel-body">
+					<c:if test="${lastMonth != 0 && HTMLUtils.calcRatio(thisMonth, lastMonth) < 1000}">
+					<span class="h4">
+					<fmt:formatNumber
+								value="${HTMLUtils.calcRatio(thisMonth, lastMonth)}"
+								pattern="#0.00%" /></span>
+						<span class="${HTMLUtils.judgeRatio(thisMonth, lastMonth) ? 'text-success' : 'text-danger'}">
+							( <c:if test="${HTMLUtils.judgeRatio(thisMonth, lastMonth)}">
+									+ <fmt:formatNumber
+								value="${HTMLUtils.calcRatio(thisMonth, lastMonth) - 1}"
+								pattern="#0.00%" />
+								</c:if>
+								<c:if test="${HTMLUtils.judgeRatio(thisMonth, lastMonth) == false}">
+									<fmt:formatNumber
+								value="${HTMLUtils.calcRatio(thisMonth, lastMonth) - 1}"
+								pattern="#0.00%" />
+								</c:if> )
+						</span>
+						</c:if>
+						<c:if test="${lastMonth == 0}"><span class="h4"> - </span></c:if>
+						<c:if test="${HTMLUtils.calcRatio(thisMonth, lastMonth) >= 1000}"><span class="h4"> ∞ </span></c:if>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="col-sm-9">
-			<div class="panel panel-default">
-				<div class="panel-heading">今月の${HTMLUtils.escapeHTML(accounts.name)}さんの売上</div>
+			<div class="col-sm-12">
+				<div class="panel panel-default table-responsive">
+					<div class="panel-heading">
+						<h4>
+							今月の <strong>${HTMLUtils.escapeHTML(accounts.name)}</strong> さんの売上
+						</h4>
+					</div>
 
-				<table class="table">
-					<tr>
-						<th>No</th>
-						<th>販売日</th>
-						<th>商品カテゴリー</th>
-						<th>商品名</th>
-						<th>単価</th>
-						<th>個数</th>
-						<th>小計</th>
-					</tr>
-					<c:forEach var="sales" items="${list}">
+					<table class="table">
 						<tr>
-							<th class="text-right">${HTMLUtils.escapeHTML(sales.saleId)}</th>
-							<td>${HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(sales.saleDate))}</td>
-							<td>${HTMLUtils.escapeHTML(sales.category)}</td>
-							<td>${HTMLUtils.escapeHTML(sales.tradeName)}</td>
-							<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(sales.unitPrice)}" /></td>
-							<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(sales.saleNumber)}" /></td>
-							<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(HTMLUtils.calcSum(sales.unitPrice, sales.saleNumber))}" /></td>
+							<th class="col-sm-1 text-center">販売日</th>
+							<th class="col-sm-2">商品カテゴリー</th>
+							<th class="col-sm-6">商品名</th>
+							<th class="col-sm-1 text-right">単価</th>
+							<th class="col-sm-1 text-right">個数</th>
+							<th class="col-sm-1 text-right">小計</th>
 						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="5"></td>
-						<th>合計</th>
-						<td class="text-right"><fmt:formatNumber value="${HTMLUtils.escapeHTML(myTotal)}" /></td>
-					</tr>
-				</table>
+						<c:forEach var="sales" items="${list}">
+							<tr>
+								<td>${HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(sales.saleDate))}</td>
+								<td>${HTMLUtils.escapeHTML(sales.category)}</td>
+								<td>${HTMLUtils.escapeHTML(sales.tradeName)}</td>
+								<td class="text-right"><fmt:formatNumber
+										value="${HTMLUtils.escapeHTML(sales.unitPrice)}" /></td>
+								<td class="text-right"><fmt:formatNumber
+										value="${HTMLUtils.escapeHTML(sales.saleNumber)}" /></td>
+								<td class="text-right"><fmt:formatNumber
+										value="${HTMLUtils.escapeHTML(HTMLUtils.calcSum(sales.unitPrice, sales.saleNumber))}" /></td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td colspan="4"></td>
+							<th>合計</th>
+							<td class="text-right"><fmt:formatNumber
+									value="${HTMLUtils.escapeHTML(myTotal)}" /></td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
-		</div>
-	</div>
 
 	</div>
 	<!-- /container -->
