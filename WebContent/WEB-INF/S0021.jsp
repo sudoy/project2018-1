@@ -19,11 +19,11 @@
 			<jsp:include page="_errors.jsp" />
 
 			<div class="row">
-				<h1>売上検索結果表示</h1>
+				<h1 class="col-sm-12">売上検索結果表示</h1>
 			</div>
 
 			<div class="row">
-
+			<div class="col-sm-12">
 				<table class="table">
 					<tr>
 						<th class="col-sm-1">操作</th>
@@ -51,7 +51,7 @@
 					</tr>
 					</c:forEach>
 				</table>
-
+			</div>
 			</div>
 
 		</div><!-- /container -->
