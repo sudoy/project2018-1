@@ -102,7 +102,7 @@ public class S0021Servlet extends HttpServlet {
 			sqlParameter.add("%" + ssf.getNote() + "%");
 		}
 
-		sql = sql.concat(" order by s.sale_id desc");
+		sql = sql.concat(" order by s.sale_date desc, a.kana, s.unit_price * s.sale_number");
 
 		try{
 			//データベースからデータを取得

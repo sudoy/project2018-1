@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -135,7 +136,7 @@ public class ServletUtils {
 
 	public static Map<Integer, String> getAccountMap(HttpServletRequest req) {
 
-		Map<Integer, String> accountMap = new HashMap<Integer, String>();
+		Map<Integer, String> accountMap = new LinkedHashMap<Integer, String>();
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -147,7 +148,7 @@ public class ServletUtils {
 
 			sql = "select account_id, name "
 					+ "from accounts "
-					+ "order by account_id";
+					+ "order by kana";
 
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
