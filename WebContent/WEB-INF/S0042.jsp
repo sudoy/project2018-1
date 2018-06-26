@@ -68,11 +68,11 @@
 							<c:if test="${param.authority1 != null}">
 								<label class="radio-inline">
 									<input type="radio" name="authority1" value="0"
-									${param.authority1 == 0 ? 'checked' : ''}> 権限なし
+									${param.authority1 == 0 ? 'checked' : ''}><span> 権限なし</span>
 								</label>
 								<label class="radio-inline">
 									<input type="radio" name="authority1" value="1"
-									${param.authority1 == 1 ? 'checked' : ''}> 権限あり
+									${param.authority1 == 1 ? 'checked' : ''}><span> 権限あり</span>
 								</label>
 							</c:if>
 
@@ -80,12 +80,12 @@
 								<label class="radio-inline">
 									<input type="radio" name="authority1" value="0"
 									${editAccount.authority == 0 ? 'checked' : editAccount.authority == 10 ? 'checked'
-									: ''}> 権限なし
+									: ''}><span> 権限なし</span>
 								</label>
 								<label class="radio-inline">
 									<input type="radio" name="authority1" value="1"
 									${editAccount.authority == 1 ? 'checked' : editAccount.authority == 11 ? 'checked'
-									: ''}> 権限あり
+									: ''}><span> 権限あり</span>
 								</label>
 							</c:if>
 						</div>
@@ -97,11 +97,11 @@
 							<c:if test="${param.authority2 != null}">
 								<label class="radio-inline">
 									<input type="radio" name="authority2" value="0"
-									${param.authority2 == 0 ? 'checked' : ''}> 権限なし
+									${param.authority2 == 0 ? 'checked' : ''}><span> 権限なし</span>
 								</label>
 								<label class="radio-inline">
 									<input type="radio" name="authority2" value="10"
-									${param.authority2 == 10 ? 'checked' : ''}> 権限あり
+									${param.authority2 == 10 ? 'checked' : ''}><span> 権限あり</span>
 								</label>
 							</c:if>
 
@@ -109,12 +109,12 @@
 								<label class="radio-inline">
 									<input type="radio" name="authority2" value="0"
 									${editAccount.authority == 0 ? 'checked' : editAccount.authority == 1 ? 'checked'
-									: ''}> 権限なし
+									: ''}><span> 権限なし</span>
 								</label>
 								<label class="radio-inline">
 									<input type="radio" name="authority2" value="10"
 									${editAccount.authority == 10 ? 'checked' : editAccount.authority == 11 ? 'checked'
-									: ''}> 権限あり
+									: ''}><span> 権限あり</span>
 								</label>
 							</c:if>
 						</div>

@@ -40,13 +40,16 @@
 						<label class="col-sm-2 control-label">売上登録権限</label>
 						<div class="col-sm-5">
 							<label class="radio-inline">
-								<input type="radio" name="saleAuthority" value="0,1" ${saf.saleAuthority == "0,1" || saf.saleAuthority == null ? "checked" : ""}> 全て
+								<input type="radio" name="saleAuthority" value="0,1"
+								${saf.saleAuthority == "0,1" || saf.saleAuthority == null ? "checked" : ""}><span> 全て</span>
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="saleAuthority" value="0" ${saf.saleAuthority == "0" ? "checked" : ""}> 権限なし
+								<input type="radio" name="saleAuthority" value="0"
+								${saf.saleAuthority == "0" ? "checked" : ""}><span> 権限なし</span>
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="saleAuthority" value="1" ${saf.saleAuthority == "1" ? "checked" : ""}> 権限あり
+								<input type="radio" name="saleAuthority" value="1"
+								${saf.saleAuthority == "1" ? "checked" : ""}><span> 権限あり</span>
 							</label>
 						</div>
 					</div>
@@ -55,13 +58,16 @@
 						<label class="col-sm-2 control-label">アカウント権限</label>
 						<div class="col-sm-5">
 							<label class="radio-inline">
-								<input type="radio" name="accountAuthority" value="0,1" ${saf.accountAuthority == "0,1" || saf.accountAuthority == null ? "checked" : ""}> 全て
+								<input type="radio" name="accountAuthority" value="0,1"
+								${saf.accountAuthority == "0,1" || saf.accountAuthority == null ? "checked" : ""}><span> 全て</span>
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="accountAuthority" value="0" ${saf.accountAuthority == "0" ? "checked" : ""}> 権限なし
+								<input type="radio" name="accountAuthority" value="0"
+								${saf.accountAuthority == "0" ? "checked" : ""}><span> 権限なし</span>
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="accountAuthority" value="1" ${saf.accountAuthority == "1" ? "checked" : ""}> 権限あり
+								<input type="radio" name="accountAuthority" value="1"
+								${saf.accountAuthority == "1" ? "checked" : ""}><span> 権限あり</span>
 							</label>
 						</div>
 					</div>

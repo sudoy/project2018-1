@@ -50,7 +50,8 @@
 							<label> <input type="radio"
 								name="category" value="${category.key}"
 								${sales.category == category.key ? 'checked' : ''}
-								onclick="return false">${HTMLUtils.escapeHTML(category.value)}
+								onclick="return false">
+								<span> ${HTMLUtils.escapeHTML(category.value)}</span>
 							</label>
 						</c:forEach>
 					</div>

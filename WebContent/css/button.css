@@ -1,0 +1,39 @@
+
+
+
+label input[type="radio"]:checked + span{
+	color: #fff;
+	background-color: #777;
+	border-radius: 6px;
+	display: inline-block;
+	border: 1px solid #777;
+	padding: 2px 7px;
+	vertical-align: 2px;
+}
+
+label input[type="checkbox"]:checked + span{
+	color: #fff;
+	background-color: #777;
+	border-radius: 6px;
+	display: inline-block;
+	border: 1px solid #777;
+	padding: 2px 7px;
+	margin-top: -2px;
+}
+
+label input[type="radio"] + span{
+	border-radius: 6px;
+	display: inline-block;
+	border: 1px solid #fff;
+	padding: 2px 7px;
+	vertical-align: 2px;
+}
+
+label input[type="checkbox"] + span{	
+	border-radius: 6px;
+	display: inline-block;
+	border: 1px solid #fff;
+	padding: 2px 7px;
+	margin-top: -2px;
+}
+

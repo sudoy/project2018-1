@@ -64,9 +64,11 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<label class="radio-inline"> <input type="radio"
-							name="authority1" value="0" ${param.authority1 == 0 ? 'checked' : entry.authority == 0 || entry.authority == 10 ? 'checked' : ''}> 権限なし
+							name="authority1" value="0" ${param.authority1 == 0 ? 'checked' :
+							entry.authority == 0 || entry.authority == 10 ? 'checked' : ''}><span> 権限なし</span>
 						</label> <label class="radio-inline"> <input type="radio"
-							name="authority1" value="1" ${param.authority1 == 1 ? 'checked' : entry.authority == 1 || entry.authority == 11 ? 'checked' : ''}> 権限あり
+							name="authority1" value="1" ${param.authority1 == 1 ? 'checked' :
+							entry.authority == 1 || entry.authority == 11 ? 'checked' : ''}><span> 権限あり</span>
 						</label>
 					</div>
 				</div>
@@ -76,9 +78,11 @@
 						class="badge">必須</span></label>
 					<div class="col-sm-5">
 						<label class="radio-inline"> <input type="radio"
-							name="authority2" value="0" ${param.authority2 == 0 ? 'checked' : entry.authority == 0 || entry.authority == 1 ? 'checked' : ''}> 権限なし
+							name="authority2" value="0" ${param.authority2 == 0 ? 'checked' :
+							 entry.authority == 0 || entry.authority == 1 ? 'checked' : ''}><span> 権限なし</span>
 						</label> <label class="radio-inline"> <input type="radio"
-							name="authority2" value="10" ${param.authority2 == 10 ? 'checked' : entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}> 権限あり
+							name="authority2" value="10" ${param.authority2 == 10 ? 'checked' :
+							 entry.authority == 10 || entry.authority == 11 ? 'checked' : ''}><span> 権限あり</span>
 						</label>
 					</div>
 				</div>

@@ -54,7 +54,8 @@
 					<c:forEach var="category" items="${categoryMap}">
 						<label> <input type="radio"
 							name="category" value="${category.key}"
-							${param.category == category.key ? 'checked' :sales.category == category.key ? 'checked' : ''}>${HTMLUtils.escapeHTML(category.value)}
+							${param.category == category.key ? 'checked' :sales.category == category.key ? 'checked' : ''}>
+							<span> ${HTMLUtils.escapeHTML(category.value)}</span>
 						</label>
 					</c:forEach>
 				</div>

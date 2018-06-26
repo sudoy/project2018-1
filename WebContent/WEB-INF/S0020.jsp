@@ -18,12 +18,6 @@
 		<jsp:include page="_errors.jsp" />
 		<jsp:include page="_successes.jsp" />
 
-		<style type="text/css">
-			<!-- checked{
-				background-color: yellow;
-			} -->
-		</style>
-
 			<div class="row col-md-offset-1">
 
 				<h1>売上検索条件入力</h1>
@@ -61,7 +55,8 @@
 						<div class="col-sm-5">
 							<c:forEach var="category" items="${categoryMap}" varStatus="s">
 								<label>
-									<input type="checkbox" name="category" value="${HTMLUtils.escapeHTML(category.key)}" ${HTMLUtils.judgeCheckbox(ssf.category, category.key) ? 'checked' : ''}>${HTMLUtils.escapeHTML(category.value)}
+									<input type="checkbox" name="category" value="${HTMLUtils.escapeHTML(category.key)}" ${HTMLUtils.judgeCheckbox(ssf.category, category.key) ? 'checked' : ''}>
+									<span> ${HTMLUtils.escapeHTML(category.value)}</span>
 								</label>
 							</c:forEach>
 						</div>

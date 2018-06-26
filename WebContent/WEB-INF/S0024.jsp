@@ -55,7 +55,7 @@
 									<input type="radio" name="category" value="${category.key}"
 									${saleList.category == category.key ? 'checked' : '' }
 									onclick="return false">
-									${HTMLUtils.escapeHTML(category.value)}
+									<span> ${HTMLUtils.escapeHTML(category.value)}</span>
 								</label>
 							</c:forEach>
 							<c:forEach var="pickCategory" items="${pickCategoryMap}">
@@ -63,7 +63,7 @@
 									<input type="radio" name="category" value="${pickCategory.key}"
 									${saleList.category == pickCategory.key ? 'checked' : '' }
 									onclick="return false">
-									${HTMLUtils.escapeHTML(pickCategory.value)}
+									<span> ${HTMLUtils.escapeHTML(pickCategory.value)}</span>
 								</label>
 							</c:forEach>
 						</div>

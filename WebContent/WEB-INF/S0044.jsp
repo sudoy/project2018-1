@@ -64,13 +64,13 @@
 								<input type="radio" name="authority1" value="0"
 								${deleteAccount.authority == 0 ? 'checked'
 								: deleteAccount.authority == 10 ? 'checked' : ''}
-								onclick="return false"> 権限なし
+								onclick="return false"><span> 権限なし</span>
 							</label>
 							<label class="radio-inline">
 								<input type="radio" name="authority1" value="1"
 								${deleteAccount.authority == 1 ? 'checked'
 								: deleteAccount.authority == 11 ? 'checked' : ''}
-								onclick="return false"> 権限あり
+								onclick="return false"><span> 権限あり</span>
 							</label>
 						</div>
 					</div>
@@ -82,13 +82,13 @@
 								<input type="radio" name="authority2" value="0"
 								${deleteAccount.authority == 0 ? 'checked'
 								: deleteAccount.authority == 1 ? 'checked' : ''}
-								onclick="return false"> 権限なし
+								onclick="return false"><span> 権限なし</span>
 							</label>
 							<label class="radio-inline">
 								<input type="radio" name="authority2" value="10"
 								${deleteAccount.authority == 10 ? 'checked'
 								: deleteAccount.authority == 11 ? 'checked' : ''}
-								onclick="return false"> 権限あり
+								onclick="return false"><span> 権限あり</span>
 							</label>
 						</div>
 					</div>

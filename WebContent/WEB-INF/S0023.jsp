@@ -73,7 +73,7 @@
 									<label>
 										<input type="radio" name="category" value="${category.key}"
 										${param.category == category.key ? 'checked' :  '' }>
-										${HTMLUtils.escapeHTML(category.value)}
+										<span> ${HTMLUtils.escapeHTML(category.value)}</span>
 									</label>
 								</c:forEach>
 							</c:if>
@@ -83,7 +83,7 @@
 									<label>
 										<input type="radio" name="category" value="${category.key}"
 										${saleList.category == category.key ? 'checked' :  '' }>
-										${HTMLUtils.escapeHTML(category.value)}
+										<span> ${HTMLUtils.escapeHTML(category.value)}</span>
 									</label>
 								</c:forEach>
 							</c:if>
@@ -93,7 +93,7 @@
 									<label>
 										<input type="radio" name="category" value="${pickCategory.key}"
 										${saleList.category == pickCategory.key ? 'checked' :  '' }>
-										${HTMLUtils.escapeHTML(pickCategory.value)}
+										<span> ${HTMLUtils.escapeHTML(pickCategory.value)}</span>
 									</label>
 								</c:forEach>
 							</c:if>
@@ -102,7 +102,7 @@
 									<label>
 										<input type="radio" name="category" value="${pickCategory.key}"
 										${saleList.category == pickCategory.key ? 'checked' :  '' }>
-										${HTMLUtils.escapeHTML(pickCategory.value)}
+										<span> ${HTMLUtils.escapeHTML(pickCategory.value)}</span>
 									</label>
 								</c:forEach>
 							</c:if>
