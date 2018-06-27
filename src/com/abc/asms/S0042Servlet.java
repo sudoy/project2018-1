@@ -178,33 +178,50 @@ public class S0042Servlet extends HttpServlet {
 		}
 
 
-		//メールアドレス必須チェック
-		if(req.getParameter("mail").equals("")) {
+		//メールアドレスチェック
+		String mail = req.getParameter("mail");
+		//必須チェック
+		if(mail.equals("") || mail == null) {
 			errors.add("メールアドレスを入力して下さい。");
-		}else{
-			//メールアドレス長さチェック
-			if(req.getParameter("mail").length() > 100) {
+
+		}else if(!mail.equals("")){
+			//長さチェック
+			if(mail.length() > 100) {
 				errors.add("メールアドレスが長すぎます。");
 			}
 
 			//メールアドレスの形式チェック
-			String mail = req.getParameter("mail");
-			if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
-				errors.add("メールアドレスを正しく入力して下さい。");
-			}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
-				errors.add("メールアドレスを正しく入力して下さい。");
-			}else if(mail.charAt(mail.length() -1) == '.') {
-				errors.add("メールアドレスを正しく入力して下さい。");
+			//先頭文字チェック
+			if(!mail.matches("[a-zA-Z0-9].*")) {
+				errors.add("メールアドレスの先頭はアルファベットか数字を入力して下さい。");
+			}
+
+			if(mail.contains("@")) {
+				if(!mail.matches("^[a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
+					errors.add("メールアドレスに使用可能な記号は「._-」です。");
+				}
+				if(!mail.substring(mail.indexOf("@")).contains(".")) {
+					errors.add("@以降には.を入れて下さい。");
+				}
+			}else{
+				errors.add("メールアドレスには@を入力して下さい。");
+				errors.add("@以降には.を入れて下さい。");
+				if(!mail.matches("^[a-zA-Z0-9\\._\\-]*$")) {
+					errors.add("メールアドレスに使用可能な記号は「._-」です。");
+				}
+			}
+
+			if(mail.charAt(mail.length() -1) == '.') {
+				errors.add("メールアドレスは.で終わらないでください。");
 			}
 
 			//メールアドレスの重複チェック
 			Accounts editAccount = (Accounts) session.getAttribute("editAccount");
-			if(!editAccount.getMail().equals(req.getParameter("mail"))){
-				if(ServletUtils.overlapMail(req.getParameter("mail"))) {
+			if(!editAccount.getMail().equals(mail)){
+				if(ServletUtils.overlapMail(mail)) {
 					errors.add("メールアドレスが既に登録されています。");
 				}
 			}
-
 		}
 
 		//パスワード長さチェック

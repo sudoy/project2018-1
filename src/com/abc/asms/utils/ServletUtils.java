@@ -581,5 +581,66 @@ public class ServletUtils {
 		}
 	}
 
+	// C0010でメールアドレスが登録されているかチェック
+	public static boolean checkMail(String account) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT name FROM accounts WHERE mail = ?";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, account);
+			rs = ps.executeQuery();
+			return rs.next();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	// C0010でパスワードのチェック
+	public static boolean checkPassword(String account) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT name FROM accounts WHERE password = MD5(?)";
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, account);
+			rs = ps.executeQuery();
+			return rs.next();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
 
 }

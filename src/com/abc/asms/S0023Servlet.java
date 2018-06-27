@@ -125,11 +125,11 @@ public class S0023Servlet extends HttpServlet {
 				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("uuuu/M/d")
 						.withResolverStyle(ResolverStyle.STRICT));
 			} catch (Exception p) {
-				errors.add("販売日を正しく入力して下さい。");
+				errors.add("販売日はYYYY/MM/DDの形式で入力して下さい。");
 			}
 		}else {
 			//必須入力
-			errors.add("販売日を入力して下さい。");
+			errors.add("販売日はYYYY/MM/DDの形式で入力して下さい。");
 		}
 
 		// 担当の必須入力
@@ -138,7 +138,7 @@ public class S0023Servlet extends HttpServlet {
 		}
 		else if (!ServletUtils.matchAccount(req.getParameter("account"))) {
 			//アカウントテーブルのチェック
-			errors.add("アカウントテーブルに存在しません。");
+			errors.add("担当が存在しません。");
 		}
 
 		//カテゴリーの必須入力
@@ -148,7 +148,7 @@ public class S0023Servlet extends HttpServlet {
 			// 一致したらスルー
 		}else if (!ServletUtils.matchCategory(req.getParameter("category"))) {
 			//カテゴリーテーブルのチェック
-			errors.add("商品カテゴリーテーブルに存在しません。");
+			errors.add("商品が存在しません。");
 		}
 
 		//商品名の必須入力
@@ -172,11 +172,11 @@ public class S0023Servlet extends HttpServlet {
 			try {
 				int a = Integer.parseInt(req.getParameter("unitPrice"));
 				if (!req.getParameter("unitPrice").equals("") && a < 1) {
-					errors.add("単価を正しく入力して下さい。");
+					errors.add("単価は整数かつ1以上で入力して下さい。");
 				}
 
 			}catch(Exception e) {
-				errors.add("単価を正しく入力して下さい。");
+				errors.add("単価は整数かつ1以上で入力して下さい。");
 			}
 		}
 
@@ -195,11 +195,11 @@ public class S0023Servlet extends HttpServlet {
 			try {
 				int a = Integer.parseInt(req.getParameter("saleNumber"));
 				if (!req.getParameter("saleNumber").equals("") && a < 1) {
-					errors.add("個数を正しく入力して下さい。");
+					errors.add("個数は整数かつ1以上で入力して下さい。");
 				}
 
 			}catch(Exception e) {
-				errors.add("個数を正しく入力して下さい。");
+				errors.add("個数は整数かつ1以上で入力して下さい。");
 			}
 		}
 

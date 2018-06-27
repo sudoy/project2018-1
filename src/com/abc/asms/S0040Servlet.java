@@ -97,10 +97,26 @@ public class S0040Servlet extends HttpServlet {
 
 			//メールアドレスの形式チェック
 			String mail = req.getParameter("mail");
-			if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
-				errors.add("メールアドレスを正しく入力して下さい。");
-			}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
-				errors.add("メールアドレスを正しく入力して下さい。");
+			if(!mail.matches("[a-zA-Z0-9].*")) {
+				errors.add("メールアドレスの先頭はアルファベットか数字を入力して下さい。");
+			}
+
+			if(mail.contains("@")) {
+				if(!mail.matches("^[a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
+					errors.add("メールアドレスに使用可能な記号は「._-」です。");
+				}
+				if(!mail.substring(mail.indexOf("@")).contains(".")) {
+					errors.add("@以降には.を入れて下さい。");
+				}
+			}else{
+				errors.add("メールアドレスには@を入力して下さい。");
+				errors.add("@以降には.を入れて下さい。");
+				if(!mail.matches("^[a-zA-Z0-9\\._\\-]*$")) {
+					errors.add("メールアドレスに使用可能な記号は「._-」です。");
+				}
+			}
+			if(mail.charAt(mail.length() -1) == '.') {
+				errors.add("メールアドレスは.で終わらないでください。");
 			}
 		}
 

@@ -123,7 +123,7 @@ public class S0020Servlet extends HttpServlet {
 				dateS = LocalDate.parse(start, DateTimeFormatter.ofPattern("uuuu/M/d")
 						.withResolverStyle(ResolverStyle.STRICT));
 			} catch (Exception p) {
-				errors.add("販売日（検索開始日）を正しく入力して下さい。");
+				errors.add("販売日（検索開始日）はYYYY/MM/DDの形式で入力して下さい。");
 			}
 		}
 		if(!end.equals("")) {
@@ -131,7 +131,7 @@ public class S0020Servlet extends HttpServlet {
 				dateE = LocalDate.parse(end, DateTimeFormatter.ofPattern("uuuu/M/d")
 						.withResolverStyle(ResolverStyle.STRICT));
 			} catch (Exception p) {
-				errors.add("販売日（検索終了日）を正しく入力して下さい。");
+				errors.add("販売日（検索終了日）はYYYY/MM/DDの形式で入力して下さい。");
 			}
 		}
 

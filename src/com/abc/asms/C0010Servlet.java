@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.abc.asms.beans.Accounts;
 import com.abc.asms.utils.DBUtils;
+import com.abc.asms.utils.ServletUtils;
 
 @WebServlet("/C0010.html")
 public class C0010Servlet extends HttpServlet {
@@ -98,36 +99,62 @@ public class C0010Servlet extends HttpServlet {
 
 		List<String> errors = new ArrayList<>();
 
+		//アドレスチェック
+		String mail = req.getParameter("mail");
+		//必須チェック
+		if(mail.equals("") || mail == null) {
+			errors.add("メールアドレスを入力して下さい。");
+
+		}else if(!mail.equals("")){
+			//長さチェック
+			if(mail.length() > 100) {
+				errors.add("メールアドレスが長すぎます。");
+			}
+
+			//メールアドレスの形式チェック
+			//先頭文字チェック
+			if(!mail.matches("[a-zA-Z0-9].*")) {
+				errors.add("メールアドレスの先頭はアルファベットか数字を入力して下さい。");
+			}
+
+			if(mail.contains("@")) {
+				if(!mail.matches("^[a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
+					errors.add("メールアドレスに使用可能な記号は「._-」です。");
+				}
+				if(!mail.substring(mail.indexOf("@")).contains(".")) {
+					errors.add("@以降には.を入れて下さい。");
+				}
+			}else{
+				errors.add("メールアドレスには@を入力して下さい。");
+				errors.add("@以降には.を入れて下さい。");
+				if(!mail.matches("^[a-zA-Z0-9\\._\\-]*$")) {
+					errors.add("メールアドレスに使用可能な記号は「._-」です。");
+				}
+			}
+
+			if(mail.charAt(mail.length() -1) == '.') {
+				errors.add("メールアドレスは.で終わらないでください。");
+			}
+		}
+
+		//アカウント存在チェック
+		if(errors.size() == 0) {
+			if(ServletUtils.checkMail(mail) == false) {
+				errors.add("このメールアドレスは登録されていません。");
+			}
+		}
+
+		//パスワードのバリデーション
 		if(req.getParameter("password").equals("")) {
 			errors.add("パスワードが未入力です。");
-		}
-		if(req.getParameter("password").length() > 30) {
-			errors.add("パスワードが長すぎます。");
-		}
-
-		if(req.getParameter("mail").equals("")) {
-			errors.add("メールアドレスを入力して下さい。");
-			return errors;
-		}
-
-		if(req.getParameter("mail").length() > 100) {
-			errors.add("メールアドレスが長すぎます。");
-		}
-
-		if(!req.getParameter("mail").contains("@")) {
-			errors.add("メールアドレスを正しく入力して下さい。");
-			return errors;
-		}
-
-
-		//メールアドレスの形式チェック
-		String mail = req.getParameter("mail");
-		if(!mail.matches("^[a-zA-Z0-9][a-zA-Z0-9\\._\\-]*@[a-zA-Z0-9\\._\\-]{1}[a-zA-Z0-9\\._\\-]*$")) {
-			errors.add("メールアドレスを正しく入力して下さい。");
-		}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
-			errors.add("メールアドレスを正しく入力して下さい。");
-		}else if(mail.charAt(mail.length() -1) == '.') {
-			errors.add("メールアドレスを正しく入力して下さい。");
+		}else {
+			if(req.getParameter("password").length() > 30) {
+				errors.add("パスワードが長すぎます。");
+			}
+			//パスワードチェック
+			if(ServletUtils.checkPassword(req.getParameter("password")) == false) {
+				errors.add("パスワードが間違っています。");
+			}
 		}
 
 
