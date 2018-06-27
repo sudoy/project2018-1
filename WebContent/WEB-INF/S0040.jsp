@@ -26,14 +26,14 @@
 						<label for="name" class="col-sm-2 control-label">氏名 <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="name" name="name" placeholder="氏名" value="${HTMLUtils.escapeHTML(saf.name)}">
-						</div>
+						<p class="help-block">例：山田太郎</p></div>
 					</div>
 
 					<div class="form-group">
 						<label for="kana" class="col-sm-2 control-label">ふりがな <span class="badge">部分一致</span></label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" id="kana" name="kana" placeholder="ふりがな" value="${HTMLUtils.escapeHTML(saf.kana)}">
-						</div>
+						<p class="help-block">例：やまだたろう</p></div>
 					</div>
 
 					<div class="form-group">
