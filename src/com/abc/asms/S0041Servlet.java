@@ -57,7 +57,7 @@ public class S0041Servlet extends HttpServlet {
 
 
 			//sql文の作成
-			sql = "select account_id, name, mail, password, authority from accounts where 0=0";
+			sql = "select account_id, name, kana, mail, password, authority from accounts where 0=0";
 
 			if(!saf.getName().equals("")) {
 				sql = sql.concat(" and name like ?");
@@ -97,7 +97,7 @@ public class S0041Servlet extends HttpServlet {
 				sql = sql.concat(")");
 			}
 
-			sql = sql.concat(" order by account_id");
+			sql = sql.concat(" order by kana");
 		}
 
 		try {
@@ -114,7 +114,7 @@ public class S0041Servlet extends HttpServlet {
 			//データベースから取得したデータをbeansに格納
 			while(rs.next()) {
 				Accounts a = new Accounts(rs.getInt("account_id"), rs.getString("name"),
-						rs.getString("mail"), rs.getString("password"),
+						rs.getString("kana"), rs.getString("mail"), rs.getString("password"),
 						rs.getInt("authority"));
 				accountList.add(a);
 			}
