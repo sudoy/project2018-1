@@ -32,7 +32,7 @@
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="name" id="name" placeholder="氏名"
 							 value="${param.name != null ? HTMLUtils.escapeHTML(param.name) : HTMLUtils.escapeHTML(editAccount.name) }">
-						<p>例：山田太郎</p></div>
+						<p class="help-block">例：山田太郎</p></div>
 					</div>
 
 					<div class="form-group">
@@ -40,7 +40,7 @@
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="kana" id="kana" placeholder="ふりがな"
 							 value="${param.kana != null ? HTMLUtils.escapeHTML(param.kana) : HTMLUtils.escapeHTML(editAccount.kana) }">
-						<p>例：やまだたろう</p></div>
+						<p class="help-block">例：やまだたろう</p></div>
 					</div>
 
 					<div class="form-group">
