@@ -139,6 +139,8 @@ public class S0030Servlet extends HttpServlet {
 			errors.add("メールアドレスを正しく入力して下さい。");
 		}else if(!mail.substring(mail.indexOf("@")).contains(".")) {
 			errors.add("メールアドレスを正しく入力して下さい。");
+		}else if(mail.charAt(mail.length() -1) == '.') {
+			errors.add("メールアドレスを正しく入力して下さい。");
 		}
 
 		// メール重複チェック
