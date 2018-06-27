@@ -93,7 +93,7 @@ public class S0030Servlet extends HttpServlet {
 			if(req.getParameter("kana").length() > 50) {
 				errors.add("ふりがなが長すぎます。");
 			}
-			if(req.getParameter("kana").matches("^[ぁ-ん]*$")) {
+			if(!req.getParameter("kana").matches("^[ぁ-ん]*$")) {
 				errors.add("ふりがなには平仮名を入力してください。");
 			}
 		}
