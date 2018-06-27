@@ -29,6 +29,15 @@
 				</div>
 
 				<div class="form-group">
+					<label for="kana" class="col-sm-2 control-label">ふりがな <span
+						class="badge">必須</span></label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="kana" placeholder="ふりがな"
+							value="${HTMLUtils.escapeHTML(entry.kana)}" name="kana" readonly>
+					</div>
+				</div>
+
+				<div class="form-group">
 					<label for="mail" class="col-sm-2 control-label">メールアドレス <span
 						class="badge">必須</span></label>
 					<div class="col-sm-5">

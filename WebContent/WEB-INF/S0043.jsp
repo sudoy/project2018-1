@@ -34,6 +34,14 @@
 					</div>
 
 					<div class="form-group">
+						<label for="kana" class="col-sm-2 control-label">ふりがな</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" name="kana" id="kana" placeholder="ふりがな"
+							value="${HTMLUtils.escapeHTML(editAccount.kana) }" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label for="mail" class="col-sm-2 control-label">メールアドレス</label>
 						<div class="col-sm-5">
 							<input type="text" class="form-control" name="mail" id="mail" placeholder="メールアドレス"
