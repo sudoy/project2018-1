@@ -142,7 +142,7 @@ public class S0020Servlet extends HttpServlet {
 		}
 
 		if(!req.getParameter("kana").matches("^[ぁ-ん]*$")) {
-			errors.add("ふりがなには平仮名を入力してください。");
+			errors.add("担当(ふりがな)には平仮名を入力してください。");
 		}
 
 		return errors;
