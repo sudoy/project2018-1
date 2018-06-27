@@ -106,7 +106,7 @@ public class S0040Servlet extends HttpServlet {
 					errors.add("メールアドレスに使用可能な記号は「._-」です。");
 				}
 				if(!mail.substring(mail.indexOf("@")).contains(".")) {
-					errors.add("@以降には.を入れて下さい。");
+					errors.add("メールアドレスの@以降には.を入れて下さい。");
 				}
 			}else{
 				errors.add("メールアドレスには@を入力して下さい。");

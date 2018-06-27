@@ -71,7 +71,7 @@ public class S0045Servlet extends HttpServlet {
 			rs = ps.executeQuery();
 
 			if(!rs.next()) {
-				errors.add("メールアドレスを正しく入力してください。");
+				errors.add("このメールアドレスは登録されていません。");
 				sessionE.setAttribute("errors", errors);
 				getServletContext().getRequestDispatcher("/WEB-INF/S0045.jsp")
 					.forward(req, resp);
@@ -158,7 +158,7 @@ public class S0045Servlet extends HttpServlet {
 				errors.add("メールアドレスに使用可能な記号は「._-」です。");
 			}
 			if(!mail.substring(mail.indexOf("@")).contains(".")) {
-				errors.add("@以降には.を入れて下さい。");
+				errors.add("メールアドレスの@以降には.を入れて下さい。");
 			}
 
 		}else{

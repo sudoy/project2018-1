@@ -19,7 +19,7 @@
 				<h3>パスワード再設定</h3>
 
 				<label for="inputEmail" class="sr-only">Email address</label>
-				<input type="email" id="inputEmail" name="mail" class="form-control" placeholder="メールアドレス" value="${param.mail}">
+				<input type="text" id="inputEmail" name="mail" class="form-control" placeholder="メールアドレス" value="${param.mail}">
 
 				<button type="submit" class="btn btn-lg btn-primary btn-block">メール送信</button>
 
