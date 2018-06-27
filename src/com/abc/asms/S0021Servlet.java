@@ -74,10 +74,14 @@ public class S0021Servlet extends HttpServlet {
 			sqlParameter.add(ssf.getAccount());
 		}
 
+		if(!ssf.getKana().equals("")) {
+			sql = sql.concat(" and a.kana like ?");
+			sqlParameter.add("%" + ssf.getKana() + "%");
+		}
 
 		String[] categories = ssf.getCategory();
 		if(categories != null) {
-			sql = sql.concat(" and c.category_id in(");
+			sql = sql.concat(" and s.category_id in(");
 
 			for(int i = 0; i < categories.length; i++) {
 				if(i == 0) {

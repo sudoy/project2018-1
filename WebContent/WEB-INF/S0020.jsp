@@ -51,6 +51,13 @@
 					</div>
 
 					<div class="form-group">
+						<label for="kana" class="col-sm-2 control-label">担当(ふりがな) <span class="badge">部分一致</span></label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="kana" name="kana" placeholder="担当(ふりがな)" value="${HTMLUtils.escapeHTML(ssf.kana)}"><p class="help-block">例：やまだたろう</p>
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-5">
 							<c:forEach var="category" items="${categoryMap}" varStatus="s">

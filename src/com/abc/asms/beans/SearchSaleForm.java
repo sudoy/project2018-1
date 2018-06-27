@@ -4,9 +4,21 @@ public class SearchSaleForm {
 	private String start;
 	private String end;
 	private String account;
+	private String kana;
 	private String[] category;
 	private String tradeName;
 	private String note;
+	public SearchSaleForm(String start, String end, String account, String kana, String[] category, String tradeName,
+			String note) {
+		super();
+		this.start = start;
+		this.end = end;
+		this.account = account;
+		this.kana = kana;
+		this.category = category;
+		this.tradeName = tradeName;
+		this.note = note;
+	}
 	public SearchSaleForm(String start, String end, String account, String[] category, String tradeName, String note) {
 		super();
 		this.start = start;
@@ -33,6 +45,12 @@ public class SearchSaleForm {
 	}
 	public void setAccount(String account) {
 		this.account = account;
+	}
+	public String getKana() {
+		return kana;
+	}
+	public void setKana(String kana) {
+		this.kana = kana;
 	}
 	public String[] getCategory() {
 		return category;

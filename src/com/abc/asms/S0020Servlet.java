@@ -79,6 +79,7 @@ public class S0020Servlet extends HttpServlet {
 		String start = req.getParameter("start");
 		String end = req.getParameter("end");
 		String account = req.getParameter("account");
+		String kana = req.getParameter("kana");
 		String[] category = {"a"};
 		if(req.getParameter("category") != null) {
 			category = req.getParameterValues("category");
@@ -87,7 +88,7 @@ public class S0020Servlet extends HttpServlet {
 		String note = req.getParameter("note");
 
 		//入力結果を検索結果のページに送る。
-		SearchSaleForm ssf = new SearchSaleForm(start, end, account, category, tradeName, note);
+		SearchSaleForm ssf = new SearchSaleForm(start, end, account, kana, category, tradeName, note);
 
 		//入力内容のチェック
 		List<String> errors = validate(req);
@@ -140,6 +141,12 @@ public class S0020Servlet extends HttpServlet {
 			}
 		}
 
+		if(req.getParameter("kana").length() > 50) {
+			errors.add("ふりがなが長すぎます。");
+		}
+		if(!req.getParameter("kana").matches("^[ぁ-ん]*$")) {
+			errors.add("ふりがなには平仮名を入力してください。");
+		}
 
 		return errors;
 
