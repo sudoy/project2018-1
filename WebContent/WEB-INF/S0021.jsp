@@ -26,21 +26,19 @@
 			<div class="col-sm-12">
 				<table class="table">
 					<tr>
-						<th class="col-sm-1">操作</th>
-						<th>No</th>
+						<th class="col-sm-1 text-center">操作</th>
 						<th>販売日</th>
 						<th>担当</th>
 						<th class="col-sm-2">商品カテゴリー</th>
 						<th class="col-sm-4">商品名</th>
-						<th>単価</th>
-						<th>個数</th>
-						<th>小計</th>
+						<th class="text-center">単価</th>
+						<th class="text-center">個数</th>
+						<th class="text-center">小計</th>
 					</tr>
 
 					<c:forEach var="sale" items="${salesList}">
 					<tr>
 						<td><a href="S0022.html?saleId=${HTMLUtils.escapeHTML(sale.saleId)}" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 詳 細</a></td>
-						<td class="text-right">${HTMLUtils.escapeHTML(sale.saleId)}</td>
 						<td>${HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(sale.saleDate))}</td>
 						<td>${HTMLUtils.escapeHTML(sale.account)}</td>
 						<td>${HTMLUtils.escapeHTML(sale.category)}</td>
