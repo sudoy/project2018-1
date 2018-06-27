@@ -65,6 +65,7 @@ public class S0030Servlet extends HttpServlet {
 
 		Accounts entry = new Accounts(0,
 				req.getParameter("name"),
+				req.getParameter("kana"),
 				req.getParameter("mail"),
 				req.getParameter("password1"),
 				authority);
@@ -83,6 +84,18 @@ public class S0030Servlet extends HttpServlet {
 			errors.add("氏名を入力して下さい。");
 		} else if(req.getParameter("name").length() > 20) {
 			errors.add("氏名が長すぎます。");
+		}
+
+		//ふりがなのチェック
+		if(req.getParameter("kana").equals("")) {
+			errors.add("ふりがなを入力してください");
+		}else {
+			if(req.getParameter("kana").length() > 50) {
+				errors.add("ふりがなが長すぎます。");
+			}
+			if(req.getParameter("kana").matches("^[ぁ-ん]*$")) {
+				errors.add("ふりがなには平仮名を入力してください。");
+			}
 		}
 
 		// パスワードの必須入力
