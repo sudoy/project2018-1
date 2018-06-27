@@ -60,7 +60,7 @@ public class S0044Servlet extends HttpServlet {
 			String id = req.getParameter("accountId");
 
 			//SQL
-			sql = "SELECT account_id, name, mail, password, authority " +
+			sql = "SELECT account_id, name, kana, mail, password, authority " +
 					"FROM accounts " +
 					"WHERE account_id = ?";
 
@@ -78,6 +78,7 @@ public class S0044Servlet extends HttpServlet {
 			Accounts a = new Accounts(
 					rs.getInt("account_id"),
 					rs.getString("name"),
+					rs.getString("kana"),
 					rs.getString("mail"),
 					rs.getString("password"),
 					rs.getInt("authority")

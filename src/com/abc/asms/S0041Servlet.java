@@ -49,7 +49,7 @@ public class S0041Servlet extends HttpServlet {
 
 		//safに何も入っていない場合は全件表示
 		if(session.getAttribute("saf") == null) {
-			sql = "select account_id, name, mail, password, authority from accounts order by account_id";
+			sql = "select account_id, name, kana, mail, password, authority from accounts order by kana, account_id";
 		}else {
 
 			//検索条件の情報を取得
@@ -62,6 +62,10 @@ public class S0041Servlet extends HttpServlet {
 			if(!saf.getName().equals("")) {
 				sql = sql.concat(" and name like ?");
 				sqlParameter.add("%" + saf.getName() + "%");
+			}
+			if(!saf.getKana().equals("")) {
+				sql = sql.concat(" and kana like ?");
+				sqlParameter.add("%" + saf.getKana() + "%");
 			}
 			if(!saf.getMail().equals("")) {
 				sql = sql.concat(" and mail = ?");
@@ -97,7 +101,7 @@ public class S0041Servlet extends HttpServlet {
 				sql = sql.concat(")");
 			}
 
-			sql = sql.concat(" order by kana");
+			sql = sql.concat(" order by kana, account_id");
 		}
 
 		try {

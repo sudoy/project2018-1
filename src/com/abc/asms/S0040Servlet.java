@@ -53,8 +53,8 @@ public class S0040Servlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		//入力結果を検索結果のページに送る。
-		SearchAccountForm saf = new SearchAccountForm(req.getParameter("name"), req.getParameter("mail"),
-				req.getParameter("saleAuthority"), req.getParameter("accountAuthority"));
+		SearchAccountForm saf = new SearchAccountForm(req.getParameter("name"), req.getParameter("kana"),
+				req.getParameter("mail"),req.getParameter("saleAuthority"), req.getParameter("accountAuthority"));
 
 		//入力内容のチェック
 		List<String> errors = validate(req);
@@ -82,6 +82,13 @@ public class S0040Servlet extends HttpServlet {
 		if(req.getParameter("name").length() > 20) {
 			errors.add("氏名の指定が長すぎます。");
 		}
+		if(req.getParameter("kana").length() > 50) {
+			errors.add("ふりがなが長すぎます。");
+		}
+		if(!req.getParameter("kana").matches("^[ぁ-ん]*$")) {
+			errors.add("ふりがなには平仮名を入力してください。");
+		}
+
 		if(req.getParameter("mail").length() > 100) {
 			errors.add("メールアドレスが長すぎます。");
 		}

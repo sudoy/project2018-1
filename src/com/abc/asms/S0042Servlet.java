@@ -62,7 +62,7 @@ public class S0042Servlet extends HttpServlet {
 			String id = req.getParameter("accountId");
 
 			//SQL
-			sql = "SELECT account_id, name, mail, password, authority " +
+			sql = "SELECT account_id, name, kana, mail, password, authority " +
 					"FROM accounts " +
 					"WHERE account_id = ?";
 
@@ -80,6 +80,7 @@ public class S0042Servlet extends HttpServlet {
 			Accounts a = new Accounts(
 					rs.getInt("account_id"),
 					rs.getString("name"),
+					rs.getString("kana"),
 					rs.getString("mail"),
 					rs.getString("password"),
 					rs.getInt("authority")
@@ -139,6 +140,7 @@ public class S0042Servlet extends HttpServlet {
 		Accounts a = new Accounts(
 				Integer.parseInt(req.getParameter("accountId")),
 				req.getParameter("name"),
+				req.getParameter("kana"),
 				req.getParameter("mail"),
 				req.getParameter("password1"),
 				authority
@@ -162,6 +164,19 @@ public class S0042Servlet extends HttpServlet {
 		if(req.getParameter("name").length() > 20) {
 			errors.add("氏名が長すぎます。");
 		}
+
+		//ふりがなのチェック
+		if(req.getParameter("kana").equals("")) {
+			errors.add("ふりがなを入力してください");
+		}else {
+			if(req.getParameter("kana").length() > 50) {
+				errors.add("ふりがなが長すぎます。");
+			}
+			if(!req.getParameter("kana").matches("^[ぁ-ん]*$")) {
+				errors.add("ふりがなには平仮名を入力してください。");
+			}
+		}
+
 
 		//メールアドレス必須チェック
 		if(req.getParameter("mail").equals("")) {

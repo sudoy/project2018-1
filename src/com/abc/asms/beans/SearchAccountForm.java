@@ -2,9 +2,18 @@ package com.abc.asms.beans;
 
 public class SearchAccountForm {
 	private String name;
+	private String kana;
 	private String mail;
 	private String saleAuthority;
 	private String accountAuthority;
+	public SearchAccountForm(String name, String kana, String mail, String saleAuthority, String accountAuthority) {
+		super();
+		this.name = name;
+		this.kana = kana;
+		this.mail = mail;
+		this.saleAuthority = saleAuthority;
+		this.accountAuthority = accountAuthority;
+	}
 	public SearchAccountForm(String name, String mail, String saleAuthority, String accountAuthority) {
 		super();
 		this.name = name;
@@ -17,6 +26,12 @@ public class SearchAccountForm {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getKana() {
+		return kana;
+	}
+	public void setKana(String kana) {
+		this.kana = kana;
 	}
 	public String getMail() {
 		return mail;

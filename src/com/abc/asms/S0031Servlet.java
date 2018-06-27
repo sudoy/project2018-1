@@ -60,6 +60,7 @@ public class S0031Servlet extends HttpServlet {
 
 		String name = req.getParameter("name");
 		String mail = req.getParameter("mail");
+		String kana = req.getParameter("kana");
 		String password1 = req.getParameter("password1");
 		int authority = Integer.parseInt(req.getParameter("authority1")) +
 				Integer.parseInt(req.getParameter("authority2"));
@@ -71,14 +72,15 @@ public class S0031Servlet extends HttpServlet {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "INSERT INTO accounts (name, mail, password, authority) " +
-					"VALUES (?, ?, MD5(?), ?)";
+			sql = "INSERT INTO accounts (name, kana, mail, password, authority) " +
+					"VALUES (?, ?, ?, MD5(?), ?)";
 			ps = con.prepareStatement(sql);
 
 			ps.setString(1, name);
-			ps.setString(2, mail);
-			ps.setString(3, password1);
-			ps.setInt(4, authority);
+			ps.setString(2, kana);
+			ps.setString(3, mail);
+			ps.setString(4, password1);
+			ps.setInt(5, authority);
 
 			ps.executeUpdate();
 			List<String> successes = new ArrayList<>();
