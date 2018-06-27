@@ -32,7 +32,7 @@
 								<th class="col-sm-2">操作</th>
 							</c:if>
 							<th class="col-sm-3">氏名</th>
-							<th class="col-sm-2">No(ここｶﾅに変えてね)</th>
+							<th class="col-sm-2">ふりがな</th>
 							<th>メールアドレス</th>
 							<th class="col-sm-2">権限</th>
 						</tr>
@@ -46,7 +46,7 @@
 									</td>
 								</c:if>
 								<td>${HTMLUtils.escapeHTML(account.name)}</td>
-								<td class="text-right">${account.accountId}</td>
+								<td class="text-right">${HTMLUtils.escapeHTML(account.kana)}</td>
 								<td>${HTMLUtils.escapeHTML(account.mail)}</td>
 								<td>${HTMLUtils.formatAuthority(account.authority)}</td>
 							</tr>
