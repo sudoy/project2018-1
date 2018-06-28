@@ -12,6 +12,7 @@ public class Sales {
 	private int unitPrice;
 	private int saleNumber;
 	private String note;
+	private int version;
 
 	public Sales(int saleId, LocalDate saleDate, String category, String tradeName, int unitPrice, int saleNumber) {
 		super();
@@ -34,6 +35,20 @@ public class Sales {
 		this.unitPrice = unitPrice;
 		this.saleNumber = saleNumber;
 		this.note = note;
+	}
+
+	public Sales(int saleId, LocalDate saleDate, String account, String category, String tradeName, int unitPrice, int saleNumber,
+			String note, int version) {
+		super();
+		this.saleId = saleId;
+		this.saleDate = saleDate;
+		this.account = account;
+		this.category = category;
+		this.tradeName = tradeName;
+		this.unitPrice = unitPrice;
+		this.saleNumber = saleNumber;
+		this.note = note;
+		this.version = version;
 	}
 
 	public int getSaleId() {
@@ -83,6 +98,12 @@ public class Sales {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 }

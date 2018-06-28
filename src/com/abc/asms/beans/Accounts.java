@@ -8,6 +8,18 @@ public class Accounts {
 	private String mail;
 	private String password;
 	private int authority;
+	private int version;
+
+	public Accounts(int accountId, String name, String kana, String mail, String password, int authority, int version) {
+		super();
+		this.accountId = accountId;
+		this.name = name;
+		this.kana = kana;
+		this.mail = mail;
+		this.password = password;
+		this.authority = authority;
+		this.version = version;
+	}
 
 	public Accounts(int accountId, String name, String kana, String mail, String password, int authority) {
 		super();
@@ -63,5 +75,11 @@ public class Accounts {
 	}
 	public void setAuthority(int authority) {
 		this.authority = authority;
+	}
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
 	}
 }
