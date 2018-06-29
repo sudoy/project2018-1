@@ -80,6 +80,19 @@ public class C0020Servlet extends HttpServlet {
 		String date = DateTimeFormatter.ofPattern("yyyy年MM月").format(date1); // 表示用に書き換え(表示月
 		String lastDate = DateTimeFormatter.ofPattern("yyyy年MM月").format(lastDate1); // 表示用に書き換え（その前月
 
+
+		//追加仕様用
+		int index = date.indexOf("年");
+		String y = date.substring(0,index);//グラフ用に年を取得
+		int year = Integer.parseInt(y);
+		req.setAttribute("year", year);
+
+//		System.out.println(ServletUtils.getTotalOfThisYear(year));
+
+		req.setAttribute("total", ServletUtils.getTotalOfThisYear(year));
+		req.setAttribute("beforeTotal", ServletUtils.getTotalOfThisYear(year - 1));
+		System.out.println(ServletUtils.getTotalOfThisYear(year - 1));
+
 		// 今月売上合計と前月売上合計,初期値0
 		long thisMonth = 0;
 		long lastMonth = 0;

@@ -7,6 +7,7 @@
 <head>
 <jsp:include page="_header.jsp" />
 <title>ダッシュボード|物品売上管理システム</title>
+
 </head>
 <body>
 	<jsp:include page="_navbar.jsp" />
@@ -102,6 +103,10 @@
 			</div>
 
 			<div class="col-sm-12">
+				<div id="cont"></div>
+			</div>
+
+			<div class="col-sm-12">
 				<div class="panel panel-default table-responsive">
 					<div class="panel-heading">
 						<h4>
@@ -146,5 +151,73 @@
 	<!-- /container -->
 
 	<jsp:include page="_footer.jsp" />
+	<script src=""></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="js/graph.js"></script>
+	<script>
+	Highcharts.chart('cont', {
+		chart: {
+			type: 'line'
+		},
+
+		exporting : {
+			enabled: false
+		},
+		credits  : {
+			enabled: false,
+		},
+
+		title: {
+			text: '月別売上合計推移'
+		},
+
+		xAxis: {
+			categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+
+		},
+
+		yAxis: {
+
+			title: {
+				text: ''
+			},
+			labels:{
+				formatter: function() {
+				return Highcharts.numberFormat(this.value, 0, ',', ',') +'万円' },
+			}
+
+		},
+
+		tooltip: {
+			valueSuffix: '万円'
+		},
+
+		plotOptions: {
+			line: {
+				dataLabels: {
+					enabled: true,
+					formatter: function() {
+						return Highcharts.numberFormat(this.y, 0, '', ',')
+					}
+				},
+				enableMouseTracking: true
+			}
+		},
+
+		series: [{
+			name: ${year} - 1 + '年',
+			data: ${beforeTotal},
+
+			}, {
+			name: ${year} + '年',
+			data: ${total},
+			dataLabels: {
+				y: 25,
+			}
+		}]
+	});
+	</script>
+
 </body>
 </html>

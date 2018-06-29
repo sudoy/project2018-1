@@ -677,4 +677,67 @@ public class ServletUtils {
 		return false;
 	}
 
+	//追加仕様No01用
+	public static List<Long> getTotalOfThisYear(int year) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		List<Long> total = new ArrayList<>();
+		List<Integer> list = new ArrayList<>();
+
+		try {
+			con = DBUtils.getConnection();
+
+			sql = "SELECT MONTH(sale_date), SUM(unit_price * sale_number) AS sum " +
+					"FROM sales " +
+					"WHERE sale_date LIKE ? " +
+					"GROUP BY MONTH(sale_date)" +
+					"ORDER BY MONTH(sale_date)" ;
+
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, year + "%");
+
+			rs = ps.executeQuery();
+
+			boolean finish = rs.next();
+			LocalDate today = LocalDate.now();
+
+
+			for(int i = 1; i < 13; i++) {
+
+
+				if(finish == true && i == rs.getInt("MONTH(sale_date)")) {
+					total.add(rs.getLong("sum"));
+					if(finish) {
+						finish = rs.next();
+					}
+				}else {
+
+					if(today.getYear() > year) {
+						total.add(Long.parseLong("0"));
+					}else if(today.getYear() >= year && today.getMonthValue() > i) {
+						total.add(Long.parseLong("0"));
+					}else {
+						total.add(null);
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return total;
+	}
+
 }
