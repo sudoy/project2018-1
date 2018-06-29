@@ -36,6 +36,13 @@ public class S0041Servlet extends HttpServlet {
 
 		Connection con = null;
 		String sql = null;
+
+		//検索結果の件数用のSQL文
+		String recordCounter = null;
+
+		//1ページ当たりの件数
+		int parPage = 5;
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<String> errors = new ArrayList<>();
@@ -50,6 +57,7 @@ public class S0041Servlet extends HttpServlet {
 		//safに何も入っていない場合は全件表示
 		if(session.getAttribute("saf") == null) {
 			sql = "select account_id, name, kana, mail, password, authority from accounts order by kana, account_id";
+			recordCounter = "select count(account_id) as record from accounts";
 		}else {
 
 			//検索条件の情報を取得
@@ -58,17 +66,21 @@ public class S0041Servlet extends HttpServlet {
 
 			//sql文の作成
 			sql = "select account_id, name, kana, mail, password, authority from accounts where 0=0";
+			recordCounter = "select count(account_id) as record from accounts where 0=0";
 
 			if(!saf.getName().equals("")) {
 				sql = sql.concat(" and name like ?");
+				recordCounter = recordCounter.concat(" and name like ?");
 				sqlParameter.add("%" + saf.getName() + "%");
 			}
 			if(!saf.getKana().equals("")) {
 				sql = sql.concat(" and kana like ?");
+				recordCounter = recordCounter.concat(" and kana like ?");
 				sqlParameter.add("%" + saf.getKana() + "%");
 			}
 			if(!saf.getMail().equals("")) {
 				sql = sql.concat(" and mail = ?");
+				recordCounter = recordCounter.concat(" and mail = ?");
 				sqlParameter.add(saf.getMail());
 			}
 
@@ -88,20 +100,34 @@ public class S0041Servlet extends HttpServlet {
 
 			if(authorities != null) {
 				sql = sql.concat(" and authority in(");
+				recordCounter = recordCounter.concat(" and authority in(");
 				for(int i = 0; i < authorities.size(); i++) {
 					if(i == 0) {
 						sql = sql.concat("?");
+						recordCounter = recordCounter.concat("?");
 						sqlParameter.add(authorities.get(i));
 					}else {
 						sql = sql.concat(",?");
+						recordCounter = recordCounter.concat(",?");
 						sqlParameter.add(authorities.get(i));
 					}
 				}
 
 				sql = sql.concat(")");
+				recordCounter = recordCounter.concat(")");
+			}
+			if(req.getParameter("sort") == null || req.getParameter("sort").equals("")) {
+				sql = sql.concat(" order by kana, account_id");
+			}else {
+				sql = sql.concat(" order by " + req.getParameter("sort"));
+			}
+			if(req.getParameter("pageNumber") != null) {
+				sql= sql.concat(" limit " + (parPage * Integer.parseInt(req.getParameter("pageNumber"))) + ", " + parPage);
+			}else {
+				sql= sql.concat(" limit 0, " + parPage);
+
 			}
 
-			sql = sql.concat(" order by kana, account_id");
 		}
 
 		try {
@@ -123,7 +149,7 @@ public class S0041Servlet extends HttpServlet {
 				accountList.add(a);
 			}
 
-			//検索結果がなかった場合にエラーをS0040で出す。
+			//検索結果がなかった場合にエラーをS0020で出す。
 			if(accountList.isEmpty()) {
 				errors.add("検索結果はありません。");
 				session.setAttribute("accountRemain", "on");
@@ -132,6 +158,28 @@ public class S0041Servlet extends HttpServlet {
 				return;
 			}
 			req.setAttribute("accountList", accountList);
+
+			DBUtils.close(rs);
+			DBUtils.close(ps);
+
+			ps = con.prepareStatement(recordCounter);
+			count = 1;
+			for(String s : sqlParameter) {
+				ps.setString(count++, s);
+			}
+			rs = ps.executeQuery();
+
+			rs.next();
+
+			int countRecord = rs.getInt("record");
+
+			int pageDisplay = countRecord / parPage;
+			if(countRecord % parPage == 0) {
+				pageDisplay -= 1;
+			}
+
+			req.setAttribute("pageDisplay", pageDisplay);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{

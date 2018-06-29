@@ -127,5 +127,30 @@ public class HTMLUtils {
 		return val;
 	}
 
+	public static String changeMark(String sort, String karam) {
+		String s = null;
+		if(sort != null) {
+			if(sort.contains(karam)) {
+				s = "-by-attributes";
+				if(sort.contains("desc")) {
+					s = s.concat("-alt");
+				}
+			}
+		}
+		return s;
+	}
 
+	public static String currentPage(String pageNumber, String currentPage) {
+
+		String s = null;
+		String page = pageNumber;
+		if(pageNumber.equals("")) {
+			page = "0";
+		}
+		if(page.equals(currentPage)) {
+			s = "active";
+		}
+
+		return s;
+	}
 }
