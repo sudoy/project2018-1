@@ -47,7 +47,7 @@ public class S0022Servlet extends HttpServlet {
 
 			//SQL
 			sql = "select s.sale_id, s.sale_date, s.account_id, s.category_id, s.trade_name, s.unit_price," +
-					"s.sale_number, s.note " +
+					"s.sale_number, s.note, s.version " +
 					"FROM sales s " +
 					"WHERE sale_id = ?";
 
@@ -72,7 +72,8 @@ public class S0022Servlet extends HttpServlet {
 					rs.getString("trade_name"),
 					rs.getInt("unit_price"),
 					rs.getInt("sale_number"),
-					rs.getString("note")
+					rs.getString("note"),
+					rs.getInt("version")
 					);
 			session.setAttribute("saleList", s);
 

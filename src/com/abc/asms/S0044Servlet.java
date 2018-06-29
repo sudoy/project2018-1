@@ -60,7 +60,7 @@ public class S0044Servlet extends HttpServlet {
 			String id = req.getParameter("accountId");
 
 			//SQL
-			sql = "SELECT account_id, name, kana, mail, password, authority " +
+			sql = "SELECT account_id, name, kana, mail, password, authority, version " +
 					"FROM accounts " +
 					"WHERE account_id = ?";
 
@@ -81,7 +81,8 @@ public class S0044Servlet extends HttpServlet {
 					rs.getString("kana"),
 					rs.getString("mail"),
 					rs.getString("password"),
-					rs.getInt("authority")
+					rs.getInt("authority"),
+					rs.getInt("version")
 					);
 
 			req.setAttribute("deleteAccount", a);
@@ -136,16 +137,30 @@ public class S0044Servlet extends HttpServlet {
 
 			//SQL
 			sql = "DELETE FROM accounts "
-				+ "WHERE account_id = ?";
+				+ "WHERE account_id = ? AND version = ?";
 
 			//準備
 			ps = con.prepareStatement(sql);
 
 			//パラメータをセット
 			ps.setString(1, id);
+			ps.setString(2, req.getParameter("version"));
 
 			//実行
-			ps.executeUpdate();
+			int deleteRows = ps.executeUpdate();
+			if (deleteRows == 0) {
+				List<String> errors = new ArrayList<>();
+				if(!ServletUtils.notFoundData(1, req.getParameter("accountId"))) {
+					errors.add("No" + req.getParameter("accountId") + "のアカウントは既に削除されています。");
+					session.setAttribute("errors", errors);
+					resp.sendRedirect("S0040.html");
+					return;
+				}
+				errors.add("No" + req.getParameter("accountId") + "のアカウントの削除に失敗しました。");
+				session.setAttribute("errors", errors);
+				resp.sendRedirect("S0041.html");
+				return;
+			}
 
 			List<String> successes = new ArrayList<>();
 			String success = "No" +  id + "のアカウントを削除しました。";

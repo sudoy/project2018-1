@@ -643,4 +643,38 @@ public class ServletUtils {
 		return false;
 	}
 
+	public static boolean notFoundData(int divideNumber, String id) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = DBUtils.getConnection();
+
+			if(divideNumber == 0) {
+				sql = "SELECT sale_id FROM sales WHERE sale_id = ?";
+			} else if(divideNumber == 1){
+				sql = "SELECT account_id FROM accounts WHERE account_id = ?";
+			}
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			return rs.next();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				DBUtils.close(rs);
+				DBUtils.close(ps);
+				DBUtils.close(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 }

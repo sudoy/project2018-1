@@ -4,7 +4,8 @@ CREATE TABLE accounts(
 	kana VARCHAR(50) NOT NULL,
 	mail VARCHAR(100) NOT NULL,
 	password VARCHAR(32) NOT NULL,
-	authority INT NOT NULL DEFAULT '0'
+	authority INT NOT NULL DEFAULT '0',
+	version INT NOT NULL DEFAULT '1'
 );
 
 INSERT INTO accounts (name, kana, mail, password, authority)

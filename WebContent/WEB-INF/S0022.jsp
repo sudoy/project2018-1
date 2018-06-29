@@ -73,6 +73,8 @@
 						<div class="col-sm-5 form-control-static">${HTMLUtils.addNewLine(HTMLUtils.escapeHTML(saleList.note))}</div>
 					</div>
 
+					<input type="hidden" name="version" value="${HTMLUtils.escapeHTML(saleList.version)}">
+
 					<div class="form-group">
 						<div class="col-sm-offset-3">
 							<c:if test="${accounts.authority == 1 || accounts.authority == 11 }">

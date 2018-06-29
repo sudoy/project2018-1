@@ -6,7 +6,8 @@ CREATE TABLE sales(
 	trade_name VARCHAR(100) NOT NULL,
 	unit_price INT NOT NULL,
 	sale_number INT NOT NULL,
-	note TEXT DEFAULT NULL
+	note TEXT DEFAULT NULL,
+	version INT NOT NULL DEFAULT '1'
 );
 
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)

@@ -127,6 +127,8 @@
 							</c:if>
 						</div>
 					</div>
+					<input type="hidden" name="version" value="${param.version != null ? HTMLUtils.escapeHTML(param.version)
+					 : HTMLUtils.escapeHTML(editAccount.version)}">
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">

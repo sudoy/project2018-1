@@ -104,7 +104,8 @@ public class S0023Servlet extends HttpServlet {
 				req.getParameter("tradeName"),
 				Integer.parseInt(req.getParameter("unitPrice")),
 				Integer.parseInt(req.getParameter("saleNumber")),
-				req.getParameter("note")
+				req.getParameter("note"),
+				Integer.parseInt(req.getParameter("version"))
 				);
 
 

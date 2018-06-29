@@ -123,7 +123,7 @@ public class S0041Servlet extends HttpServlet {
 				accountList.add(a);
 			}
 
-			//検索結果がなかった場合にエラーをS0020で出す。
+			//検索結果がなかった場合にエラーをS0040で出す。
 			if(accountList.isEmpty()) {
 				errors.add("検索結果はありません。");
 				session.setAttribute("accountRemain", "on");

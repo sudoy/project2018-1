@@ -3,6 +3,7 @@ package com.abc.asms;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -90,12 +91,13 @@ public class S0024Servlet extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
+		ResultSet rs = null;
 
 		try {
 			con = DBUtils.getConnection();
 
 			sql = "UPDATE sales SET sale_date = ?, account_id = ?, category_id = ?, trade_name = ?,"
-					+ " unit_price = ?, sale_number = ?, note = ? WHERE sale_id = ?";
+					+ " unit_price = ?, sale_number = ?, note = ?, version = ? + 1 WHERE sale_id = ? AND version = ?";
 
 			//準備
 			ps = con.prepareStatement(sql);
@@ -108,10 +110,27 @@ public class S0024Servlet extends HttpServlet {
 			ps.setString(5, HTMLUtils.deleteComma(req.getParameter("unitPrice")));
 			ps.setString(6, HTMLUtils.deleteComma(req.getParameter("saleNumber")));
 			ps.setString(7, req.getParameter("note"));
-			ps.setString(8, req.getParameter("saleId"));
+			ps.setString(8, req.getParameter("version"));
+			ps.setString(9, req.getParameter("saleId"));
+			ps.setString(10, req.getParameter("version"));
 
 			//実行
-			ps.executeUpdate();
+
+			int updateRows = ps.executeUpdate();
+
+			if (updateRows == 0) {
+				List<String> errors = new ArrayList<>();
+				if(!ServletUtils.notFoundData(0, req.getParameter("saleId"))) {
+					errors.add("No" + req.getParameter("saleId") + "の売上は既に削除されています。");
+					session.setAttribute("errors", errors);
+					resp.sendRedirect("S0020.html");
+					return;
+				}
+				errors.add("No" + req.getParameter("saleId") + "の売上の更新に失敗しました。");
+				session.setAttribute("errors", errors);
+				resp.sendRedirect("S0021.html");
+				return;
+			}
 
 			List<String> successes = new ArrayList<>();
 			String success = "No" +  req.getParameter("saleId") + "の売上を更新しました。";
@@ -131,6 +150,7 @@ public class S0024Servlet extends HttpServlet {
 		}finally{
 
 			try{
+				DBUtils.close(rs);
 				DBUtils.close(ps);
 				DBUtils.close(con);
 

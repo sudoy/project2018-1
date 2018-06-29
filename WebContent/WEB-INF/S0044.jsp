@@ -100,6 +100,7 @@
 							</label>
 						</div>
 					</div>
+					<input type="hidden" name="version" value="${HTMLUtils.escapeHTML(deleteAccount.version)}">
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">

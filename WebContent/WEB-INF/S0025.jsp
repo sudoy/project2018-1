@@ -112,6 +112,7 @@
 							placeholder="備考" rows="5" readonly>${HTMLUtils.escapeHTML(saleList.note)}</textarea>
 						</div>
 					</div>
+					<input type="hidden" name="version" value="${HTMLUtils.escapeHTML(saleList.version)}">
 
 					<div class="form-group">
 						<div class="col-sm-offset-3">

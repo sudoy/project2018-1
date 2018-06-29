@@ -62,7 +62,7 @@ public class S0042Servlet extends HttpServlet {
 			String id = req.getParameter("accountId");
 
 			//SQL
-			sql = "SELECT account_id, name, kana, mail, password, authority " +
+			sql = "SELECT account_id, name, kana, mail, password, authority, version " +
 					"FROM accounts " +
 					"WHERE account_id = ?";
 
@@ -83,7 +83,8 @@ public class S0042Servlet extends HttpServlet {
 					rs.getString("kana"),
 					rs.getString("mail"),
 					rs.getString("password"),
-					rs.getInt("authority")
+					rs.getInt("authority"),
+					rs.getInt("version")
 					);
 
 			session.setAttribute("editAccount", a);
@@ -143,7 +144,8 @@ public class S0042Servlet extends HttpServlet {
 				req.getParameter("kana"),
 				req.getParameter("mail"),
 				req.getParameter("password1"),
-				authority
+				authority,
+				Integer.parseInt(req.getParameter("version"))
 				);
 
 		session.setAttribute("editAccount", a);

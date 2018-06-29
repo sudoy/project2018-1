@@ -94,20 +94,32 @@ public class S0025Servlet extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
-
 		try {
 			con = DBUtils.getConnection();
-
-			sql = "DELETE FROM sales WHERE sale_id = ?";
+			sql = "DELETE FROM sales WHERE sale_id = ? AND version = ?";
 
 			//準備
 			ps = con.prepareStatement(sql);
 
 			//データをセット
 			ps.setString(1, req.getParameter("saleId"));
+			ps.setString(2, req.getParameter("version"));
 
 			//実行
-			ps.executeUpdate();
+			int deleteRows = ps.executeUpdate();
+			if (deleteRows == 0) {
+				List<String> errors = new ArrayList<>();
+				if(!ServletUtils.notFoundData(0, req.getParameter("saleId"))) {
+					errors.add("No" + req.getParameter("saleId") + "の売上は既に削除されています。");
+					session.setAttribute("errors", errors);
+					resp.sendRedirect("S0020.html");
+					return;
+				}
+				errors.add("No" + req.getParameter("saleId") + "の売上の削除に失敗しました。");
+				session.setAttribute("errors", errors);
+				resp.sendRedirect("S0021.html");
+				return;
+			}
 
 			List<String> successes = new ArrayList<>();
 			String success = "No" +  req.getParameter("saleId") + "の売上を削除しました。";

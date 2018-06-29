@@ -90,7 +90,7 @@ public class S0043Servlet extends HttpServlet {
 			if(req.getParameter("password1").equals("")) {
 
 				sql = "UPDATE accounts SET name = ?, mail = ?, "
-						+ "authority = ? WHERE account_id = ?";
+						+ "authority = ?, version = ? + 1 WHERE account_id = ? AND version = ?";
 
 				//準備
 				ps = con.prepareStatement(sql);
@@ -99,12 +99,14 @@ public class S0043Servlet extends HttpServlet {
 				ps.setString(1, req.getParameter("name"));
 				ps.setString(2, req.getParameter("mail"));
 				ps.setLong(3, authority);
-				ps.setString(4, req.getParameter("accountId"));
+				ps.setString(4, req.getParameter("version"));
+				ps.setString(5, req.getParameter("accountId"));
+				ps.setString(6, req.getParameter("version"));
 
 			}else {
 
 				sql = "UPDATE accounts SET name = ?, mail = ?, password = MD5(?), "
-						+ "authority = ? WHERE account_id = ?";
+						+ "authority = ?, version = ? + 1 WHERE account_id = ? AND version = ?";
 
 				//準備
 				ps = con.prepareStatement(sql);
@@ -114,13 +116,26 @@ public class S0043Servlet extends HttpServlet {
 				ps.setString(2, req.getParameter("mail"));
 				ps.setString(3, req.getParameter("password1"));
 				ps.setLong(4, authority);
-				ps.setString(5, req.getParameter("accountId"));
-
-
+				ps.setString(5, req.getParameter("version"));
+				ps.setString(6, req.getParameter("accountId"));
+				ps.setString(7, req.getParameter("version"));
 			}
 
 			//実行
-			ps.executeUpdate();
+			int updateRows = ps.executeUpdate();
+			if (updateRows == 0) {
+				List<String> errors = new ArrayList<>();
+				if(!ServletUtils.notFoundData(1, req.getParameter("accountId"))) {
+					errors.add("No" + req.getParameter("accountId") + "のアカウントは既に削除されています。");
+					session.setAttribute("errors", errors);
+					resp.sendRedirect("S0040.html");
+					return;
+				}
+				errors.add("No" + req.getParameter("accountId") + "のアカウントの更新に失敗しました。");
+				session.setAttribute("errors", errors);
+				resp.sendRedirect("S0041.html");
+				return;
+			}
 
 			List<String> successes = new ArrayList<>();
 			String success = "No" +  req.getParameter("accountId") + "のアカウントを更新しました。";
