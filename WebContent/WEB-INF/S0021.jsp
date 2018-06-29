@@ -8,33 +8,7 @@
 <html lang="ja">
 <head>
 <jsp:include page="_header.jsp" />
-<style>
-
-.dropdown-menu{
-	top: auto;
-    bottom: 100%;
-    margin-bottom: 2px;
-}
-th[aria-expanded="true"]>.dropdown-menu{
-	display: block;
-}
-
-.table>thead>tr>th {
-	padding: 0;
-}
-th>.btn-default{
-	padding: 10px 30px 10px 9px;
-}
-#crl{
-	padding: 10px;
-}
-
-.dropdown{
-	cursor:pointer;
-}
-
-</style>
-
+<link href="css/searchdropdown.css" rel="stylesheet">
 <title>売上検索結果表示|物品売上管理システム</title>
 </head>
 <body>
@@ -54,7 +28,7 @@ th>.btn-default{
 				<table class="table">
 					<thead>
 					<tr>
-						<th class="text-center" id="crl" nowrap>操作</th>
+						<th class="text-center" id="crlsale" nowrap>操作</th>
 						<th class="btn-default dropdown" nowrap>
 							<div class=" dropdown-toggle btn-default" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								販売日

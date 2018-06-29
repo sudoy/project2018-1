@@ -1,0 +1,29 @@
+.dropdown-menu{
+	top: auto;
+    bottom: 100%;
+    margin-bottom: 2px;
+}
+th[aria-expanded="true"]>.dropdown-menu{
+	display: block;
+}
+
+.table>thead>tr>th {
+	padding: 0;
+}
+th>.btn-default{
+	padding: 10px 30px 10px 9px;
+}
+#crlaccount{
+	padding: 10px 30px 10px 9px;
+}
+#crlsale{
+	padding: 10px;
+}
+#name{
+	padding: 10px 30px 10px 9px;
+}
+
+.dropdown{
+	cursor:pointer;
+}
+

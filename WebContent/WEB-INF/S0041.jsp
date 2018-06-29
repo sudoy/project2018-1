@@ -9,36 +9,7 @@
 	<head>
 		<jsp:include page="_header.jsp" />
 		<title>アカウント検索結果一覧|物品売上管理システム</title>
-		<style>
-
-			.dropdown-menu{
-				top: auto;
-			    bottom: 100%;
-			    margin-bottom: 2px;
-			}
-			th[aria-expanded="true"]>.dropdown-menu{
-				display: block;
-			}
-
-			.table>thead>tr>th {
-				padding: 0;
-			}
-			th>.btn-default{
-				padding: 10px 30px 10px 9px;
-			}
-			#crl{
-				padding: 10px 30px 10px 9px;
-			}
-			#name{
-				padding: 10px 30px 10px 9px;
-			}
-
-			.dropdown{
-				cursor:pointer;
-			}
-
-		</style>
-
+		<link href="css/searchdropdown.css" rel="stylesheet">
 	</head>
 	<body>
 
@@ -59,7 +30,7 @@
 						<thead>
 						<tr>
 							<c:if test="${check == 10 || check == 11}">
-								<th class="text-center" id="crl" nowrap>操作</th>
+								<th class="text-center" id="crlaccount" nowrap>操作</th>
 							</c:if>
 							<th id="name" nowrap>氏名</th>
 							<th class="btn-default dropdown" nowrap>
