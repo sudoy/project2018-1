@@ -710,7 +710,7 @@ public class ServletUtils {
 
 
 				if(finish == true && i == rs.getInt("MONTH(sale_date)")) {
-					total.add(rs.getLong("sum"));
+					total.add(rs.getLong("sum") / 10000);
 					if(finish) {
 						finish = rs.next();
 					}
