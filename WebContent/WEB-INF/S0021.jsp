@@ -62,7 +62,7 @@
 						<th class="btn-default dropdown" nowrap>
 							<div class=" dropdown-toggle btn-default" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								商品名
-								<span class="glyphicon glyphicon-sort${HTMLUtils.changeMark(param.sort, 'trade_name')}" aria-hidden="true"></span>
+								<span class="glyphicon glyphicon-sort${HTMLUtils.changeMark(param.sort, 'trade_name')}" aria-hidden="true"></span>　　　　　　　　
 							</div>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<li><a href="S0021.html?sort=trade_name">昇順</a></li>
