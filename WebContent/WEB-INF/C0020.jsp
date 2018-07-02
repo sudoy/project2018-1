@@ -152,9 +152,9 @@
 
 	<jsp:include page="_footer.jsp" />
 	<script src=""></script>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="js/graph.js"></script>
+	<script src="js/highchart.js"></script>
+	<script src="js/exporting.js"></script>
+
 	<script>
 	Highcharts.chart('cont', {
 		chart: {
