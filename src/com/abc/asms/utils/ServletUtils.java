@@ -685,7 +685,6 @@ public class ServletUtils {
 		ResultSet rs = null;
 
 		List<Long> total = new ArrayList<>();
-		List<Integer> list = new ArrayList<>();
 
 		try {
 			con = DBUtils.getConnection();
@@ -718,7 +717,7 @@ public class ServletUtils {
 
 					if(today.getYear() > year) {
 						total.add(Long.parseLong("0"));
-					}else if(today.getYear() >= year && today.getMonthValue() > i) {
+					}else if(today.getYear() >= year && today.getMonthValue() >= i) {
 						total.add(Long.parseLong("0"));
 					}else {
 						total.add(null);
