@@ -73,3 +73,38 @@ VALUES ('2018/6/8', 8, 1, 'くさやチーズ（60ｇ×3個） 藍ヶ江水産',
 INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
 VALUES ('2018/6/8', 8, 1, '活サザエ　中サイズ　1ｋｇ（１０個～１２個）', 1720, 12);
 
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/1/1', 8, 1, '2017年1月分', 12000000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/2/2', 8, 1, '2017年2月分', 12500000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/3/3', 8, 1, '2017年3月分', 8700000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/4/4', 8, 1, '2017年4月分', 9500000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/5/5', 8, 1, '2017年5月分', 11500000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/6/6', 8, 1, '2017年6月分', 11300000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/7/7', 8, 1, '2017年7月分', 9300000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/8/8', 8, 1, '2017年8月分', 13200000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/9/9', 8, 1, '2017年9月分', 7600000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/10/10', 8, 1, '2017年10月分', 11200000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/11/11', 8, 1, '2017年11月分', 13000000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2017/12/12', 8, 1, '2017年12月分', 9200000, 1);
+
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/1/1', 8, 1, '2018年1月分', 8500000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/2/2', 8, 1, '2018年2月分', 9300000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/3/3', 8, 1, '2018年3月分', 11200000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/4/4', 8, 1, '2018年4月分', 13000000, 1);
+INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number)
+VALUES ('2018/5/5', 8, 1, '2018年5月分', 8700000, 1);
