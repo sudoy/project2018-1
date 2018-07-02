@@ -75,6 +75,7 @@ public class C0020Servlet extends HttpServlet {
 			date1 = ld.plusYears(1);
 		};
 
+
 		LocalDate first = date1.with(TemporalAdjusters.firstDayOfMonth()); // 月初
 		LocalDate last = date1.with(TemporalAdjusters.lastDayOfMonth()); // 月末
 		String date = DateTimeFormatter.ofPattern("yyyy年MM月").format(date1); // 表示用に書き換え(表示月
