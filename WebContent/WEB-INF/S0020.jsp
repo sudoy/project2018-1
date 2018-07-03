@@ -23,7 +23,7 @@
 				<h1>売上検索条件入力</h1>
 			</div>
 
-			<div class="row col-md-offset-1">
+			<div class="row col-md-offset-2">
 				<form class="form-horizontal" action="S0020.html" method="post">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
@@ -40,7 +40,7 @@
 
 					<div class="form-group">
 						<label for="person" class="col-sm-2 control-label">担当</label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<select class="form-control" name="account" id="person">
 								<option value="">選択してください</option>
 								<c:forEach var="account" items="${accountMap}">
@@ -52,14 +52,14 @@
 
 					<div class="form-group">
 						<label for="kana" class="col-sm-2 control-label">担当(ふりがな) <span class="badge">部分一致</span></label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<input type="text" class="form-control" id="kana" name="kana" placeholder="担当(ふりがな)" value="${HTMLUtils.escapeHTML(ssf.kana)}"><p class="help-block">例：やまだたろう</p>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品カテゴリー</label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<c:forEach var="category" items="${categoryMap}" varStatus="s">
 								<label>
 									<input type="checkbox" name="category" value="${HTMLUtils.escapeHTML(category.key)}" ${HTMLUtils.judgeCheckbox(ssf.category, category.key) ? 'checked' : ''}>
@@ -71,14 +71,14 @@
 
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名 <span class="badge">部分一致</span></label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<input type="text" class="form-control" id="name" name="tradeName" placeholder="商品名" value="${HTMLUtils.escapeHTML(ssf.tradeName)}">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考 <span class="badge">部分一致</span></label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<input type="text" class="form-control" id="note" name="note" placeholder="備考" value="${HTMLUtils.escapeHTML(ssf.note)}">
 						</div>
 					</div>

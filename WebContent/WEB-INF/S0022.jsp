@@ -23,24 +23,24 @@
 				<h1>売上詳細表示</h1>
 			</div>
 
-			<div class="row col-md-offset-1">
+			<div class="row col-md-offset-2">
 				<form class="form-horizontal" action="#" method="post">
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">販売日</label>
-						<div class="col-sm-2 form-control-static">
+						<div class="col-sm-3 form-control-static">
 						${HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(saleList.saleDate))}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">担当</label>
-						<div class="col-sm-5 form-control-static">
+						<div class="col-sm-6 form-control-static">
 						${HTMLUtils.escapeHTML(ServletUtils.getAccountName(saleList.account))}</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品カテゴリー</label>
-						<div class="col-sm-5 form-control-static">
+						<div class="col-sm-6 form-control-static">
 						${HTMLUtils.escapeHTML(ServletUtils.getCategoryName(saleList.category))}</div>
 					</div>
 
@@ -52,25 +52,25 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">単価</label>
 						<div class="col-sm-2 form-control-static text-right">
-						<fmt:formatNumber value="${HTMLUtils.escapeHTML(saleList.unitPrice)}" /></div>
+						<fmt:formatNumber value="${HTMLUtils.escapeHTML(saleList.unitPrice)}" /> 円</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">個数</label>
 						<div class="col-sm-2 form-control-static text-right">
-						<fmt:formatNumber value="${HTMLUtils.escapeHTML(saleList.saleNumber)}" /></div>
+						<fmt:formatNumber value="${HTMLUtils.escapeHTML(saleList.saleNumber)}" /> 個</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">小計</label>
 						<div class="col-sm-2  form-control-static text-right">
-							<fmt:formatNumber value="${HTMLUtils.escapeHTML(HTMLUtils.calcSum(saleList.unitPrice,saleList.saleNumber))}" />
+							<fmt:formatNumber value="${HTMLUtils.escapeHTML(HTMLUtils.calcSum(saleList.unitPrice,saleList.saleNumber))}" /> 円
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">備考 </label>
-						<div class="col-sm-5 form-control-static">${HTMLUtils.addNewLine(HTMLUtils.escapeHTML(saleList.note))}</div>
+						<div class="col-sm-6 form-control-static">${HTMLUtils.addNewLine(HTMLUtils.escapeHTML(saleList.note))}</div>
 					</div>
 
 					<input type="hidden" name="version" value="${HTMLUtils.escapeHTML(saleList.version)}">

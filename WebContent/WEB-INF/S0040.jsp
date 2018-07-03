@@ -20,32 +20,32 @@
 				<h1>アカウント検索条件入力</h1>
 			</div>
 
-			<div class="row col-md-offset-1">
+			<div class="row col-md-offset-2">
 				<form class="form-horizontal" action="S0040.html" method="post">
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">氏名 <span class="badge">部分一致</span></label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<input type="text" class="form-control" id="name" name="name" placeholder="氏名" value="${HTMLUtils.escapeHTML(saf.name)}">
 						<p class="help-block">例：山田太郎</p></div>
 					</div>
 
 					<div class="form-group">
 						<label for="kana" class="col-sm-2 control-label">ふりがな <span class="badge">部分一致</span></label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<input type="text" class="form-control" id="kana" name="kana" placeholder="ふりがな" value="${HTMLUtils.escapeHTML(saf.kana)}">
 						<p class="help-block">例：やまだたろう</p></div>
 					</div>
 
 					<div class="form-group">
 						<label for="mail" class="col-sm-2 control-label">メールアドレス</label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<input type="text" class="form-control" id="mail" name="mail" placeholder="メールアドレス" value="${HTMLUtils.escapeHTML(saf.mail)}">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">売上登録権限</label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<label class="radio-inline">
 								<input type="radio" name="saleAuthority" value="0,1"
 								${saf.saleAuthority == "0,1" || saf.saleAuthority == null ? "checked" : ""}><span> 全て</span>

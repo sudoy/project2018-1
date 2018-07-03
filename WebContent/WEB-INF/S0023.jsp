@@ -25,17 +25,17 @@
 				<h1>売上詳細編集</h1>
 			</div>
 
-			<div class="row col-md-offset-1">
+			<div class="row col-md-offset-2">
 				<form class="form-horizontal" action="S0023.html?saleId=${HTMLUtils.escapeHTML(saleList.saleId)}" method="POST">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日
 							<span class="badge">必須</span>
 						</label>
-						<div class="col-sm-2">
-							<input type="text" class="form-control" name="saleDate" id="salesDate" placeholder="販売日"
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="saleDate" id="salesDate" placeholder="販売日(半角)"
 							 value="${param.saleDate != null ? HTMLUtils.escapeHTML(param.saleDate)
 							 : HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(saleList.saleDate))}">
-						</div>
+						<p class="help-block">例：2018/01/01</p></div>
 					</div>
 
 					<div class="form-group">
@@ -66,7 +66,7 @@
 						<label class="col-sm-2 control-label">
 							商品カテゴリー <span class="badge">必須</span>
 						</label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 
 							<c:if test="${param.category != null}">
 								<c:forEach var="category" items="${categoryMap}">
@@ -112,7 +112,7 @@
 
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名 <span class="badge">必須</span></label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<input type="text" class="form-control" name="tradeName" id="name" placeholder="商品名"
 							value="${param.tradeName != null ? HTMLUtils.escapeHTML(param.tradeName)
 							: HTMLUtils.escapeHTML(saleList.tradeName) }">
@@ -141,7 +141,7 @@
 
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考 </label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<textarea class="form-control" name="note" id="note"
 							placeholder="備考" rows="5">${param.note != null ? HTMLUtils.escapeHTML(param.note)
 							 : HTMLUtils.escapeHTML(saleList.note) }</textarea>

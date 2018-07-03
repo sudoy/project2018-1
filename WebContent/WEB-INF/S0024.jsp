@@ -23,13 +23,13 @@
 				<h1>売上を編集してよろしいですか?</h1>
 			</div>
 
-			<div class="row col-md-offset-1">
+			<div class="row col-md-offset-2">
 				<form class="form-horizontal" action="S0024.html?saleId=${HTMLUtils.escapeHTML(saleList.saleId)}" method="post">
 					<div class="form-group">
 						<label for="salesDate" class="col-sm-2 control-label">販売日</label>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							<input type="text" class="form-control" name="saleDate" id="salesDate"
-							placeholder="販売日" value="${HTMLUtils.formatLocalDate(saleList.saleDate)}" readonly>
+							placeholder="販売日(半角)" value="${HTMLUtils.formatLocalDate(saleList.saleDate)}" readonly>
 						</div>
 					</div>
 
@@ -48,7 +48,7 @@
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品カテゴリー</label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 
 							<c:forEach var="category" items="${categoryMap}">
 								<label>
@@ -71,7 +71,7 @@
 
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">商品名</label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<input type="text" class="form-control" name="tradeName" id="name" placeholder="商品名"
 							 value="${HTMLUtils.escapeHTML(saleList.tradeName)}" readonly>
 						</div>
@@ -107,7 +107,7 @@
 
 					<div class="form-group">
 						<label for="note" class="col-sm-2 control-label">備考</label>
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<textarea class="form-control" name="note" id="note" placeholder="備考"
 							rows="5" readonly>${HTMLUtils.escapeHTML(saleList.note)}</textarea>
 						</div>

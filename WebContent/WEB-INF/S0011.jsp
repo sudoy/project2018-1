@@ -17,11 +17,11 @@
 			<h1>売上を登録してよろしいですか?</h1>
 		</div>
 
-		<div class="row col-md-offset-1">
+		<div class="row col-md-offset-2">
 			<form class="form-horizontal" action="S0011.html" method="post">
 				<div class="form-group">
 					<label for="saleDate" class="col-sm-2 control-label">販売日 </label>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<input type="text" class="form-control" id="saleDate"
 							value="${HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(sales.saleDate))}" name="saleDate"
 							readonly>
@@ -31,7 +31,6 @@
 				<div class="form-group">
 					<label for="person" class="col-sm-2 control-label">担当 </label>
 					<div class="col-sm-5">
-
 							<c:forEach var="account" items="${accountMap}">
 								<c:if test="${sales.account == account.key}">
 									<input type="text" class="form-control" value="${HTMLUtils.escapeHTML(account.value)}" readonly>
@@ -45,7 +44,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">商品カテゴリー
 					</label>
-					<div class="col-sm-5">
+					<div class="col-sm-6">
 						<c:forEach var="category" items="${categoryMap}">
 							<label> <input type="radio"
 								name="category" value="${category.key}"
@@ -59,7 +58,7 @@
 
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">商品名 </label>
-					<div class="col-sm-5">
+					<div class="col-sm-6">
 						<input type="text" class="form-control" id="name"
 							placeholder="商品名" value="${HTMLUtils.escapeHTML(sales.tradeName)}" name="tradeName"
 							readonly>
@@ -98,7 +97,7 @@
 
 				<div class="form-group">
 					<label for="note" class="col-sm-2 control-label">備考 </label>
-					<div class="col-sm-5">
+					<div class="col-sm-6">
 						<textarea class="form-control" id="note" placeholder="備考" rows="5"
 							name="note" readonly>${HTMLUtils.escapeHTML(sales.note)}</textarea>
 					</div>

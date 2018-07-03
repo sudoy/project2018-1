@@ -20,15 +20,15 @@
 		<h1>売上登録</h1>
 	</div>
 
-	<div class="row col-md-offset-1">
+	<div class="row col-md-offset-2">
 		<form class="form-horizontal" action="S0010.html" method="post">
 			<div class="form-group">
 				<label for="saleDate" class="col-sm-2 control-label">販売日 <span
 					class="badge">必須</span></label>
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 				<input type="text" class="form-control" id="saleDate"
 					value="${param.saleDate != null ? HTMLUtils.escapeHTML(param.saleDate) : sales.saleDate != null ? HTMLUtils.escapeHTML(HTMLUtils.formatLocalDate(sales.saleDate)) : HTMLUtils.escapeHTML(today)}"
-					name="saleDate" placeholder="販売日">
+					name="saleDate" placeholder="販売日(半角)"><p class="help-block">例：2018/01/01</p>
 				</div>
 			</div>
 
@@ -50,7 +50,7 @@
 				<label class="col-sm-2 control-label">商品カテゴリー
 					<span class="badge">必須</span>
 				</label>
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<c:forEach var="category" items="${categoryMap}">
 						<label> <input type="radio"
 							name="category" value="${category.key}"
@@ -64,7 +64,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">商品名 <span
 					class="badge">必須</span></label>
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<input type="text" class="form-control" id="name"
 						placeholder="商品名"
 						value="${param.tradeName != null ? HTMLUtils.escapeHTML(param.tradeName) : HTMLUtils.escapeHTML(sales.tradeName)}"
@@ -96,7 +96,7 @@
 
 			<div class="form-group">
 				<label for="note" class="col-sm-2 control-label">備考 </label>
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<textarea class="form-control" id="note" placeholder="備考" rows="5"
 						name="note">${param.note != null ? HTMLUtils.escapeHTML(param.note) : HTMLUtils.escapeHTML(sales.note)}</textarea>
 				</div>
