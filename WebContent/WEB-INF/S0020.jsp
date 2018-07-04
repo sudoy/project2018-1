@@ -60,9 +60,10 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">商品カテゴリー</label>
 						<div class="col-sm-6">
+							<label><input type="checkbox" class="category-all"><span>全て</span></label><br>
 							<c:forEach var="category" items="${categoryMap}" varStatus="s">
 								<label>
-									<input type="checkbox" name="category" value="${HTMLUtils.escapeHTML(category.key)}" ${HTMLUtils.judgeCheckbox(ssf.category, category.key) ? 'checked' : ''}>
+									<input type="checkbox" class="category" name="category" value="${HTMLUtils.escapeHTML(category.key)}" ${HTMLUtils.judgeCheckbox(ssf.category, category.key) ? 'checked' : ''}>
 									<span> ${HTMLUtils.escapeHTML(category.value)}</span>
 								</label>
 							</c:forEach>
@@ -98,7 +99,47 @@
 
 		<jsp:include page="_footer.jsp" />
 
+<script>
+$(function(){
+
+	var changing = true;
+	$('.category').each(function(){
+		if(!$(this).prop('checked')){
+			changing = false;
+		}
+	});
+
+	if(changing){
+		$('.category-all').prop('checked', true);
+	}
 
 
+	$('.category-all').on('click', function(){
+		// allのチェック状態と他の選択肢のチェック状態をリンク
+		$('.category').prop('checked', $(this).prop('checked'));
+	});
+
+	$('.category').on('click', function(){
+		if(!$(this).prop('checked')){
+			// チェックが外れたときは、allのチェックも外す
+			$('.category-all').prop('checked', false);
+
+		}else{
+			// チェックが入ったときは、
+			// 他の選択肢もすべてチェックだった場合に、allをチェックする
+			var isChange = true;
+
+			$('.category').each(function(){
+				if(!$(this).prop('checked')){
+					isChange = false;
+				}
+			});
+			if(isChange){
+				$('.category-all').prop('checked', true);
+			}
+		}
+	});
+});
+</script>
 	</body>
 </html>
