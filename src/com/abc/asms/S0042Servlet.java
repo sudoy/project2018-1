@@ -138,6 +138,7 @@ public class S0042Servlet extends HttpServlet {
 		int authority = Integer.parseInt(req.getParameter("authority1")) +
 				Integer.parseInt(req.getParameter("authority2"));
 
+		Accounts versionId = (Accounts)session.getAttribute("editAccount");
 		Accounts a = new Accounts(
 				Integer.parseInt(req.getParameter("accountId")),
 				req.getParameter("name"),
@@ -145,7 +146,7 @@ public class S0042Servlet extends HttpServlet {
 				req.getParameter("mail"),
 				req.getParameter("password1"),
 				authority,
-				Integer.parseInt(req.getParameter("version"))
+				versionId.getVersion()
 				);
 
 		session.setAttribute("editAccount", a);

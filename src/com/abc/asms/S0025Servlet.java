@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
 
@@ -102,8 +103,10 @@ public class S0025Servlet extends HttpServlet {
 			ps = con.prepareStatement(sql);
 
 			//データをセット
+			Sales versionId = (Sales)session.getAttribute("saleList");
+
 			ps.setString(1, req.getParameter("saleId"));
-			ps.setString(2, req.getParameter("version"));
+			ps.setInt(2, versionId.getVersion());
 
 			//実行
 			int deleteRows = ps.executeUpdate();

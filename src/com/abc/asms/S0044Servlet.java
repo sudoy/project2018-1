@@ -143,8 +143,9 @@ public class S0044Servlet extends HttpServlet {
 			ps = con.prepareStatement(sql);
 
 			//パラメータをセット
+			Accounts versionId = (Accounts)session.getAttribute("editAccount");
 			ps.setString(1, id);
-			ps.setString(2, req.getParameter("version"));
+			ps.setInt(2, versionId.getVersion());
 
 			//実行
 			int deleteRows = ps.executeUpdate();

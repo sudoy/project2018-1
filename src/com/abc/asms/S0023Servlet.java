@@ -95,7 +95,7 @@ public class S0023Servlet extends HttpServlet {
 
 			return;
 		}
-
+		Sales versionId = (Sales)session.getAttribute("saleList");
 		Sales s = new Sales(
 				Integer.parseInt(req.getParameter("saleId")),
 				LocalDate.parse(req.getParameter("saleDate"), DateTimeFormatter.ofPattern("yyyy/M/d")),
@@ -105,7 +105,7 @@ public class S0023Servlet extends HttpServlet {
 				Integer.parseInt(req.getParameter("unitPrice")),
 				Integer.parseInt(req.getParameter("saleNumber")),
 				req.getParameter("note"),
-				Integer.parseInt(req.getParameter("version"))
+				versionId.getVersion()
 				);
 
 

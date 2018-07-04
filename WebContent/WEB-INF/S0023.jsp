@@ -148,9 +148,6 @@
 						</div>
 					</div>
 
-					<input type="hidden" name="version" value="${param.version != null ? HTMLUtils.escapeHTML(param.version)
-					 : HTMLUtils.escapeHTML(saleList.version)}">
-
 					<div class="form-group">
 						<div class="col-sm-offset-3">
 							<button type="submit" class="btn btn-primary">

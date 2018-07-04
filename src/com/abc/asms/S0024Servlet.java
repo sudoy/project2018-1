@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Sales;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.HTMLUtils;
 import com.abc.asms.utils.ServletUtils;
@@ -103,6 +104,8 @@ public class S0024Servlet extends HttpServlet {
 			ps = con.prepareStatement(sql);
 
 			//データをセット
+			Sales versionId = (Sales)session.getAttribute("saleList");
+
 			ps.setString(1, req.getParameter("saleDate"));
 			ps.setString(2, req.getParameter("account"));
 			ps.setString(3, req.getParameter("category"));
@@ -110,9 +113,9 @@ public class S0024Servlet extends HttpServlet {
 			ps.setString(5, HTMLUtils.deleteComma(req.getParameter("unitPrice")));
 			ps.setString(6, HTMLUtils.deleteComma(req.getParameter("saleNumber")));
 			ps.setString(7, req.getParameter("note"));
-			ps.setString(8, req.getParameter("version"));
+			ps.setInt(8, versionId.getVersion());
 			ps.setString(9, req.getParameter("saleId"));
-			ps.setString(10, req.getParameter("version"));
+			ps.setInt(10, versionId.getVersion());
 
 			//実行
 

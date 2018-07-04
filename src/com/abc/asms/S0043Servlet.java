@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.abc.asms.beans.Accounts;
 import com.abc.asms.utils.DBUtils;
 import com.abc.asms.utils.ServletUtils;
 
@@ -81,6 +82,7 @@ public class S0043Servlet extends HttpServlet {
 		PreparedStatement ps = null;
 		String sql = null;
 
+		Accounts versionId = (Accounts)session.getAttribute("editAccount");
 		try {
 			con = DBUtils.getConnection();
 
@@ -99,9 +101,9 @@ public class S0043Servlet extends HttpServlet {
 				ps.setString(1, req.getParameter("name"));
 				ps.setString(2, req.getParameter("mail"));
 				ps.setLong(3, authority);
-				ps.setString(4, req.getParameter("version"));
+				ps.setInt(4, versionId.getVersion());
 				ps.setString(5, req.getParameter("accountId"));
-				ps.setString(6, req.getParameter("version"));
+				ps.setInt(6, versionId.getVersion());
 
 			}else {
 
@@ -116,9 +118,9 @@ public class S0043Servlet extends HttpServlet {
 				ps.setString(2, req.getParameter("mail"));
 				ps.setString(3, req.getParameter("password1"));
 				ps.setLong(4, authority);
-				ps.setString(5, req.getParameter("version"));
+				ps.setInt(5, versionId.getVersion());
 				ps.setString(6, req.getParameter("accountId"));
-				ps.setString(7, req.getParameter("version"));
+				ps.setInt(7, versionId.getVersion());
 			}
 
 			//実行
